@@ -1,18 +1,12 @@
 #include "utilities/Rect.h"
 
-namespace knights_and_merchants::utilities {
-
+namespace knights_and_merchants::utilities
+{
     Rect::Rect() noexcept
-        : RECT{ 0, 0, 0, 0 }
-    {
-
-    }
+        : RECT { 0, 0, 0, 0 } { }
 
     Rect::Rect(const int x, const int y, const int width, const int height) noexcept
-        : RECT{ x, y, x + width, y + height }
-    {
-
-    }
+        : RECT { x, y, x + width, y + height } { }
 
     void Rect::move(const int dx, const int dy) noexcept
     {
@@ -32,18 +26,18 @@ namespace knights_and_merchants::utilities {
         bottom = y + height;
     }
 
-    void Rect::setSize(const int width, const int height) noexcept {
+    void Rect::setSize(const int width, const int height) noexcept
+    {
         right = left + width;
         bottom = top + height;
     }
 
-    void Rect::inflate(const int p0, const int p4) noexcept
+    void Rect::inflate(const int width, const int height) noexcept
     {
-        left -= p0;
-        right += p0;
+        left -= width;
+        right += width;
 
-        top -= p4;
-        bottom += p4;
+        top -= height;
+        bottom += height;
     }
-
 }
