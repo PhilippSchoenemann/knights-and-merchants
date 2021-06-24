@@ -1,11 +1,11 @@
 ﻿cmake_minimum_required (VERSION 3.20)
 project ("Knights and Merchants" VERSION 1.0.0.0 LANGUAGES CXX)
 
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #######################################################################################
-# Google Test
+# Install Google Test
 #######################################################################################
 
 include (FetchContent)
@@ -25,11 +25,43 @@ file (GLOB_RECURSE sources LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/sr
 file (GLOB_RECURSE headers LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h)
 file (GLOB_RECURSE tests LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)
 
+file (GLOB_RECURSE fheaders LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/api/inc/*.h)
 
-add_executable (KaM-Win-x86 WIN32 ${sources} ${headers})
-target_include_directories (KaM-Win-x86 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+add_executable (KaM-Win-x86 WIN32
+    ${sources}
+    ${headers}
+    ${fheaders}
+)
+target_include_directories (
+    KaM-Win-x86
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+)
+target_link_libraries (
+    KaM-Win-x86
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
+)
+add_custom_command (
+    TARGET KaM-Win-x86 POST_BUILD      
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/third_party/fmod/dll/fmod.dll $<TARGET_FILE_DIR:KaM-Win-x86>
+)                 
 
-
-add_executable (KaM-Tests ${sources} ${headers} ${tests})
-target_link_libraries (KaM-Tests gtest_main gmock_main)
-target_include_directories (KaM-Tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+add_executable (
+    KaM-Tests
+    ${sources}
+    ${headers}
+    ${fheaders}
+    ${tests}
+)
+target_link_libraries (
+    KaM-Tests
+    gtest_main
+    gmock_main
+)
+target_include_directories (
+    KaM-Tests
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+)
