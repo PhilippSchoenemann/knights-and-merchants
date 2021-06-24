@@ -46,7 +46,12 @@ target_link_libraries (
 add_custom_command (
     TARGET KaM-Win-x86 POST_BUILD      
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/third_party/fmod/dll/fmod.dll $<TARGET_FILE_DIR:KaM-Win-x86>
-)                 
+)           
+add_custom_command (
+    TARGET KaM-Win-x86 POST_BUILD      
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:KaM-Win-x86>/data/
+)
+
 
 add_executable (
     KaM-Tests
