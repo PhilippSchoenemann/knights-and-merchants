@@ -64,6 +64,9 @@ target_link_libraries (
     KaM-Tests
     gtest_main
     gmock_main
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
 )
 target_include_directories (
     KaM-Tests
