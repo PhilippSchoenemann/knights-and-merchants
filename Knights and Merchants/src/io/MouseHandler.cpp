@@ -1,18 +1,15 @@
-//
-// Created by schoe on 05.10.2020.
-//
-
-#include "engine/MouseHandler.h"
+#include "io/MouseHandler.h"
 #include "Windows.h"
 #include "engine/Bitmap.h"
+#include "engine/DrawableSurface.h"
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::io
 {
+    using engine::Bitmap;
+    using engine::DrawableSurface;
 
-
-
-    MouseHandler::MouseHandler(const Bitmap* cursor, const Rect& screenRect, HWND pHwnd, LPDIRECTINPUT8 pA)
-        : i16{ }, i32{ }
+    MouseHandler::MouseHandler(const Bitmap * cursor, const Rect & screenRect, HWND hWnd, LPDIRECTINPUT8 directInput)
+        : i16 { }, i32 { }
     {
         i64_isLeftButtonDown = 0;
         i68_isRightButtonDown = 0;
@@ -25,8 +22,7 @@ namespace knights_and_merchants::engine
         if (cursor == nullptr) {
             i56_cursor = nullptr;
             i60_background = nullptr;
-        }
-        else {
+        } else {
             i56_cursor = cursor;
 
             i60_background = new Bitmap(i56_cursor->i0_width, i56_cursor->i2_height, nullptr);
@@ -41,22 +37,38 @@ namespace knights_and_merchants::engine
 
         setMouseArea(screenRect);
 
-        i96_directInput = pA;
+        i96_directInput = directInput;
 
-        if (setupMouseDevice(pHwnd) && i92_device->Acquire() == DI_OK)
+        if (setupMouseDevice(hWnd) && i92_device->Acquire() == DI_OK)
             i100_isAcquired = true;
 
         i88_hasCursorChanged = false;
     }
 
-    void MouseHandler::setMouseArea(const Rect& area)
+    MouseHandler::~MouseHandler()
+    {
+        if (i60_background != nullptr) {
+            delete i60_background;
+            i60_background = nullptr;
+        }
+
+        if (i92_device != nullptr) {
+            if (i100_isAcquired) {
+                i92_device->Unacquire();
+            }
+
+            i92_device->Release();
+            i92_device = nullptr;
+        }
+    }
+
+    void MouseHandler::setMouseArea(const Rect & area)
     {
         i32 = area;
 
         if (i56_cursor == nullptr) {
             i16 = area;
-        }
-        else {
+        } else {
             i16.left = area.left - i56_cursor->i4;
             i16.top = area.top - i56_cursor->i8;
             i16.right = area.right - (i56_cursor->i0_width / 3) - i56_cursor->i4;
@@ -83,16 +95,17 @@ namespace knights_and_merchants::engine
         }
     }
 
-    void MouseHandler::drawCursor(DrawableSurface& surface) const
+    void MouseHandler::drawCursor(DrawableSurface & surface) const
     {
         if (i56_cursor != nullptr && !i80_isCursorHidden)
             i56_cursor->draw(surface, i0_position.x, i0_position.y);
     }
 
-    void MouseHandler::unkCursor(const DrawableSurface& surface)
+    void MouseHandler::unkCursor(const DrawableSurface & surface)
     {
         if (i60_background != nullptr)
-            i60_background->extractFromSurface(surface, i0_position.x + i60_background->i4, i0_position.y + i60_background->i8);
+            i60_background->extractFromSurface(surface, i0_position.x + i60_background->i4,
+                                               i0_position.y + i60_background->i8);
 
         i8_previousPosition.x = i0_position.x;
         i8_previousPosition.y = i0_position.y;
@@ -121,24 +134,7 @@ namespace knights_and_merchants::engine
         return false;
     }
 
-    MouseHandler::~MouseHandler()
-    {
-        if (i60_background != nullptr) {
-            delete i60_background;
-            i60_background = nullptr;
-        }
-
-        if (i92_device != nullptr) {
-            if (i100_isAcquired) {
-                i92_device->Unacquire();
-            }
-
-            i92_device->Release();
-            i92_device = nullptr;
-        }
-    }
-
-    void MouseHandler::overdrawPreviousCursor(DrawableSurface& surface)
+    void MouseHandler::overdrawPreviousCursor(DrawableSurface & surface)
     {
         if (i60_background == nullptr)
             return;
@@ -188,7 +184,7 @@ namespace knights_and_merchants::engine
         keepMouseInArea();
     }
 
-    void MouseHandler::setCursor(const Bitmap* cursor)
+    void MouseHandler::setCursor(const Bitmap * cursor)
     {
         if (cursor != nullptr) {
             if (i56_cursor == nullptr) {

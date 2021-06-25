@@ -54,7 +54,7 @@ namespace knights_and_merchants::utilities
         /// <param name="width">The units added on the left and right side.</param>
         /// <param name="height">The units added on the top and bottom side.</param>
         void inflate(int width, int height) noexcept;
-      
+
         /// <summary>
         /// Gets the width of the rectangle.
         /// </summary>

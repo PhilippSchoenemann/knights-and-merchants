@@ -1,14 +1,22 @@
-#ifndef KNIGHTS_AND_MERCHANTS_KEYBOARDHANDLER_H
-#define KNIGHTS_AND_MERCHANTS_KEYBOARDHANDLER_H
+#ifndef KNIGHTS_AND_MERCHANTS_IO_KEYBOARD_HANDLER_H
+#define KNIGHTS_AND_MERCHANTS_IO_KEYBOARD_HANDLER_H
 
-#include <Windows.h>
 #include <dinput.h>
+#include <Windows.h>
 
-namespace knights_and_merchants::engine {
-
-    class KeyboardHandler {
+namespace knights_and_merchants::io
+{
+    class KeyboardHandler
+    {
     public:
         KeyboardHandler(HWND hWnd, LPDIRECTINPUT8 pA);
+
+        KeyboardHandler(const KeyboardHandler &) = delete;
+        KeyboardHandler(KeyboardHandler &&) = delete;
+
+        KeyboardHandler & operator=(const KeyboardHandler &) = delete;
+        KeyboardHandler & operator=(KeyboardHandler &&) = delete;
+
         ~KeyboardHandler();
 
         void updateState();
@@ -36,10 +44,7 @@ namespace knights_and_merchants::engine {
         unsigned char i269;
         short i270;
         short i272;
-
-
     };
-
 }
 
 #endif

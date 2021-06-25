@@ -2,8 +2,8 @@
 #include "Globals.h"
 #include "Settings.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/InputHandler.h"
-#include "engine/MouseHandler.h"
+#include "io/InputHandler.h"
+#include "io/MouseHandler.h"
 #include "text/Lib.h"
 #include "utilities/Rect.h"
 #include "fmod.h"
@@ -13,7 +13,8 @@
 using knights_and_merchants::text::Lib;
 using knights_and_merchants::utilities::Rect;
 using knights_and_merchants::engine::GraphicsHandler;
-using knights_and_merchants::engine::InputHandler;
+using knights_and_merchants::io::InputHandler;
+using knights_and_merchants::Settings;
 
 HINSTANCE base_hInstance;
 
