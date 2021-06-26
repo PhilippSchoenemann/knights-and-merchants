@@ -10,23 +10,29 @@ namespace knights_and_merchants
     public:
         static Settings instance;
 
-        Settings(const Settings&) = delete;
-        Settings(Settings&&) = delete;
+        Settings(const Settings &) = delete;
+        Settings(Settings &&) = delete;
 
-        Settings& operator=(const Settings&) = delete;
-        Settings& operator=(Settings&&) = delete;
+        Settings & operator=(const Settings &) = delete;
+        Settings & operator=(Settings &&) = delete;
+
+        ~Settings() = default;
+
+        void readSettings();
+        void writeSettings();
+
+        void startMusic();
+        void stopMusic();
 
         void fadeInMusic() const;
         void fadeOutMusic() const;
         static void playTrack(short trackNumber);
+        void playNextTrack();
 
         void updateVolumes() const;
-        void stopMusic();
-        void unk4();
-        void startMusic();
-        void playNextTrack();
         void update();
-        void readSettings();
+
+        void unk4();
 
         char i0_palette = 1;
         char i1_musicType = 2; // 0 = Off, 1 = via MIDI, 2 = On TODO: Enum?
@@ -49,7 +55,6 @@ namespace knights_and_merchants
 
     private:
         Settings() = default;
-
 
         static FSOUND_STREAM * instance_FSOUND_STREAM;
 

@@ -6,6 +6,8 @@
 
 namespace knights_and_merchants
 {
+    using io::FileIo;
+
     Settings Settings::instance { };
 
     FSOUND_STREAM * Settings::instance_FSOUND_STREAM;
@@ -98,14 +100,65 @@ namespace knights_and_merchants
 
     void Settings::readSettings()
     {
-        knights_and_merchants::io::FileIo fileIO { "setup.cfg" };
+        const FileIo fileIo { "setup.cfg" };
 
-        DWORD fileSize = fileIO.getFileSize();
+        const DWORD fileSize {fileIo.getFileSize()};
         char * ebx;
 
         if (fileSize > 0 && (ebx = static_cast<char *>(malloc(fileSize))) != nullptr) {
-            fileIO.read(ebx, fileSize);
+            fileIo.read(ebx, fileSize);
 
+        }
+    }
+
+    void Settings::writeSettings()
+    {
+        FileIo fileIo { "setup.cfg" };
+        fileIo.overwrite();
+
+        char buffer[1024];
+
+        wsprintfA(buffer, "!%s %d \r\n", "MOUSE_SPEED", i258_mouseSpeed);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "SOUND_VOLUME", i2_soundVolume);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "MIDI_VOLUME", i6_midiVolume);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "CD_VOLUME", i10_cd_volume);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "MUSIC_TYPE", i1_musicType);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "PALETTE", i0_palette);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "AUTOSAVE", i260_autosave);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "SCROLLING", i264_scrolling);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "RESOLUTION", i268_resolution);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d \r\n", "LANGUAGE", i269_language);
+        fileIo.write(buffer, strlen(buffer));
+
+        wsprintfA(buffer, "!%s %d %d %d \r\n", "VIDEO", i273_video1, i277_video2, i281_video3);
+        fileIo.write(buffer, strlen(buffer));
+
+        if (i14_playerName[0] != '\0') {
+            wsprintfA(buffer, "!%s %s\r\n", "PLAYER_NAME", i14_playerName);
+            fileIo.write(buffer, strlen(buffer));
+        }
+
+        if (i58_ng_playerName[0] != '\0') {
+            wsprintfA(buffer, "!%s %s\r\n", "NG_PLAYER_NAME", i58_ng_playerName);
+            fileIo.write(buffer, strlen(buffer));
         }
     }
 
