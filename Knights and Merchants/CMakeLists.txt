@@ -42,6 +42,7 @@ target_link_libraries (
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
+    "Vfw32.lib"
 )
 add_custom_command (
     TARGET KaM-Win-x86 POST_BUILD      
@@ -67,6 +68,7 @@ target_link_libraries (
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
+    "Vfw32.lib"
 )
 target_include_directories (
     KaM-Tests
