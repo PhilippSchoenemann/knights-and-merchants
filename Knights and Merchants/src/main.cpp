@@ -4,6 +4,7 @@
 #include "engine/GraphicsHandler.h"
 #include "io/InputHandler.h"
 #include "io/MouseHandler.h"
+#include "io/KeyboardHandler.h"
 #include "text/Lib.h"
 #include "utilities/Rect.h"
 #include "fmod.h"
@@ -14,6 +15,7 @@ using knights_and_merchants::text::Lib;
 using knights_and_merchants::utilities::Rect;
 using knights_and_merchants::engine::GraphicsHandler;
 using knights_and_merchants::io::InputHandler;
+using knights_and_merchants::io::KeyboardHandler;
 using knights_and_merchants::Settings;
 
 HINSTANCE base_hInstance;
@@ -62,7 +64,7 @@ bool initializeBase() {
     GraphicsHandler::instance = new GraphicsHandler(screenBounds, base_hWnd, 1);
 
     InputHandler::instance = new InputHandler(base_hWnd, base_hInstance, screenBounds, nullptr);
-    InputHandler::instance->getMouseHandler()->setI104(Settings::instance.i258_mouseSpeed * 10 + 5);
+    InputHandler::instance->getMouseHandler()->setI104(static_cast<short>(Settings::instance.i258_mouseSpeed * 10 + 5));
 
     FSOUND_SetDriver(0);
     FSOUND_SetMixer(FSOUND_MIXER_QUALITY_AUTODETECT);
@@ -74,8 +76,8 @@ bool initializeBase() {
         //instance_SoundsData->setDistance(10 * Settings::instance.i268_resolution + 35);
         //instance_SoundsData->i158 = 10 * Settings::instance.i268_resolution + 35;
 
-        Settings::instance.unk5();
-        Settings::instance.i291_isMusicPlaying = 0;
+        Settings::instance.startMusic();
+        Settings::instance.i291_isTrackFinished = false;
 
         if (InputHandler::instance != nullptr && GraphicsHandler::instance != nullptr)
             return true;
@@ -96,12 +98,11 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         break;
     }
     case WM_ACTIVATE:
-    {
-        bool isActive = wParam != WA_INACTIVE;
-        // if (isActive && InputHandler::instance != nullptr) {
-        //     InputHandler::instance->getMouseHandler()->unk60(isActive);
-        //     InputHandler::instance->getKeyboardHandler()->unk30(isActive);
-        // }
+    {     
+        if (const auto isActive = wParam != WA_INACTIVE; isActive && InputHandler::instance != nullptr) {
+            InputHandler::instance->getMouseHandler()->unk60(isActive);
+            InputHandler::instance->getKeyboardHandler()->unk30(isActive);
+        }
         break;
     }
     case WM_ERASEBKGND:
@@ -110,8 +111,8 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     }
     case WM_ACTIVATEAPP:
     {
-        // if (InputHandler::instance != nullptr && GraphicsHandler::instance != nullptr && wParam == TRUE)
-        //     GraphicsHandler::instance->restore();
+        if (InputHandler::instance != nullptr && GraphicsHandler::instance != nullptr && wParam == TRUE)
+            GraphicsHandler::instance->restore();
 
         // if (globals_gameState == 0) {
         //     if (wParam == TRUE && instance_MasterClass != nullptr)
@@ -139,7 +140,7 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     case MM_MCINOTIFY:
     {
         if (wParam == MCI_NOTIFY_SUCCESSFUL)
-            Settings::instance.unk7();
+            Settings::instance.playNextTrack();
 
         break;
     }
@@ -200,10 +201,12 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     if (!createWindow(hInstance))
         return 1;
 
-    //base_Lib_setup = new Lib("data/misc/setup.lib");
+    base_Lib_setup = new Lib("data/misc/setup.lib");
 
     if (!initializeBase())
         return -1;
+
+    // TODO: showIntro
 
     return 0;
 }

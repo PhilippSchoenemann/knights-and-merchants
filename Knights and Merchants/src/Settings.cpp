@@ -10,28 +10,28 @@ namespace knights_and_merchants
 
     FSOUND_STREAM * Settings::instance_FSOUND_STREAM;
 
-    bool Settings::dword_53D58C;
+    bool Settings::isMusicStopped;
 
     signed char F_CALLBACKAPI Settings::callback(FSOUND_STREAM * stream, void * buffer, int length, void * userData)
     {
-        if (!dword_53D58C)
-            Settings::instance.i291_isMusicPlaying = 1;
+        if (!isMusicStopped)
+            Settings::instance.i291_isTrackFinished = true;
 
         return 1;
     }
 
 
-    void Settings::unk2()
+    void Settings::stopMusic()
     {
-        dword_53D58C = true;
+        isMusicStopped = true;
 
         if (instance_FSOUND_STREAM != nullptr) {
             fadeOutMusic();
             FSOUND_StopSound(12);
             FSOUND_Stream_Close(instance_FSOUND_STREAM);
+            instance_FSOUND_STREAM = nullptr;
         }
 
-        instance_FSOUND_STREAM = nullptr;
         unk4();
     }
 
@@ -57,10 +57,10 @@ namespace knights_and_merchants
         while (volume <= static_cast<int>(i10_cd_volume / 256));
     }
 
-    void Settings::unk7()
+    void Settings::playNextTrack()
     {
         if (i1_musicType != 0) {
-            dword_53D58C = true;
+            isMusicStopped = true;
             FSOUND_StopSound(12);
 
             i289_trackNumber++;
@@ -68,21 +68,22 @@ namespace knights_and_merchants
                 i289_trackNumber = 0;
 
             playTrack(i289_trackNumber);
-            dword_53D58C = false;
+            isMusicStopped = false;
         }
     }
 
-    void Settings::unk9()
+    void Settings::update()
     {
-        if (i291_isMusicPlaying != 0)
-            unk7();
+        if (i291_isTrackFinished)
+            playNextTrack();
 
-        i291_isMusicPlaying = 0;
+        i291_isTrackFinished = false;
     }
 
-    void Settings::unk5()
+    void Settings::startMusic()
     {
         unk4();
+
         if (i1_musicType != 0) {
             i289_trackNumber = 0;
             FSOUND_SetVolumeAbsolute(12, 0);
@@ -91,7 +92,7 @@ namespace knights_and_merchants
             playTrack(i289_trackNumber);
         }
 
-        unk1();
+        updateVolumes();
         FSOUND_SetVolumeAbsolute(12, 0);
     }
 
@@ -102,7 +103,7 @@ namespace knights_and_merchants
         DWORD fileSize = fileIO.getFileSize();
         char * ebx;
 
-        if (fileSize > 0 && (ebx = (char *)malloc(fileSize)) != nullptr) {
+        if (fileSize > 0 && (ebx = static_cast<char *>(malloc(fileSize))) != nullptr) {
             fileIO.read(ebx, fileSize);
 
         }
@@ -110,18 +111,18 @@ namespace knights_and_merchants
 
     void Settings::unk4()
     {
-        i285 = 0;
+        i285 = nullptr;
         i289_trackNumber = 0;
     }
 
-    void Settings::unk1() const
+    void Settings::updateVolumes() const
     {
         FSOUND_SetVolumeAbsolute(12, static_cast<int>(i10_cd_volume / 256));
 
         for (int channel = 0; channel < 12; ++channel)
             FSOUND_SetVolumeAbsolute(channel, static_cast<int>(i2_soundVolume / 256));
     }
-
+    
     void Settings::playTrack(const short trackNumber)
     {
         char songFilePath[400];
