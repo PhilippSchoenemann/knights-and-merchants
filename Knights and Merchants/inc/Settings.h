@@ -61,6 +61,8 @@ namespace knights_and_merchants
         static bool isMusicStopped;
 
         static signed char F_CALLBACKAPI callback(FSOUND_STREAM * stream, void * buffer, int length, void * userData);
+
+        static char settingNames[14][200];
     };
 }
 

@@ -3,16 +3,35 @@
 #include "Windows.h"
 #include <cstdio>
 #include "io/FileIo.h"
+#include "utilities/Parser.h"
 
 namespace knights_and_merchants
 {
     using io::FileIo;
+    using utilities::Parser;
 
     Settings Settings::instance { };
 
     FSOUND_STREAM * Settings::instance_FSOUND_STREAM;
 
     bool Settings::isMusicStopped;
+
+    char Settings::settingNames[14][200] = {
+         "SOUND_VOLUME",
+         "MIDI_VOLUME",
+         "CD_VOLUME",
+         "MUSIC_TYPE",
+         "SCREEN_MODE",
+         "PLAYER_NAME",
+         "NG_PLAYER_NAME",
+         "PALETTE",
+         "MOUSE_SPEED",
+         "AUTOSAVE",
+         "SCROLLING",
+         "RESOLUTION",
+         "LANGUAGE",
+         "VIDEO"
+    };
 
     signed char F_CALLBACKAPI Settings::callback(FSOUND_STREAM * stream, void * buffer, int length, void * userData)
     {
@@ -108,6 +127,28 @@ namespace knights_and_merchants
         if (fileSize > 0 && (ebx = static_cast<char *>(malloc(fileSize))) != nullptr) {
             fileIo.read(ebx, fileSize);
 
+            Parser parser { ebx, fileSize };
+
+            while (parser.searchNext('!') != nullptr) {
+                char output[200];
+                parser.readNext(output);
+
+                int i;
+                for (i = 0; i < 14; ++i)
+                    if (strcmp(output, reinterpret_cast<const char*>(&settingNames[i])) == 0)
+                        break;
+
+                int num;
+                switch (i) {
+                    case 11:
+                        parser.findNextNumber();
+                        parser.readNextNumber(&num);
+                        i268_resolution = num;
+                        break;
+                }
+            }
+
+            free(ebx);
         }
     }
 
