@@ -14,7 +14,8 @@ namespace knights_and_merchants::utilities
         /// <summary>
         /// Creates a rectangle at the origin (0 | 0).
         /// </summary>
-        Rect() noexcept;
+        Rect() noexcept
+            : RECT { 0, 0, 0, 0 } { }
 
         /// <summary>
         /// Creates a rectangle at (x | y) with the specified size.
@@ -23,7 +24,16 @@ namespace knights_and_merchants::utilities
         /// <param name="y">The Y-coordinate of the rectangle.</param>
         /// <param name="width">The width of the rectangle.</param>
         /// <param name="height">The height of the rectangle.</param>
-        Rect(int x, int y, int width, int height) noexcept;
+        Rect(const int x, const int y, const int width, const int height) noexcept
+            : RECT { x, y, x + width, y + height } { }
+
+        Rect(const Rect & other) noexcept = default;
+        Rect(Rect && other) noexcept = default;
+
+        ~Rect() = default;
+
+        Rect & operator=(const Rect & other) noexcept = default;
+        Rect & operator=(Rect && other) noexcept = default;
 
         /// <summary>
         /// Moves the rectangle.
