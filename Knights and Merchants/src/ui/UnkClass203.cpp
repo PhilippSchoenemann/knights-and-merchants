@@ -138,13 +138,13 @@ void UnkClass203::vtable4(DrawableSurface & surface)
 		do {
 			UIElement * element = i24_controls.unk002();
 
-			if ((element->i21 & 0x20) == 0x20) {
+			if ((element->i21_flags & 0x20) == 0x20) {
 				element->vtable4(surface);
 
-				if ((element->i21 & 0x80) == 0x80)
-					element->i21 &= ~0x80;
+				if ((element->i21_flags & 0x80) == 0x80)
+					element->i21_flags &= ~0x80;
 				else
-					element->i21 &= ~0x20;
+					element->i21_flags &= ~0x20;
 			}
 		} while (i24_controls.moveNext());
 	}
@@ -216,22 +216,22 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 				if (var4 == nullptr)
 					continue;
 
-				if ((var4->i21 & 0x40) == 0x40 || (var4->i21 & 0x4) == 0x4) {
+				if ((var4->i21_flags & 0x40) == 0x40 || (var4->i21_flags & 0x4) == 0x4) {
 					if (var4->i26 != -1 && var4->vtable8(p0->i0_position))
 						base->setI872(var4->i26);		
 				} else {
 				
 					if (p4 != nullptr) {
-						if ((var4->i21 & 0x100) == 0x100) {
+						if ((var4->i21_flags & 0x100) == 0x100) {
 							if (p4->isKeyDown(var4->i25))
 								continue;
 
-							if ((var4->i21 & 0x4000) == 0x4000) {
-								var4->i21 &= ~0x118;
+							if ((var4->i21_flags & 0x4000) == 0x4000) {
+								var4->i21_flags &= ~0x118;
 								continue;
 							}
 
-							var4->i21 &= ~0x118;
+							var4->i21_flags &= ~0x118;
 							enableDraw(var4);
 
 							var8 = 0;
@@ -251,10 +251,10 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 							continue;
 						} else {
 							if (var4->i25 != 0 && p4->isKeyDown(var4->i25)) {
-								var4->i21 |= 0x118;
+								var4->i21_flags |= 0x118;
 								enableDraw(var4);
 
-								if ((var4->i21 & 0x4000) == 0x4000) {
+								if ((var4->i21_flags & 0x4000) == 0x4000) {
 									vtable20(var4->i23, 9, var8);
 								}
 
@@ -270,14 +270,14 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 						if (var4->i26 != -1)
 							base->setI872(var4->i26);
 						
-						if ((var4->i21 & 2) == 0) {
-							var4->i21 |= 2;
+						if ((var4->i21_flags & 2) == 0) {
+							var4->i21_flags |= 2;
 							enableDraw(var4);
 						}
 
 						if (isLeftButtonDown == 0) {
-							if ((var4->i21 & 8) == 8) {
-								var4->i21 &= ~8;
+							if ((var4->i21_flags & 8) == 8) {
+								var4->i21_flags &= ~8;
 								enableDraw(var4);
 
 								if (vtable20(var4->i23, 1, var8))
@@ -285,9 +285,9 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 							}
 						} else {
 						
-							if ((var4->i21 & 0x1000) == 0) {
-								if ((var4->i21 & 8) == 0) {
-									var4->i21 |= 8;
+							if ((var4->i21_flags & 0x1000) == 0) {
+								if ((var4->i21_flags & 8) == 0) {
+									var4->i21_flags |= 8;
 									enableDraw(var4);
 									p0->i64_isLeftButtonDown = 0;
 									p0->i76 = 1;
@@ -296,9 +296,9 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 							} else {
 								enableDraw(var4);
 
-								if ((var4->i21 & 0x800) == 0x800) {
+								if ((var4->i21_flags & 0x800) == 0x800) {
 									base->i874 = var4;
-									var4->i21 |= 8;
+									var4->i21_flags |= 8;
 									p0->i64_isLeftButtonDown = 0;
 									p0->i76 = 1;
 									isLeftButtonDown = 0;
@@ -315,17 +315,17 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 						}
 
 						if (p0->i68_isRightButtonDown == 0) {
-							if ((var4->i21 & 0x10) == 0x10) {
-								var4->i21 &= ~0x10;
+							if ((var4->i21_flags & 0x10) == 0x10) {
+								var4->i21_flags &= ~0x10;
 								enableDraw(var4);
 
 								if (vtable20(var4->i23, 3, var8))
 									return true;
 							}
 						} else {
-							if ((var4->i21 & 0x2000) == 0) {
-								if ((var4->i21 & 0x10) == 0) {
-									var4->i21 |= 0x10;
+							if ((var4->i21_flags & 0x2000) == 0) {
+								if ((var4->i21_flags & 0x10) == 0) {
+									var4->i21_flags |= 0x10;
 									enableDraw(var4);
 								}
 							} else {
@@ -336,25 +336,25 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 							}
 						}
 
-						if ((var4->i21 & 0x200) == 0x200) {
-							var4->i21 |= 0x400;
+						if ((var4->i21_flags & 0x200) == 0x200) {
+							var4->i21_flags |= 0x400;
 
 							if (vtable20(var4->i23, 7, var8))
 								return true;
 						}
 
 						if (p0->i72_isMiddleButtonDown == 0) {
-							if ((var4->i21 & 0x8000) == 0x8000) {
-								var4->i21 &= ~0x8000;
+							if ((var4->i21_flags & 0x8000) == 0x8000) {
+								var4->i21_flags &= ~0x8000;
 								enableDraw(var4);
 
 								if (vtable20(var4->i23, 5, var8))
 									return true;
 							}
 						} else {
-							if ((var4->i21 & 0x2000) == 0) {
-								if ((var4->i21 & 0x8000) == 0) {
-									var4->i21 |= 0x8000;
+							if ((var4->i21_flags & 0x2000) == 0) {
+								if ((var4->i21_flags & 0x8000) == 0) {
+									var4->i21_flags |= 0x8000;
 									enableDraw(var4);
 								}
 							} else {
@@ -365,21 +365,21 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 							}
 						}
 
-						if ((var4->i21 & 0x200) == 0x200) {
-							var4->i21 |= 0x400;
+						if ((var4->i21_flags & 0x200) == 0x200) {
+							var4->i21_flags |= 0x400;
 
 							if (vtable20(var4->i23, 7, var8))
 								return true;
 						}
 
 					} else {
-						if ((var4->i21 & 0x1A) != 0) {
-							var4->i21 &= ~0x1A;
+						if ((var4->i21_flags & 0x1A) != 0) {
+							var4->i21_flags &= ~0x1A;
 							enableDraw(var4);
 						}
 
-						if ((var4->i21 & 0x400) == 0x400) {
-							var4->i21 &= ~0x400;
+						if ((var4->i21_flags & 0x400) == 0x400) {
+							var4->i21_flags &= ~0x400;
 
 							if (vtable20(var4->i23, 8, var8))
 								return true;
@@ -396,7 +396,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 					if (isLeftButtonDown != 0) {
 						var4->vtable12(var18, var14);
 					} else {
-						var4->i21 &= ~0x18;
+						var4->i21_flags &= ~0x18;
 						base->i874 = nullptr;
 
 						vtable20(var4->i23, 1, var8);
@@ -461,10 +461,10 @@ bool UnkClass203::addContainerRaw(UnkClass203 * container)
 
 void UnkClass203::enableDraw(UIElement * control)
 {
-	control->i21 |= 0x20;
+	control->i21_flags |= 0x20;
 
 	if (i60 != 0)
-		control->i21 |= 0x80;
+		control->i21_flags |= 0x80;
 }
 
 bool UnkClass203::addControl(UIElement * control)

@@ -8,7 +8,7 @@ namespace knights_and_merchants::io
 
 namespace knights_and_merchants::engine
 {
-    struct DrawableSurface;
+    class DrawableSurface;
 
     class Bitmap
     {

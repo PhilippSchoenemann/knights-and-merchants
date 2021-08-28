@@ -1,4 +1,8 @@
 #include "Globals.h"
+#include "engine/DrawableSurface.h"
+#include "media/AVIClass.h"
+#include "Settings.h"
+#include "engine/GraphicsHandler.h"
 
 unk screenConstants[4] { 
 	{ 800,  600, 200, 0, 15, 15, 20, 0 }, 
@@ -55,3 +59,62 @@ char actionNames[13][30] =
 
 
 int dword_53C57C;
+
+ HINSTANCE base_hInstance;
+
+ HWND base_hWnd;
+
+ knights_and_merchants::text::Lib* base_Lib_Setup = nullptr;
+
+ char globals_gameState;
+
+ void clearScreen(knights_and_merchants::engine::DrawableSurface& surface) {
+     Rect rect{ 0, 0, surface.i0_width, surface.i2_height };
+     surface.fillRectangle(rect, 0);
+ }
+
+ bool showIntro() {
+     sub_4015C8();
+
+     knights_and_merchants::engine::UnkClass5 palette;
+     for (int i = 0; i < 256; ++i)
+         palette.setColorAt(i, 0, 0, 0);
+
+     knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
+     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+
+     {
+         knights_and_merchants::media::AVIClass avi("data/gfx/Video/publish.avi", knights_and_merchants::Settings::instance.i273_video1, knights_and_merchants::Settings::instance.i277_video2, knights_and_merchants::Settings::instance.i281_video3 != 0);
+
+         if (avi.i1178 != 0)
+             avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
+     }
+
+     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+
+     {
+         knights_and_merchants::media::AVIClass avi("data/gfx/Video/KAMLOGO.avi", 0, 160, 0);
+
+         if (avi.i1178 != 0)
+             avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
+     }
+
+     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+     return true;
+ }
+
+ void sub_4015C8() {
+     const Rect rect{ 0, 0, 640, 480 };
+
+     knights_and_merchants::engine::UnkClass5 palette{ };
+     for (int i = 0; i < 256; ++i)
+         palette.setColorAt(i, 0, 0, 0);
+
+     Sleep(500);
+
+     knights_and_merchants::engine::GraphicsHandler::instance->setDisplayMode(640, 480, 8);
+     knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
+     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+
+     SetCursor(nullptr);
+ }

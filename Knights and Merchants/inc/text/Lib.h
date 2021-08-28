@@ -52,6 +52,17 @@ namespace knights_and_merchants::text
 		[[nodiscard]]
 		string::size_type getTotalSize() const noexcept;
 
+        /// <summary>
+        /// Gets the i-th string.
+        /// </summary>
+        /// <param name="i">The index of the string to get.</param>
+        /// <returns>The i-th string.</returns>
+        [[nodiscard]]
+        const string & getStringByIndex(const int i) const noexcept
+        {
+            return strings[i];
+        }
+
 		/// <summary>
 		/// Gets the i-th string.
 		/// </summary>

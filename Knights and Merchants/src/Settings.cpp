@@ -121,7 +121,7 @@ namespace knights_and_merchants
     {
         const FileIo fileIo { "setup.cfg" };
 
-        const DWORD fileSize {fileIo.getFileSize()};
+        const DWORD fileSize { (DWORD) fileIo.getFileSize()};
         char * ebx;
 
         if (fileSize > 0 && (ebx = static_cast<char *>(malloc(fileSize))) != nullptr) {

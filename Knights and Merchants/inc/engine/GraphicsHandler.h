@@ -12,7 +12,7 @@ using knights_and_merchants::utilities::Rect;
 
 namespace knights_and_merchants::engine
 {
-    struct DrawableSurface;
+    class DrawableSurface;
 
     class UnkGraphicsClass;
 

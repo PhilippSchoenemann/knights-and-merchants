@@ -1,4 +1,5 @@
 #include "engine/DrawableSurface.h"
+#include "utilities/Rect.h"
 
 namespace knights_and_merchants::engine {
 

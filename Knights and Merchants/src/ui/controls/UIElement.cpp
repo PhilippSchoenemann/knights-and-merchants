@@ -6,9 +6,8 @@ using knights_and_merchants::engine::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {
-    UIElement::UIElement(const Rect & p0, const short p4, const char p8, const short p12)
-        : i4 { p8 }, i5 { p0  }, i21 { 0x20 }, i23 { p4 }, i25 { 0 },
-          i26 { p12 }, i28 { nullptr } {}
+    UIElement::UIElement(const Rect & position, const short p4, const char p8, const short p12)
+        : i4 { p8 }, i5_position { position }, i21_flags { 0x20 }, i23 { p4 }, i25 { 0 }, i26 { p12 }, i28 { nullptr } { }
 
     void UIElement::registerForDraw()
     {
@@ -18,7 +17,7 @@ namespace knights_and_merchants::ui::controls
 
     Rect & UIElement::calculateAbsolutePosition(Rect & absolutePosition) const
     {
-        Rect result { i5.left, i5.top, i5.getWidth(), i5.getHeight() };
+        Rect result { i5_position.left, i5_position.top, i5_position.getWidth(), i5_position.getHeight() };
         result.move(i28->i44.left, i28->i44.top);
 
         absolutePosition = result;
@@ -57,19 +56,20 @@ namespace knights_and_merchants::ui::controls
 
     bool UIElement::isEnabled() const
     {
-        return (i21 & 4) == 0;
+        return (i21_flags & 4) == 0;
     }
 
     void UIElement::setEnabled(const bool enabled)
     {
-        if (isEnabled() != enabled) {
-            if (enabled)
-                i21 &= ~4;
-            else
-                i21 |= 4;
+        if (isEnabled() == enabled)
+            return;
+    
+        if (enabled)
+            i21_flags &= ~4;
+        else
+            i21_flags |= 4;
 
-            registerForDraw();
-        }
+        registerForDraw();    
     }
 
     DrawableSurface & UIElement::calculateSurface(DrawableSurface & result, const DrawableSurface & source) const

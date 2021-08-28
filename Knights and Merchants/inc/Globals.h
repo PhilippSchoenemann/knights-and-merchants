@@ -1,4 +1,16 @@
 #pragma once
+#include <Windows.h>
+
+namespace knights_and_merchants {
+    namespace text {
+        class Lib;
+    }
+
+    namespace engine
+    {
+        class DrawableSurface;
+    }
+}
 
 class UnkGame1;
 
@@ -37,3 +49,17 @@ extern char soundFileNames[16][30];
 extern char actionNames[13][30];
 
 extern unsigned char byte_53998A[8]; // Map colors of players.
+
+extern HINSTANCE base_hInstance;
+
+extern HWND base_hWnd;
+
+extern knights_and_merchants::text::Lib* base_Lib_Setup;
+
+extern char globals_gameState;
+
+extern void showVideo(const char*);
+
+extern void clearScreen(knights_and_merchants::engine::DrawableSurface& str);
+
+extern  void sub_4015C8();

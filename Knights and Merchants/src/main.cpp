@@ -8,8 +8,13 @@
 #include "text/Lib.h"
 #include "utilities/Rect.h"
 #include "fmod.h"
+#include "engine/UnkClass5.h"
+#include "engine/DrawableSurface.h"
+#include "media/AVIClass.h"
 
 #include <io.h>
+
+#include "MasterClass.h"
 
 using knights_and_merchants::text::Lib;
 using knights_and_merchants::utilities::Rect;
@@ -17,12 +22,19 @@ using knights_and_merchants::engine::GraphicsHandler;
 using knights_and_merchants::io::InputHandler;
 using knights_and_merchants::io::KeyboardHandler;
 using knights_and_merchants::Settings;
+using knights_and_merchants::media::AVIClass;
 
-HINSTANCE base_hInstance;
-
-HWND base_hWnd;
 
 char soundFileCounts[16][13];
+
+using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::DrawableSurface;
+
+
+
+
+
+
 
 void sub_401B7C()
 {
@@ -192,7 +204,23 @@ bool createWindow(const HINSTANCE hInstance) {
     return true;
 }
 
-Lib* base_Lib_setup;
+
+
+void sub_401064() {
+    Rect rect { 0, 0, 800, 600 };
+
+    UnkClass5 palette { };
+    for (int i = 0; i < 256; ++i)
+        palette.setColorAt(i, 0, 0, 0);
+
+    Sleep(100);
+
+    GraphicsHandler::instance->setDisplayMode(800, 600, 8);
+    GraphicsHandler::instance->setPalette(palette);
+    GraphicsHandler::instance->draw(clearScreen);
+
+    SetCursor(nullptr);
+}
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -201,12 +229,34 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     if (!createWindow(hInstance))
         return 1;
 
-    base_Lib_setup = new Lib("data/misc/setup.lib");
+    base_Lib_Setup = new Lib("data/misc/setup.lib");
 
     if (!initializeBase())
         return -1;
 
-    // TODO: showIntro
+    //showIntro();
+
+    MasterClass * mc;
+    do {
+        sub_401064();
+        mc = new MasterClass(var20);
+        Settings::instance.fadeInMusic();
+
+        MSG message;
+        do {
+            if (PeekMessage(&message, nullptr, 0, 0, PM_NOREMOVE)) {
+                if (!GetMessage(&message, nullptr, 0, 0))
+                    break;
+
+                TranslateMessage(&message);
+                DispatchMessage(&message);
+            } else {
+                Settings::instance.update();
+                mc->update();
+            }
+        } while(true);
+        break;
+    } while (true);
 
     return 0;
 }

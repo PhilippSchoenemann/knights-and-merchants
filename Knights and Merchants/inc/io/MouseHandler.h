@@ -10,7 +10,7 @@ namespace knights_and_merchants
 {
     namespace engine
     {
-        struct DrawableSurface;
+        class DrawableSurface;
         class Bitmap;
     }
 

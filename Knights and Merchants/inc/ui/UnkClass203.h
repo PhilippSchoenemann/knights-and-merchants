@@ -22,7 +22,7 @@ namespace knights_and_merchants {
 
 namespace knights_and_merchants {
     namespace engine {
-        struct DrawableSurface;
+        class DrawableSurface;
     }
 }
 

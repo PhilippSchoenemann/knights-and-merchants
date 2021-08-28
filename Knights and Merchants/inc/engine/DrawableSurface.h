@@ -1,14 +1,18 @@
 #ifndef KNIGHTS_AND_MERCHANTS_ENGINE_DRAWABLE_SURFACE_H
 #define KNIGHTS_AND_MERCHANTS_ENGINE_DRAWABLE_SURFACE_H
 
-#include "utilities/Rect.h"
-
-using knights_and_merchants::utilities::Rect;
+namespace knights_and_merchants::utilities
+{
+    class Rect;
+}
 
 namespace knights_and_merchants::engine
 {
-    struct DrawableSurface
+    class DrawableSurface
     {
+        typedef utilities::Rect Rect;
+
+    public:
         short i0_width;
         short i2_height;
         short i4_pitch;

@@ -6,7 +6,7 @@ namespace knights_and_merchants
     namespace engine
     {
         class Bitmap;
-        struct DrawableSurface;
+        class DrawableSurface;
     }
 
     namespace io
