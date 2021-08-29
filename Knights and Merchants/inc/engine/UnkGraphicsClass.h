@@ -22,7 +22,7 @@ namespace knights_and_merchants::engine
         ~UnkGraphicsClass();
 
         void unk();
-        
+
         bool unk100();
         bool unk200();
         bool setPalette(const UnkClass5 & p0);

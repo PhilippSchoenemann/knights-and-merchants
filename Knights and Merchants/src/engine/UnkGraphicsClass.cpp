@@ -15,13 +15,11 @@ namespace knights_and_merchants::engine
         i20.bmiHeader.biBitCount = 8;
         i20.bmiHeader.biHeight = -i1100.getHeight();
         i20.bmiHeader.biCompression = 0;
-        i20.bmiHeader.biSizeImage = 0;
         i20.bmiHeader.biClrUsed = 0;
         i20.bmiHeader.biClrImportant = 0;
-        i20.bmiHeader.biWidth = -i1100.getWidth();
+        i20.bmiHeader.biWidth = i1100.getWidth();
         i20.bmiHeader.biXPelsPerMeter = 0;
         i20.bmiHeader.biYPelsPerMeter = 0;
-
         i20.bmiHeader.biSizeImage = i1100.getWidth() * i1100.getHeight();
 
         i0 = CreateDIBSection(i8, &i20, DIB_RGB_COLORS, &i64, nullptr, 0);
@@ -42,15 +40,6 @@ namespace knights_and_merchants::engine
         memset(i64, -1, i1100.getWidth() * i1100.getHeight());
     }
 
-    void UnkGraphicsClass::unk()
-    {
-        if (i1092 != nullptr)
-            DeleteObject(i1092);
-
-        if (i1096 != nullptr)
-            SelectPalette(i12, i1096, false);
-    }
-
     UnkGraphicsClass::~UnkGraphicsClass()
     {
         unk();
@@ -61,6 +50,17 @@ namespace knights_and_merchants::engine
             ReleaseDC(i16, i12);
         }
     }
+
+    void UnkGraphicsClass::unk()
+    {
+        if (i1092 != nullptr)
+            DeleteObject(i1092);
+
+        if (i1096 != nullptr)
+            SelectPalette(i12, i1096, false);
+    }
+
+
 
     bool UnkGraphicsClass::unk100()
     {
@@ -77,34 +77,31 @@ namespace knights_and_merchants::engine
 
     bool UnkGraphicsClass::setPalette(const UnkClass5 & p0)
     {
-        PALETTEENTRY var3FB[254];
-
         unk();
 
-        LOGPALETTE plpal;
+        char alloc[sizeof(LOGPALETTE) + (256 - 1) * sizeof(PALETTEENTRY)];
+        LOGPALETTE & plpal = *reinterpret_cast<LOGPALETTE*>(&alloc);
+
         plpal.palVersion = 0x300;
         plpal.palNumEntries = 0x100;
-
 
         for (int edi = 1; edi <= 254; ++edi) {
             auto esi = p0.getColorPtr(edi);
 
-            var3FB[edi].peRed = esi->r;
+            plpal.palPalEntry[edi].peRed = esi->r;
             i68[edi].rgbRed = esi->r;
 
-            var3FB[edi].peGreen = esi->g;
+            plpal.palPalEntry[edi].peGreen = esi->g;
             i68[edi].rgbGreen = esi->g;
 
-            var3FB[edi].peBlue = esi->b;
+            plpal.palPalEntry[edi].peBlue = esi->b;
             i68[edi].rgbBlue = esi->b;
 
             i68[edi].rgbReserved = 0;
         }
 
-        PALETTEENTRY var28;
-
-        GetSystemPaletteEntries(i8, 0, 10, plpal.palPalEntry);
-        GetSystemPaletteEntries(i8, 246, 10, &var28);
+        GetSystemPaletteEntries(i8, 0, 10, &plpal.palPalEntry[0]);
+        GetSystemPaletteEntries(i8, 246, 10, &plpal.palPalEntry[246]);
 
         i1092 = CreatePalette(&plpal);
 
