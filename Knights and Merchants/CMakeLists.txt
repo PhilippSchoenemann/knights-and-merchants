@@ -54,6 +54,35 @@ add_custom_command (
 )
 
 
+add_executable (KaM-Win-x64 WIN32
+    ${sources}
+    ${headers}
+    ${fheaders}
+)
+target_include_directories (
+    KaM-Win-x64
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+)
+target_link_libraries (
+    KaM-Win-x64
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x64/ddraw.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x64/dinput8.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x64/fmod.lib
+    "Vfw32.lib"
+)
+add_custom_command (
+    TARGET KaM-Win-x64 POST_BUILD      
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/third_party/fmod/dll/fmod64.dll $<TARGET_FILE_DIR:KaM-Win-x64>
+)           
+add_custom_command (
+    TARGET KaM-Win-x64 POST_BUILD      
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:KaM-Win-x64>/data/
+)
+
+
+
+
 add_executable (
     KaM-Tests
     ${sources}
