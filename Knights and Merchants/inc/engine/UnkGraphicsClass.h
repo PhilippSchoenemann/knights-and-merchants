@@ -21,6 +21,8 @@ namespace knights_and_merchants::engine
 
         ~UnkGraphicsClass();
 
+        void setDisplayMode(int width, int height);
+
         void unk();
 
         bool unk100();

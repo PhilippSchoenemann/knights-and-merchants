@@ -1,4 +1,5 @@
 #include "engine/UnkGraphicsClass.h"
+#include <new>
 
 namespace knights_and_merchants::engine
 {
@@ -49,6 +50,14 @@ namespace knights_and_merchants::engine
             DeleteObject(i0);
             ReleaseDC(i16, i12);
         }
+    }
+
+    void UnkGraphicsClass::setDisplayMode(const int width, const int height)
+    {
+        const Rect var10 { 0, 0, width, height };
+
+        this->~UnkGraphicsClass();
+        new (this) UnkGraphicsClass(i16, var10);
     }
 
     void UnkGraphicsClass::unk()

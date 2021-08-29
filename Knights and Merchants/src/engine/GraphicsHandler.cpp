@@ -269,6 +269,8 @@ namespace knights_and_merchants::engine
             if (result != DD_OK) {
                 throw 0;
             }
+        } else {
+            i2->setDisplayMode(width, height);
         }
 
         i10.setBounds(0, 0, width, height);
