@@ -3,88 +3,86 @@
 
 namespace knights_and_merchants::engine
 {
-    UnkGraphicsClass::UnkGraphicsClass(HWND p0, const Rect & p4)
-        : i1100 { p4 }
+    UnkGraphicsClass::UnkGraphicsClass(const HWND hWnd, const Rect & canvasRect) noexcept
+        : i1100_canvasRect { canvasRect }
     {
         reset();
-        i16 = p0;
-        i12 = GetWindowDC(p0);
-        i8 = CreateCompatibleDC(nullptr);
+        i16_hWnd = hWnd;
+        i12_windowDC = GetWindowDC(hWnd);
+        i8_memoryDC = CreateCompatibleDC(nullptr);
 
         i20.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
         i20.bmiHeader.biPlanes = 1;
         i20.bmiHeader.biBitCount = 8;
-        i20.bmiHeader.biHeight = -i1100.getHeight();
+        i20.bmiHeader.biHeight = -i1100_canvasRect.getHeight();
         i20.bmiHeader.biCompression = 0;
         i20.bmiHeader.biClrUsed = 0;
         i20.bmiHeader.biClrImportant = 0;
-        i20.bmiHeader.biWidth = i1100.getWidth();
+        i20.bmiHeader.biWidth = i1100_canvasRect.getWidth();
         i20.bmiHeader.biXPelsPerMeter = 0;
         i20.bmiHeader.biYPelsPerMeter = 0;
-        i20.bmiHeader.biSizeImage = i1100.getWidth() * i1100.getHeight();
+        i20.bmiHeader.biSizeImage = i1100_canvasRect.getWidth() * i1100_canvasRect.getHeight();
 
-        i0 = CreateDIBSection(i8, &i20, DIB_RGB_COLORS, &i64, nullptr, 0);
+        i0 = CreateDIBSection(i8_memoryDC, &i20, DIB_RGB_COLORS, &i64, nullptr, 0);
 
         if (i0 == nullptr) {
-            DeleteDC(i8);
+            DeleteDC(i8_memoryDC);
             return;
         }
 
-        i4 = SelectObject(i8, i0);
+        i4 = SelectObject(i8_memoryDC, i0);
 
         if (i4 == nullptr) {
             DeleteObject(i0);
-            DeleteDC(i8);
+            DeleteDC(i8_memoryDC);
             return;
         }
 
-        memset(i64, -1, i1100.getWidth() * i1100.getHeight());
+        memset(i64, -1, i1100_canvasRect.getWidth() * i1100_canvasRect.getHeight());
     }
 
-    UnkGraphicsClass::~UnkGraphicsClass()
+    UnkGraphicsClass::~UnkGraphicsClass() noexcept
     {
         unk();
 
-        if (DeleteDC(i8)) {
-            SelectObject(i8, i4);
+        if (DeleteDC(i8_memoryDC)) {
+            SelectObject(i8_memoryDC, i4);
             DeleteObject(i0);
-            ReleaseDC(i16, i12);
+            ReleaseDC(i16_hWnd, i12_windowDC);
         }
     }
 
-    void UnkGraphicsClass::setDisplayMode(const int width, const int height)
+    void UnkGraphicsClass::setDisplayMode(const int width, const int height) noexcept
     {
-        const Rect var10 { 0, 0, width, height };
+        const Rect canvasRect { 0, 0, width, height };
 
         this->~UnkGraphicsClass();
-        new (this) UnkGraphicsClass(i16, var10);
+        new (this) UnkGraphicsClass(i16_hWnd, canvasRect);
     }
 
-    void UnkGraphicsClass::unk()
+    void UnkGraphicsClass::unk() const noexcept
     {
         if (i1092 != nullptr)
             DeleteObject(i1092);
 
         if (i1096 != nullptr)
-            SelectPalette(i12, i1096, false);
+            SelectPalette(i12_windowDC, i1096, false);
     }
 
-
-
-    bool UnkGraphicsClass::unk100()
+    bool UnkGraphicsClass::unk100() const noexcept
     {
-        return SetDIBColorTable(i8, 0, 255, i68) > 0;
+        return SetDIBColorTable(i8_memoryDC, 0, 255, i68) > 0;
     }
 
-    bool UnkGraphicsClass::unk200()
+    bool UnkGraphicsClass::unk200() const noexcept
     {
-        if (SelectPalette(i12, i1092, false) == nullptr)
+        if (SelectPalette(i12_windowDC, i1092, false) == nullptr)
             return false;
 
-        return RealizePalette(i12) != GDI_ERROR;
+        return RealizePalette(i12_windowDC) != GDI_ERROR;
     }
 
-    bool UnkGraphicsClass::setPalette(const UnkClass5 & p0)
+    bool UnkGraphicsClass::setPalette(const UnkClass5 & p0) noexcept
     {
         unk();
 
@@ -94,30 +92,30 @@ namespace knights_and_merchants::engine
         plpal.palVersion = 0x300;
         plpal.palNumEntries = 0x100;
 
-        for (int edi = 1; edi <= 254; ++edi) {
-            auto esi = p0.getColorPtr(edi);
+        for (int i = 1; i <= 254; ++i) {
+            const auto * color = p0.getColorPtr(i);
 
-            plpal.palPalEntry[edi].peRed = esi->r;
-            i68[edi].rgbRed = esi->r;
+            plpal.palPalEntry[i].peRed = color->r;
+            i68[i].rgbRed = color->r;
 
-            plpal.palPalEntry[edi].peGreen = esi->g;
-            i68[edi].rgbGreen = esi->g;
+            plpal.palPalEntry[i].peGreen = color->g;
+            i68[i].rgbGreen = color->g;
 
-            plpal.palPalEntry[edi].peBlue = esi->b;
-            i68[edi].rgbBlue = esi->b;
+            plpal.palPalEntry[i].peBlue = color->b;
+            i68[i].rgbBlue = color->b;
 
-            i68[edi].rgbReserved = 0;
+            i68[i].rgbReserved = 0;
         }
 
-        GetSystemPaletteEntries(i8, 0, 10, &plpal.palPalEntry[0]);
-        GetSystemPaletteEntries(i8, 246, 10, &plpal.palPalEntry[246]);
+        GetSystemPaletteEntries(i8_memoryDC, 0, 10, &plpal.palPalEntry[0]);
+        GetSystemPaletteEntries(i8_memoryDC, 246, 10, &plpal.palPalEntry[246]);
 
         i1092 = CreatePalette(&plpal);
 
         if (i1092 == nullptr)
             return false;
 
-        i1096 = SelectPalette(i12, i1092, false);
+        i1096 = SelectPalette(i12_windowDC, i1092, false);
 
         if (i1096 == nullptr)
             return false;
@@ -128,25 +126,38 @@ namespace knights_and_merchants::engine
         return true;
     }
 
-    bool UnkGraphicsClass::draw()
+    bool UnkGraphicsClass::draw() const noexcept
     {
-        const auto ebx = SelectPalette(i12, i1092, false);
-        if (ebx == nullptr)
+        const auto palette = SelectPalette(i12_windowDC, i1092, false);
+
+        if (palette == nullptr)
             return false;
 
-        if (BitBlt(i12, i1100.left, i1100.top, i1100.getWidth(), i1100.getHeight(), i8, 0, 0, SRCCOPY) == 0)
+        if (BitBlt(i12_windowDC, i1100_canvasRect.left, i1100_canvasRect.top, i1100_canvasRect.getWidth(), i1100_canvasRect.getHeight(), i8_memoryDC, 0, 0, SRCCOPY) == 0)
             return false;
 
-        SelectPalette(i12, ebx, false);
+        SelectPalette(i12_windowDC, palette, false);
         return true;
     }
 
-    void UnkGraphicsClass::reset()
+    bool UnkGraphicsClass::unk222(const int width, const int height) const noexcept
+    {
+        const auto palette = SelectPalette(i12_windowDC, i1092, false);
+
+        if (palette == nullptr)
+            return false;
+
+        StretchBlt(i12_windowDC, i1100_canvasRect.left, i1100_canvasRect.top, width, height, i8_memoryDC, 0, 0, i1100_canvasRect.getWidth(), i1100_canvasRect.getHeight(), SRCCOPY);
+        SelectPalette(i12_windowDC, palette, false);
+        return true;
+    }
+
+    void UnkGraphicsClass::reset() noexcept
     {
         i0 = nullptr;
         i4 = nullptr;
-        i8 = nullptr;
-        i12 = nullptr;
+        i8_memoryDC = nullptr;
+        i12_windowDC = nullptr;
         i64 = nullptr;
         i1092 = nullptr;
         i1096 = nullptr;
