@@ -140,7 +140,7 @@ namespace knights_and_merchants::engine
         return true;
     }
 
-    bool UnkGraphicsClass::unk222(const int width, const int height) const noexcept
+    bool UnkGraphicsClass::draw(const int width, const int height) const noexcept
     {
         const auto palette = SelectPalette(i12_windowDC, i1092, false);
 

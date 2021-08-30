@@ -29,7 +29,7 @@ namespace knights_and_merchants::engine
         bool unk200() const noexcept;
         bool setPalette(const UnkClass5 & p0) noexcept;
         bool draw() const noexcept;
-        bool unk222(int width, int height) const noexcept;
+        bool draw(int width, int height) const noexcept;
 
         void * i64;
 
