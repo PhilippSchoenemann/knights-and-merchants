@@ -262,12 +262,12 @@ namespace knights_and_merchants::media
 
         UnkClass5 unk;
         for (int i = 0; i < i296->biClrUsed; ++i) {
-            unk.setColorAt(i, color->rgbRed, color->rgbGreen, color->rgbBlue);
+            unk.setColor(i, color->rgbRed, color->rgbGreen, color->rgbBlue);
             ++color;
         }
 
-        unk.setColorAt(0, 255, 255, 255);
-        unk.setColorAt(255, 0, 0, 0);
+        unk.setColor(0, 255, 255, 255);
+        unk.setColor(255, 0, 0, 0);
 
         graphicsHandler.setPalette(unk);
         Sleep(500);

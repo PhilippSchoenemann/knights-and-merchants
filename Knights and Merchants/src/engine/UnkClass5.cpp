@@ -1,14 +1,10 @@
-//
-// Created by schoe on 06.10.2020.
-//
-
 #include "engine/UnkClass5.h"
 #include <cstdlib>
 
 namespace knights_and_merchants::engine
 {
-    UnkClass5::UnkClass5()
-        : colors { }, i832 { }
+    UnkClass5::UnkClass5() noexcept
+        : i0_colors { }, i832_colorCycleCount { }
     {
         reset();
     }
@@ -18,127 +14,110 @@ namespace knights_and_merchants::engine
         reset();
     }
 
-    void UnkClass5::reset()
+    void UnkClass5::reset() noexcept
     {
-        for (auto & color : colors) {
+        for (auto & color : i0_colors) {
             color.r = 0;
             color.g = 0;
             color.b = 0;
         }
 
-        i832 = 0;
+        i832_colorCycleCount = 0;
     }
 
-    int UnkClass5::unk1(unsigned char p0, int p4, int p8)
+    int UnkClass5::getMostSimilarColor(const unsigned char r, const unsigned char g, const unsigned char b) const noexcept
     {
-        unsigned char var18 = 0;
-        int var8 = 0x7FFFFFFF;
+        unsigned char min = 0;
+        int minDistance = 0x7FFFFFFF;
 
-        Color * ptr = &colors[1];
-        for (int i = 1; i < 255; ++i, ++ptr) {
-            if (unk2(i) == 0) {
-                int mod_red = abs(p0 - ptr->r);
-                mod_red = mod_red * mod_red;
-
-                int mod_green = abs(p4 - ptr->g);
-                mod_green = mod_green * mod_green;
-
-                int mod_blue = abs(p8 - ptr->b);
-                mod_blue = mod_blue * mod_blue;
-
-                int res = mod_red + mod_green + mod_blue;
-                if (res < var8) {
-                    var8 = res;
-                    var18 = i;
+        const auto * color = &i0_colors[1];
+        for (int i = 1; i < 255; ++i, ++color) {
+            if (!isColorCycled(i)) {
+                const int dr = abs(r - color->r);
+                const int dg = abs(g - color->g);
+                const int db = abs(b - color->b);
+           
+                if (const int distance = dr * dr + dg * dg + db * db; distance < minDistance) {
+                    minDistance = distance;
+                    min = static_cast<unsigned char>(i);
                 }
             }
         }
 
-        return var18;
+        return min;
     }
 
-    void UnkClass5::unk4(unsigned char p0, const Color * p4)
-    {
-        colors[p0].r = p4->r;
-        colors[p0].g = p4->g;
-        colors[p0].b = p4->b;
-    }
 
-    short UnkClass5::unk3(short p0, short p4, short p8)
+
+    int UnkClass5::addColorCycle(const short start, const short length, const short ticksToUpdate) noexcept
     {
-        if (i832 >= 8)
+        if (i832_colorCycleCount >= 8 || start + length > 255)
             return -1;
 
-        if ((p0 + p4) > 255)
-            return -1;
+        auto & var4 = i768_colorCycles[i832_colorCycleCount++]; // TODO: is ref correct?
+        var4.i0_start = start;
+        var4.i2_length = length;
+        var4.i4_ticksToUpdate = ticksToUpdate;
+        var4.i6_ticksToNext = ticksToUpdate;
 
-        auto var4 = i768[i832];
-
-        i832++;
-
-        var4.i0 = p0;
-        var4.i2 = p4;
-        var4.i4 = p8;
-        var4.i6 = p8;
-
-        return i832 - 1;
+        return i832_colorCycleCount - 1;
     }
 
-    bool UnkClass5::unk12()
+    bool UnkClass5::update() noexcept
     {
         auto result = false;
 
-        for (int i = 0; i < i832; ++i) {
-            if (i768[i].i6 != 0) {
-                i768[i].i6 -= 1;
-            }
-            else {
-                unk15(i);
+        for (int i = 0; i < i832_colorCycleCount; ++i) {
+            if (i768_colorCycles[i].i6_ticksToNext != 0) {
+                i768_colorCycles[i].i6_ticksToNext--;
+            } else {
+                shiftCycle(i);
                 result = true;
-                i768[i].i6 = i768[i].i4;
+                i768_colorCycles[i].i6_ticksToNext = i768_colorCycles[i].i4_ticksToUpdate;
             }
         }
 
         return result;
     }
 
-    void UnkClass5::unk15(short p0)
+    void UnkClass5::shiftCycle(const int index) noexcept
     {
-        if (p0 < i832) {
-            auto & var8 = i768[p0];
-            auto & var4 = colors[var8.i0 + var8.i2 - 1];
+        if (index < i832_colorCycleCount) {
+            const auto & cycle = i768_colorCycles[index];
+            const auto lastColor = i0_colors[cycle.i0_start + cycle.i2_length - 1];
 
-            for (int i = var8.i2 - 1; i > 0; --i)
-                colors[var8.i0 + i] = colors[var8.i0 + i - 1];
+            for (int i = cycle.i2_length - 1; i > 0; --i)
+                i0_colors[cycle.i0_start + i] = i0_colors[cycle.i0_start + i - 1];
 
-            colors[var8.i0] = var4;
+            i0_colors[cycle.i0_start] = lastColor;
         }
     }
 
-    int UnkClass5::unk2(int p0)
-    {
-        if (i832 != 0) {
-            for (int j = 0; j < i832; ++j) {
-                if (p0 >= i768[j].i0) {
-                    if (p0 <= (i768[j].i0 + i768[j].i2)) {
-                        return 1;
-                    }
-                }
-            }
-        }
-
-        return 0;
+    bool UnkClass5::isColorCycled(const int i) const noexcept
+    {     
+        for (int j = 0; j < i832_colorCycleCount; ++j)
+            if (i >= i768_colorCycles[j].i0_start && i <= i768_colorCycles[j].i0_start + i768_colorCycles[j].i2_length)            
+                return true;             
+            
+        return false;
     }
 
-    void UnkClass5::setColorAt(const unsigned char i, const uint8_t r, const uint8_t g, const uint8_t b)
+    void UnkClass5::setColor(const unsigned char i, const Color * color) noexcept
     {
-        colors[i].r = r;
-        colors[i].g = g;
-        colors[i].b = b;
+        i0_colors[i].r = color->r;
+        i0_colors[i].g = color->g;
+        i0_colors[i].b = color->b;
     }
 
-    const Color * UnkClass5::getColorPtr(const unsigned char i) const
+    void UnkClass5::setColor(const unsigned char i, const unsigned char r, const unsigned char g, const unsigned char b) noexcept
     {
-        return &colors[i];
+        i0_colors[i].r = r;
+        i0_colors[i].g = g;
+        i0_colors[i].b = b;
+    }
+
+    const Color * UnkClass5::getColorPtr(const unsigned char i) const noexcept
+    {
+        return &i0_colors[i];
     }
 }

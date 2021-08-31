@@ -78,7 +78,7 @@ int dword_53C57C;
 
      knights_and_merchants::engine::UnkClass5 palette;
      for (int i = 0; i < 256; ++i)
-         palette.setColorAt(i, 0, 0, 0);
+         palette.setColor(i, 0, 0, 0);
 
      knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
      knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
@@ -108,7 +108,7 @@ int dword_53C57C;
 
      knights_and_merchants::engine::UnkClass5 palette{ };
      for (int i = 0; i < 256; ++i)
-         palette.setColorAt(i, 0, 0, 0);
+         palette.setColor(i, 0, 0, 0);
 
      Sleep(500);
 

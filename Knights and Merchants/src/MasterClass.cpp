@@ -61,13 +61,10 @@ MasterClass::MasterClass(int p0)
 	i948 = base_Lib_Setup;
 	i908 = new Font("data/gfx/fonts/maina.fnt");
 
-	int i = 0;
-	do {
-		auto va = i908->i8[i++];
-
-		if (va != nullptr) {
+	for (int i = 0; i < 256; ++i) {
+		if (auto va = i908->i8[i]; va != nullptr) {
 			auto len = va->i0_width * va->i2_height;
-			unsigned char * buffer = (unsigned char *) va->i12_data;
+			auto * buffer = va->i12_data;
 		
 			while (len-- > 0) {					
 				switch (*buffer) {
@@ -87,14 +84,14 @@ MasterClass::MasterClass(int p0)
 				++buffer;
 			}
 		}
-	} while (i < 256);
+	}
 	
 	i1390 = malloc(56160);
 	i1382 = malloc(65535);
 
 	{
-		FileIo fileIO { "data/gfx/h2lremap.dat" };
-		fileIO.read(i1382, 65535);
+		FileIo fileIo { "data/gfx/h2lremap.dat" };
+		fileIo.read(i1382, 65535);
 	}
 
 	i1386 = new Bitmap(468, 60, nullptr);
@@ -115,7 +112,7 @@ MasterClass::MasterClass(int p0)
 	i952 = new RX("data/gfx/res/guimain.rx");
 
 	for (int i = 0; i < 5; ++i) {
-		i1186[i] = (unsigned char *) malloc(256);
+		i1186[i] = static_cast<unsigned char*>(malloc(256));
 	}
 
 	instance_MasterClass2 = this;
@@ -127,20 +124,20 @@ MasterClass::MasterClass(int p0)
 
 	readLBM("data/gfx/setup.lbm", i904);
 
-	i904->setColorAt(0, 0, 0, 0);
-	i904->setColorAt(255, 0, 0, 0);
+	i904->setColor(0, 0, 0, 0);
+	i904->setColor(255, 0, 0, 0);
 
 	UnkClass201 uc201;
 	uc201.i0 = i908;
 	uc201.i4 = 1;
-	uc201.i8 = i904->unk1(170, 120, 30);
-	uc201.i10 = i904->unk1(80, 80, 140);
-	uc201.i12 = i904->unk1(30, 30, 0);
-	uc201.i14 = i904->unk1(20, 20, 20);
-	uc201.i16 = i904->unk1(200, 200, 210);
-	uc201.i18 = i904->unk1(180, 140, 10);
-	uc201.i20 = i904->unk1(250, 250, 250);
-	uc201.i22 = i904->unk1(180, 180, 180);
+	uc201.i8 = i904->getMostSimilarColor(170, 120, 30);
+	uc201.i10 = i904->getMostSimilarColor(80, 80, 140);
+	uc201.i12 = i904->getMostSimilarColor(30, 30, 0);
+	uc201.i14 = i904->getMostSimilarColor(20, 20, 20);
+	uc201.i16 = i904->getMostSimilarColor(200, 200, 210);
+	uc201.i18 = i904->getMostSimilarColor(180, 140, 10);
+	uc201.i20 = i904->getMostSimilarColor(250, 250, 250);
+	uc201.i22 = i904->getMostSimilarColor(180, 180, 180);
 	uc201.i24 = i952->i0[2];
 	
 	setEntryI4(0, uc201);
@@ -158,12 +155,12 @@ MasterClass::MasterClass(int p0)
 
 	setEntryI564(0, uc202);
 
-	uc201.i16 = i904->unk1(140, 140, 80);
+	uc201.i16 = i904->getMostSimilarColor(140, 140, 80);
 	setEntryI4(2, uc201);
 
-	uc201.i16 = i904->unk1(200, 200, 200);
-	uc201.i18 = i904->unk1(50, 50, 50);
-	uc201.i8 = i904->unk1(0, 0, 0);
+	uc201.i16 = i904->getMostSimilarColor(200, 200, 200);
+	uc201.i18 = i904->getMostSimilarColor(50, 50, 50);
+	uc201.i8 = i904->getMostSimilarColor(0, 0, 0);
 
 	setEntryI4(3, uc201);
 
@@ -259,20 +256,20 @@ MasterClass::~MasterClass()
 	reset();
 }
 
-void MasterClass::reset()
+void MasterClass::reset() noexcept
 {
 	i1398 = -1;
 	i1394 = 0;
-	i1390 = 0;
-	i1386 = 0;
-	i1382 = 0;
-	i904 = 0;
-	i948 = 0;
-	i952 = 0;
-	i908 = 0;
-	i916 = 0;
-	i912 = 0;
-	i920 = 0;
+	i1390 = nullptr;
+	i1386 = nullptr;
+	i1382 = nullptr;
+	i904 = nullptr;
+	i948 = nullptr;
+	i952 = nullptr;
+	i908 = nullptr;
+	i916 = nullptr;
+	i912 = nullptr;
+	i920 = nullptr;
 	i961 = 0;
 	i956 = 0;
 	i957 = 0;
@@ -280,17 +277,17 @@ void MasterClass::reset()
 	i1266 = 0;
 	i1282 = 0;
 
-	i928[0] = 0;
-	i928[1] = 0;
-	i928[2] = 0;
-	i928[3] = 0;
-	i928[4] = 0;
+	i928[0] = nullptr;
+	i928[1] = nullptr;
+	i928[2] = nullptr;
+	i928[3] = nullptr;
+	i928[4] = nullptr;
 	
-	i1186[0] = 0;
-	i1186[1] = 0;
-	i1186[2] = 0;
-	i1186[3] = 0;
-	i1186[4] = 0;
+	i1186[0] = nullptr;
+	i1186[1] = nullptr;
+	i1186[2] = nullptr;
+	i1186[3] = nullptr;
+	i1186[4] = nullptr;
 }
 
 void MasterClass::someLoop(int p0)
@@ -397,10 +394,10 @@ void MasterClass::someLoop(int p0)
 		GetSystemPaletteEntries(handle, 246, 10, entries2);
 
 		for (int i = 0; i < 10; ++i)
-			i904->setColorAt(i, entries1[i].peRed, entries1[i].peGreen, entries1[i].peBlue);
+			i904->setColor(i, entries1[i].peRed, entries1[i].peGreen, entries1[i].peBlue);
 		
 		for (int i = 246; i < 256; ++i)
-			i904->setColorAt(i, entries2[i].peRed, entries2[i].peGreen, entries2[i].peBlue);
+			i904->setColor(i, entries2[i].peRed, entries2[i].peGreen, entries2[i].peBlue);
 		
 		Color colors[] = {
 			{ 0xFA, 0x2F, 0x2F },
@@ -413,7 +410,7 @@ void MasterClass::someLoop(int p0)
 
 		Color * c = colors;
 		for (int i = 0; i < 6; ++i, ++c)
-			i904->unk4((unsigned char) (i - 36), c);
+			i904->setColor((unsigned char) (i - 36), c);
 		
 		ReleaseDC(base_hWnd, handle);
 	}
@@ -421,8 +418,8 @@ void MasterClass::someLoop(int p0)
 
 	GraphicsHandler::instance->setPalette(*i904);
 
-	i904->setColorAt(0, 0, 0, 0);
-	i904->setColorAt(255, 0, 0, 0);
+	i904->setColor(0, 0, 0, 0);
+	i904->setColor(255, 0, 0, 0);
 
 	if (var500 != 0) {
 		if (var4DC != 0) {

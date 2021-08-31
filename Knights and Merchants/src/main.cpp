@@ -211,7 +211,7 @@ void sub_401064() {
 
     UnkClass5 palette { };
     for (int i = 0; i < 256; ++i)
-        palette.setColorAt(i, 0, 0, 0);
+        palette.setColor(i, 0, 0, 0);
 
     Sleep(100);
 

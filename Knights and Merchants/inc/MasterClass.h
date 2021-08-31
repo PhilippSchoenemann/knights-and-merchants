@@ -46,7 +46,7 @@ public:
 	virtual bool vtable4(short p0, int p4, int p8) override;
 	virtual void vtable12(knights_and_merchants::engine::DrawableSurface & p0, Rect & p4) override;
 
-	void reset();
+	void reset() noexcept;
 	void someLoop(int p0);
 
 	void createMainMenu();

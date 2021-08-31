@@ -47,7 +47,7 @@ void IFF_transferColorMapTo(const InterchangeFileFormat & p0, UnkClass5 * unk)
 	const Color * color = reinterpret_cast<const Color *>(p0.chunkCMAP + 8);
 
 	for (int i = 0; i < 256; ++i, ++color)
-		unk->setColorAt(i, color->r, color->g, color->b);
+		unk->setColor(i, color->r, color->g, color->b);
 }
 
 void IFF_getBitmap(const InterchangeFileFormat & p0, Bitmap * p4) {
