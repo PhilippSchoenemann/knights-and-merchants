@@ -8,7 +8,7 @@
 #include "text/Lib.h"
 #include "utilities/Rect.h"
 #include "fmod.h"
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 #include "engine/DrawableSurface.h"
 #include "media/AVIClass.h"
 
@@ -27,7 +27,7 @@ using knights_and_merchants::media::AVIClass;
 
 char soundFileCounts[16][13];
 
-using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::Palette;
 using knights_and_merchants::engine::DrawableSurface;
 
 
@@ -209,7 +209,7 @@ bool createWindow(const HINSTANCE hInstance) {
 void sub_401064() {
     Rect rect { 0, 0, 800, 600 };
 
-    UnkClass5 palette { };
+    Palette palette { };
     for (int i = 0; i < 256; ++i)
         palette.setColor(i, 0, 0, 0);
 

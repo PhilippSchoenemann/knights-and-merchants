@@ -20,18 +20,18 @@ namespace knights_and_merchants::engine
         int16_t i6_ticksToNext;
     };
 
-    class UnkClass5
+    class Palette // UnkClass5
     {
     public:
-        UnkClass5() noexcept;
+        Palette() noexcept;
 
-        UnkClass5(const UnkClass5 & other) noexcept = default;
-        UnkClass5(UnkClass5 && other) noexcept = default;
+        Palette(const Palette & other) noexcept = default;
+        Palette(Palette && other) noexcept = default;
 
-        UnkClass5 & operator=(const UnkClass5 & other) noexcept = default;
-        UnkClass5 & operator=(UnkClass5 && other) noexcept = default;
+        Palette & operator=(const Palette & other) noexcept = default;
+        Palette & operator=(Palette && other) noexcept = default;
 
-        ~UnkClass5();
+        ~Palette();
 
         [[nodiscard]]
         const Color * getColorPtr(unsigned char i) const noexcept;

@@ -3,11 +3,11 @@
 
 namespace knights_and_merchants::engine
 {
-    class UnkClass5;
+    class Palette;
     class Bitmap;
 }
 
-using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::Palette;
 using knights_and_merchants::engine::Bitmap;
 using std::unique_ptr;
 
@@ -19,9 +19,9 @@ struct InterchangeFileFormat {
 	unsigned char * chunkCMAP;
 };
 
-bool readLBM(const char * const filePath, UnkClass5 * unk);
+bool readLBM(const char * const filePath, Palette * unk);
 
-void IFF_transferColorMapTo(const InterchangeFileFormat & p0, UnkClass5 * unk);
+void IFF_transferColorMapTo(const InterchangeFileFormat & p0, Palette * unk);
 
 void IFF_getBitmap(const InterchangeFileFormat & p0, Bitmap * p4);
 

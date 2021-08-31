@@ -1,7 +1,7 @@
 #ifndef KNIGHTS_AND_MERCHANTS_ENGINE_UNK_GRAPHICS_CLASS_H
 #define KNIGHTS_AND_MERCHANTS_ENGINE_UNK_GRAPHICS_CLASS_H
 
-#include "UnkClass5.h"
+#include "Palette.h"
 #include "utilities/Rect.h"
 
 using knights_and_merchants::utilities::Rect;
@@ -27,7 +27,7 @@ namespace knights_and_merchants::engine
 
         bool unk100() const noexcept;
         bool unk200() const noexcept;
-        bool setPalette(const UnkClass5 & p0) noexcept;
+        bool setPalette(const Palette & p0) noexcept;
         bool draw() const noexcept;
         bool draw(int width, int height) const noexcept;
 

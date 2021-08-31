@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <ddraw.h>
 
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 #include "engine/UnknownStruct.h"
 #include "utilities/Rect.h"
 
@@ -41,7 +41,7 @@ namespace knights_and_merchants::engine
 
         void setDisplayMode(int width, int height, int bitsPerPixel);
 
-        void setPalette(const UnkClass5 & p0);
+        void setPalette(const Palette & p0);
 
         void showError(HRESULT result);
 

@@ -5,7 +5,7 @@
 #include <mmsystem.h>
 #include <mmreg.h>
 #include <Vfw.h>
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 
 struct FSOUND_SAMPLE;
 
@@ -19,7 +19,7 @@ namespace knights_and_merchants
     namespace media
     {
         using knights_and_merchants::engine::GraphicsHandler;
-        using knights_and_merchants::engine::UnkClass5;
+        using knights_and_merchants::engine::Palette;
 
         class AVIClass
         {
@@ -48,7 +48,7 @@ namespace knights_and_merchants
             HIC i304;
             void * i308;
             void * i312;
-            UnkClass5 i316;
+            Palette i316;
             int i1150;
             int i1154;
             int i1158;

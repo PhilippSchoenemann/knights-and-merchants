@@ -6,10 +6,10 @@
 namespace knights_and_merchants::engine
 {
     class Bitmap;
-    class UnkClass5;
+    class Palette;
 }
 
-using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::Palette;
 
 namespace knights_and_merchants::text
 {
@@ -79,7 +79,7 @@ public:
 	int i892;
 	int i896;
 	int i900;
-	UnkClass5 *  i904;
+	Palette *  i904;
 	Font * i908;
 	Font * i912;
 	Font * i916;

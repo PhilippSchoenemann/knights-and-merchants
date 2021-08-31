@@ -1,14 +1,14 @@
 #include "InterchangeFileFormat.h"
 #include "io/FileIo.h"
 #include "engine/Bitmap.h"
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 
 using std::make_unique;
 using knights_and_merchants::io::FileIo;
 using knights_and_merchants::engine::Color;
-using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::Palette;
 
-bool readLBM(const char * const filePath, UnkClass5 * unk) {
+bool readLBM(const char * const filePath, Palette * unk) {
 	InterchangeFileFormat x { };
 
 	FileIo fileIO { filePath };
@@ -42,7 +42,7 @@ bool readLBM(const char * const filePath, UnkClass5 * unk) {
 	return true;
 }
 
-void IFF_transferColorMapTo(const InterchangeFileFormat & p0, UnkClass5 * unk)
+void IFF_transferColorMapTo(const InterchangeFileFormat & p0, Palette * unk)
 {
 	const Color * color = reinterpret_cast<const Color *>(p0.chunkCMAP + 8);
 

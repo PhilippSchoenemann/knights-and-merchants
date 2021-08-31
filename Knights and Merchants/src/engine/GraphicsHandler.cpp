@@ -185,7 +185,7 @@ namespace knights_and_merchants::engine
     }
 
 
-    void GraphicsHandler::setPalette(const UnkClass5 & p0)
+    void GraphicsHandler::setPalette(const Palette & p0)
     {
         if ((i0 & 4) == 0) {
             const Color * color = p0.getColorPtr(0);

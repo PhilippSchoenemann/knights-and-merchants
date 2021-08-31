@@ -260,7 +260,7 @@ namespace knights_and_merchants::media
 
         auto * color = (RGBQUAD *)((char *)i296 + i296->biSize);
 
-        UnkClass5 unk;
+        Palette unk;
         for (int i = 0; i < i296->biClrUsed; ++i) {
             unk.setColor(i, color->rgbRed, color->rgbGreen, color->rgbBlue);
             ++color;

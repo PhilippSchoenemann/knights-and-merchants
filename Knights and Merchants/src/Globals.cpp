@@ -76,7 +76,7 @@ int dword_53C57C;
  bool showIntro() {
      sub_4015C8();
 
-     knights_and_merchants::engine::UnkClass5 palette;
+     knights_and_merchants::engine::Palette palette;
      for (int i = 0; i < 256; ++i)
          palette.setColor(i, 0, 0, 0);
 
@@ -106,7 +106,7 @@ int dword_53C57C;
  void sub_4015C8() {
      const Rect rect{ 0, 0, 640, 480 };
 
-     knights_and_merchants::engine::UnkClass5 palette{ };
+     knights_and_merchants::engine::Palette palette{ };
      for (int i = 0; i < 256; ++i)
          palette.setColor(i, 0, 0, 0);
 

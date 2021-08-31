@@ -8,7 +8,7 @@
 #include "io/FileIo.h"
 #include <cstdio>
 #include "graphics/RX.h"
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 #include "io/InputHandler.h"
 #include "ui/controls/ImageBox.h"
 #include "ui/controls/TextBox.h"
@@ -30,7 +30,7 @@ using knights_and_merchants::ui::controls::UIElement;
 using knights_and_merchants::Settings;
 using knights_and_merchants::engine::GraphicsHandler;
 using knights_and_merchants::engine::DrawableSurface;
-using knights_and_merchants::engine::UnkClass5;
+using knights_and_merchants::engine::Palette;
 using knights_and_merchants::engine::Color;
 using knights_and_merchants::engine::Bitmap;
 using knights_and_merchants::text::Lib;
@@ -57,7 +57,7 @@ MasterClass::MasterClass(int p0)
 
 	GraphicsHandler::instance->draw(clearScreen);
 
-	i904 = new UnkClass5();
+	i904 = new Palette();
 	i948 = base_Lib_Setup;
 	i908 = new Font("data/gfx/fonts/maina.fnt");
 

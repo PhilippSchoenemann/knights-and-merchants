@@ -1,20 +1,20 @@
-#include "engine/UnkClass5.h"
+#include "engine/Palette.h"
 #include <cstdlib>
 
 namespace knights_and_merchants::engine
 {
-    UnkClass5::UnkClass5() noexcept
+    Palette::Palette() noexcept
         : i0_colors { }, i832_colorCycleCount { }
     {
         reset();
     }
 
-    UnkClass5::~UnkClass5()
+    Palette::~Palette()
     {
         reset();
     }
 
-    void UnkClass5::reset() noexcept
+    void Palette::reset() noexcept
     {
         for (auto & color : i0_colors) {
             color.r = 0;
@@ -25,7 +25,7 @@ namespace knights_and_merchants::engine
         i832_colorCycleCount = 0;
     }
 
-    int UnkClass5::getMostSimilarColor(const unsigned char r, const unsigned char g, const unsigned char b) const noexcept
+    int Palette::getMostSimilarColor(const unsigned char r, const unsigned char g, const unsigned char b) const noexcept
     {
         unsigned char min = 0;
         int minDistance = 0x7FFFFFFF;
@@ -49,7 +49,7 @@ namespace knights_and_merchants::engine
 
 
 
-    int UnkClass5::addColorCycle(const short start, const short length, const short ticksToUpdate) noexcept
+    int Palette::addColorCycle(const short start, const short length, const short ticksToUpdate) noexcept
     {
         if (i832_colorCycleCount >= 8 || start + length > 255)
             return -1;
@@ -63,7 +63,7 @@ namespace knights_and_merchants::engine
         return i832_colorCycleCount - 1;
     }
 
-    bool UnkClass5::update() noexcept
+    bool Palette::update() noexcept
     {
         auto result = false;
 
@@ -80,7 +80,7 @@ namespace knights_and_merchants::engine
         return result;
     }
 
-    void UnkClass5::shiftCycle(const int index) noexcept
+    void Palette::shiftCycle(const int index) noexcept
     {
         if (index < i832_colorCycleCount) {
             const auto & cycle = i768_colorCycles[index];
@@ -93,7 +93,7 @@ namespace knights_and_merchants::engine
         }
     }
 
-    bool UnkClass5::isColorCycled(const int i) const noexcept
+    bool Palette::isColorCycled(const int i) const noexcept
     {     
         for (int j = 0; j < i832_colorCycleCount; ++j)
             if (i >= i768_colorCycles[j].i0_start && i <= i768_colorCycles[j].i0_start + i768_colorCycles[j].i2_length)            
@@ -102,21 +102,21 @@ namespace knights_and_merchants::engine
         return false;
     }
 
-    void UnkClass5::setColor(const unsigned char i, const Color * color) noexcept
+    void Palette::setColor(const unsigned char i, const Color * color) noexcept
     {
         i0_colors[i].r = color->r;
         i0_colors[i].g = color->g;
         i0_colors[i].b = color->b;
     }
 
-    void UnkClass5::setColor(const unsigned char i, const unsigned char r, const unsigned char g, const unsigned char b) noexcept
+    void Palette::setColor(const unsigned char i, const unsigned char r, const unsigned char g, const unsigned char b) noexcept
     {
         i0_colors[i].r = r;
         i0_colors[i].g = g;
         i0_colors[i].b = b;
     }
 
-    const Color * UnkClass5::getColorPtr(const unsigned char i) const noexcept
+    const Color * Palette::getColorPtr(const unsigned char i) const noexcept
     {
         return &i0_colors[i];
     }

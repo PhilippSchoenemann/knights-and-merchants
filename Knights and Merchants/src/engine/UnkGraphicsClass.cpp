@@ -82,7 +82,7 @@ namespace knights_and_merchants::engine
         return RealizePalette(i12_windowDC) != GDI_ERROR;
     }
 
-    bool UnkGraphicsClass::setPalette(const UnkClass5 & p0) noexcept
+    bool UnkGraphicsClass::setPalette(const Palette & p0) noexcept
     {
         unk();
 
