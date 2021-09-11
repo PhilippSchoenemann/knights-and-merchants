@@ -3,9 +3,12 @@
 #include "io/FileIo.h"
 #include "engine/Bitmap.h"
 
+using std::string;
+
 namespace knights_and_merchants::graphics
 {
-    RX::RX(const char * const filePath)
+    RX::RX(const string & filePath)
+            : i0_bitmaps { }, i4_bitmapCount { }
     {
         FileIo fileIo { filePath };
         read(fileIo);
@@ -13,36 +16,31 @@ namespace knights_and_merchants::graphics
 
     RX::~RX()
     {
-        for (auto i = 0; i < i4; ++i)
-            if (i0[i] != nullptr)
-                delete i0[i];
+        for (auto i = 0; i < i4_bitmapCount; ++i)
+            delete i0_bitmaps[i];
 
-        delete i0;
-        reset();
+        delete i0_bitmaps;
     }
 
-    Bitmap * RX::getBitmap(int i)
+    const Bitmap * RX::getBitmap(const int i) const
     {
-        return (i < i4) ? i0[i] : nullptr;
+        return i < i4_bitmapCount ? i0_bitmaps[i] : nullptr;
     }
 
     bool RX::read(FileIo & fileIO)
     {
-        int var;
+        int bitmapCount;
+        fileIO.read(&bitmapCount, 4);
 
-        fileIO.read(&var, 4);
-        //if (!fileIO.read(&var, 4)) TODO: Changed bool to exception
-        //    return false;
+        unk123(bitmapCount);
 
-        unk123(var);
+        auto * const available = new unsigned char[i4_bitmapCount];
+        fileIO.read(available, i4_bitmapCount);
 
-        auto * const available = new unsigned char[i4];
-        fileIO.read(available, i4);
-
-        for (int i = 0; i < i4; ++i) {
+        for (int i = 0; i < i4_bitmapCount; ++i) {
             if (available[i] == 1) {
-                i0[i] = new Bitmap();
-                i0[i]->read(fileIO);
+                i0_bitmaps[i] = new Bitmap();
+                i0_bitmaps[i]->read(fileIO);
             }
         }
 
@@ -50,21 +48,10 @@ namespace knights_and_merchants::graphics
         return true;
     }
 
-    void RX::unk123(int p0)
+    void RX::unk123(const int bitmapCount)
     {
-        i4 = p0;
-        reset();
-        i0 = new Bitmap *[p0];
-
-        if (i0 != nullptr) {
-            for (int i = 0; i < i4; ++i) {
-                i0[i] = nullptr;
-            }
-        }
+        i0_bitmaps = new Bitmap * [bitmapCount] { };
+        i4_bitmapCount = bitmapCount;
     }
 
-    void RX::reset()
-    {
-        i0 = nullptr;
-    }
 }

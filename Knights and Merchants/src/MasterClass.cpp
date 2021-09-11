@@ -138,7 +138,7 @@ MasterClass::MasterClass(int p0)
 	uc201.i18 = i904->getMostSimilarColor(180, 140, 10);
 	uc201.i20 = i904->getMostSimilarColor(250, 250, 250);
 	uc201.i22 = i904->getMostSimilarColor(180, 180, 180);
-	uc201.i24 = i952->i0[2];
+	uc201.i24 = i952->i0_bitmaps[2];
 	
 	setEntryI4(0, uc201);
 
@@ -290,14 +290,14 @@ void MasterClass::someLoop(int p0)
 	i883 = p0;
 	i887 = p0;
 
-	Bitmap * var4F0 = i952->getBitmap(0);
+	const Bitmap * var4F0 = i952->getBitmap(0);
 	const char * var4F8 = "data/gfx/setup.lbm";
 	const char * var4E4 = "data/gfx/remap.dat";
 	int var500 = 1;
 	int var4FC = 1;
 
 	Font * var4F4 = i908;
-	Bitmap * var4EC = i952->i0[2];
+	Bitmap * var4EC = i952->i0_bitmaps[2];
 	int var4DC = 1;
 	
 	switch (i883) {
@@ -333,7 +333,7 @@ void MasterClass::someLoop(int p0)
 			var4F8 = "data/gfx/map.bbm";
 			var4F0 = i952->getBitmap(12);
 			var4F4 = i920;
-			var4EC = i952->i0[13];
+			var4EC = i952->i0_bitmaps[13];
 		} else {
 			var4F8 = "data/gfx/mapgold.lbm";
 			var4F0 = i952->getBitmap(21);
@@ -407,17 +407,17 @@ void MasterClass::someLoop(int p0)
 
 	if (var500 != 0) {
 		if (var4DC != 0) {
-			rectangle.setBounds(10, 160 - var4E0, i952->i0[4]->i0_width, i952->i0[4]->i2_height);
+			rectangle.setBounds(10, 160 - var4E0, i952->i0_bitmaps[4]->i0_width, i952->i0_bitmaps[4]->i2_height);
 
-			addControl( new ImageBox(rectangle, i952->i0[4]) );
+			addControl( new ImageBox(rectangle, i952->i0_bitmaps[4]) );
 
-			rectangle.setBounds(570, 160 - var4E0, i952->i0[5]->i0_width, i952->i0[5]->i2_height);
+			rectangle.setBounds(570, 160 - var4E0, i952->i0_bitmaps[5]->i0_width, i952->i0_bitmaps[5]->i2_height);
 
 		} else {
-			rectangle.setBounds(540, 160 - var4E0, i952->i0[5]->i0_width, i952->i0[5]->i2_height);
+			rectangle.setBounds(540, 160 - var4E0, i952->i0_bitmaps[5]->i0_width, i952->i0_bitmaps[5]->i2_height);
 		}
 
-		addControl( new ImageBox(rectangle, i952->i0[5]) );
+		addControl( new ImageBox(rectangle, i952->i0_bitmaps[5]) );
 	}
 
 	if (i883 >= 23) {
@@ -460,8 +460,8 @@ void MasterClass::createMainMenu()
 	rectangle.move(0, abs(rectangle.bottom - rectangle.top) + 40);
 	addControl(new Button(rectangle, 12, 14, 0, 16));
 
-	rectangle.setBounds(38, 48, i952->i0[3]->i0_width, i952->i0[3]->i2_height);
-	addControl(new ImageBox(rectangle, i952->i0[3]));
+	rectangle.setBounds(38, 48, i952->i0_bitmaps[3]->i0_width, i952->i0_bitmaps[3]->i2_height);
+	addControl(new ImageBox(rectangle, i952->i0_bitmaps[3]));
 
 	rectangle.setBounds(0, 574, 800, 22);
 	addControl(new TextBox(rectangle, "Copyright by JOYMANIA-Entertainment 1997-2001", 2, 0, 2));
@@ -550,13 +550,13 @@ void MasterClass::createTSKMenu()
 		
 		for (int i = 0; i < 20; ++i) {
 			rect.setBounds(800 * points[i].x / 1024, 600 * points[i].y / 768, 30, 30);
-			addControl(new UnkClass674(rect, i952->i0[i892 <= i ? 9 : 10], 0, 0x80));
+			addControl(new UnkClass674(rect, i952->i0_bitmaps[i892 <= i ? 9 : 10], 0, 0x80));
 		}
 
 		// TODO: reverse loop for connection points
 
 		rect.setBounds(0, 0, 360, 400);
-		addControl(new UnkClass674(rect, i952->i0[14], 0, 0x80));
+		addControl(new UnkClass674(rect, i952->i0_bitmaps[14], 0, 0x80));
 
 		rect.setBounds(20, 63, 320, 300);
 		addControl(new TextBox(rect, i948->getStringByIndex(249 + i892).c_str(), 4, 0, 1));
@@ -600,7 +600,7 @@ void MasterClass::createPlaySingleMapMenu()
 
 void MasterClass::updatePlaySingleMapMenu()
 {
-	i1420->setImage(i952->i0[30 + i1440]);
+	i1420->setImage(i952->i0_bitmaps[30 + i1440]);
 
 	i1436->setEnabled(i1440 > 0);
 	i1432->setEnabled(i1440 < 6);
@@ -631,21 +631,21 @@ void MasterClass::vtable12(DrawableSurface & p0, Rect & p4)
 	switch (i883) {
 	case 9:
 	case 10:
-		i952->i0[6]->draw(ds, -p4.left, -p4.top);
+		i952->i0_bitmaps[6]->draw(ds, -p4.left, -p4.top);
 		break;
 	case 11:
 		if (i892 < 100) {
-			i952->i0[11]->draw(ds, -p4.left, -p4.top);
-			i952->i0[14]->draw(ds, i1274 - p4.left, i1278 - p4.top);
+			i952->i0_bitmaps[11]->draw(ds, -p4.left, -p4.top);
+			i952->i0_bitmaps[14]->draw(ds, i1274 - p4.left, i1278 - p4.top);
 		} else {
-			i952->i0[19]->draw(ds, -p4.left, -p4.top);
+			i952->i0_bitmaps[19]->draw(ds, -p4.left, -p4.top);
 		}
 		break;
 	case 13:
 	case 14:
 		break;
 	default:
-		i952->i0[1]->draw(ds, -p4.left, -p4.top);
+		i952->i0_bitmaps[1]->draw(ds, -p4.left, -p4.top);
 	}
 }
 
@@ -857,21 +857,21 @@ void MasterClass::draw(DrawableSurface & surface)
 		switch (i883) {
 		case 9:
 		case 10:
-			i952->i0[6]->draw(surface, 0, 0);
+			i952->i0_bitmaps[6]->draw(surface, 0, 0);
 			break;
 		case 11:
 			if (i892 < 0x64) {
-				i952->i0[11]->draw(surface, 0, 0);
-				i952->i0[14]->draw(surface, i1274, i1278);
+				i952->i0_bitmaps[11]->draw(surface, 0, 0);
+				i952->i0_bitmaps[14]->draw(surface, i1274, i1278);
 			} else {
-				i952->i0[19]->draw(surface, 0, 0);
+				i952->i0_bitmaps[19]->draw(surface, 0, 0);
 			}
 			break;
 		case 13:
 		case 14:
 			break;
 		default:
-			i952->i0[1]->draw(surface, 0, 0);
+			i952->i0_bitmaps[1]->draw(surface, 0, 0);
 		}
 
 		i900 = 0;

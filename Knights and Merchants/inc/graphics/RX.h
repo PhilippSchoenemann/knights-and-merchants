@@ -1,6 +1,8 @@
 #ifndef KNIGHTS_AND_MERCHANTS_GRAPHICS_RX_H
 #define KNIGHTS_AND_MERCHANTS_GRAPHICS_RX_H
 
+#include <string>
+
 namespace knights_and_merchants
 {
     namespace engine
@@ -21,18 +23,21 @@ namespace knights_and_merchants
         class RX
         {
         public:
-            RX(const char * filePath);
+            RX(const std::string & filePath);
+
             ~RX();
 
-            Bitmap * getBitmap(int i);
+            [[nodiscard]]
+            const Bitmap * getBitmap(int i) const;
 
             bool read(FileIo & fileIo);
-            void unk123(int p0);
-            void reset();
 
+        private:
+            void unk123(int bitmapCount);
 
-            Bitmap ** i0;
-            int i4;
+        public:
+            Bitmap ** i0_bitmaps;
+            int i4_bitmapCount;
         };
     }
 }
