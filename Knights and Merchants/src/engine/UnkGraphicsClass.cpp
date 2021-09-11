@@ -82,7 +82,7 @@ namespace knights_and_merchants::engine
         return RealizePalette(i12_windowDC) != GDI_ERROR;
     }
 
-    bool UnkGraphicsClass::setPalette(const Palette & p0) noexcept
+    bool UnkGraphicsClass::setPalette(const graphics::Palette & p0) noexcept
     {
         unk();
 
@@ -93,7 +93,7 @@ namespace knights_and_merchants::engine
         plpal.palNumEntries = 0x100;
 
         for (int i = 1; i <= 254; ++i) {
-            const auto * color = p0.getColorPtr(i);
+            const auto * color = p0.getColor(i);
 
             plpal.palPalEntry[i].peRed = color->r;
             i68[i].rgbRed = color->r;

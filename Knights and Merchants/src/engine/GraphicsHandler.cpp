@@ -185,10 +185,10 @@ namespace knights_and_merchants::engine
     }
 
 
-    void GraphicsHandler::setPalette(const Palette & p0)
+    void GraphicsHandler::setPalette(const knights_and_merchants::graphics::Palette & p0)
     {
         if ((i0 & 4) == 0) {
-            const Color * color = p0.getColorPtr(0);
+            const graphics::Color * color = p0.getColor(0);
 
             PALETTEENTRY entries[256];
             for (auto & entry : entries) {

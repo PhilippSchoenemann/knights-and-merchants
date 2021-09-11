@@ -1,28 +1,12 @@
-#include "engine/Palette.h"
+#include "graphics/Palette.h"
 #include <cstdlib>
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     Palette::Palette() noexcept
-        : i0_colors { }, i832_colorCycleCount { }
+            : i0_colors { }, i768_colorCycles { }, i832_colorCycleCount { }
     {
-        reset();
-    }
 
-    Palette::~Palette()
-    {
-        reset();
-    }
-
-    void Palette::reset() noexcept
-    {
-        for (auto & color : i0_colors) {
-            color.r = 0;
-            color.g = 0;
-            color.b = 0;
-        }
-
-        i832_colorCycleCount = 0;
     }
 
     int Palette::getMostSimilarColor(const unsigned char r, const unsigned char g, const unsigned char b) const noexcept
@@ -36,18 +20,17 @@ namespace knights_and_merchants::engine
                 const int dr = abs(r - color->r);
                 const int dg = abs(g - color->g);
                 const int db = abs(b - color->b);
-           
+
                 if (const int distance = dr * dr + dg * dg + db * db; distance < minDistance) {
                     minDistance = distance;
                     min = static_cast<unsigned char>(i);
                 }
+
             }
         }
 
         return min;
     }
-
-
 
     int Palette::addColorCycle(const short start, const short length, const short ticksToUpdate) noexcept
     {
@@ -94,11 +77,11 @@ namespace knights_and_merchants::engine
     }
 
     bool Palette::isColorCycled(const int i) const noexcept
-    {     
+    {
         for (int j = 0; j < i832_colorCycleCount; ++j)
-            if (i >= i768_colorCycles[j].i0_start && i <= i768_colorCycles[j].i0_start + i768_colorCycles[j].i2_length)            
-                return true;             
-            
+            if (i >= i768_colorCycles[j].i0_start && i <= i768_colorCycles[j].i0_start + i768_colorCycles[j].i2_length)
+                return true;
+
         return false;
     }
 
@@ -109,14 +92,15 @@ namespace knights_and_merchants::engine
         i0_colors[i].b = color->b;
     }
 
-    void Palette::setColor(const unsigned char i, const unsigned char r, const unsigned char g, const unsigned char b) noexcept
+    void Palette::setColor(const unsigned char i, const unsigned char r, const unsigned char g,
+                           const unsigned char b) noexcept
     {
         i0_colors[i].r = r;
         i0_colors[i].g = g;
         i0_colors[i].b = b;
     }
 
-    const Color * Palette::getColorPtr(const unsigned char i) const noexcept
+    const Color * Palette::getColor(const unsigned char i) const noexcept
     {
         return &i0_colors[i];
     }
