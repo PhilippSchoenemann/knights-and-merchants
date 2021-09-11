@@ -8,7 +8,7 @@
 #include "text/Lib.h"
 #include "utilities/Rect.h"
 #include "fmod.h"
-#include "engine/Palette.h"
+#include "graphics/Palette.h"
 #include "engine/DrawableSurface.h"
 #include "media/AVIClass.h"
 
@@ -27,7 +27,7 @@ using knights_and_merchants::media::AVIClass;
 
 char soundFileCounts[16][13];
 
-using knights_and_merchants::engine::Palette;
+using knights_and_merchants::graphics::Palette;
 using knights_and_merchants::engine::DrawableSurface;
 
 
@@ -209,7 +209,7 @@ bool createWindow(const HINSTANCE hInstance) {
 void sub_401064() {
     Rect rect { 0, 0, 800, 600 };
 
-    Palette palette { };
+    knights_and_merchants::graphics::Palette palette { };
     for (int i = 0; i < 256; ++i)
         palette.setColor(i, 0, 0, 0);
 
@@ -220,6 +220,24 @@ void sub_401064() {
     GraphicsHandler::instance->draw(clearScreen);
 
     SetCursor(nullptr);
+}
+
+void cleanupBase() {
+    GraphicsHandler::instance->draw(clearScreen);
+    Settings::instance.stopMusic();
+
+    delete GraphicsHandler::instance;
+    GraphicsHandler::instance = nullptr;
+
+    delete InputHandler::instance;
+    InputHandler::instance = nullptr;
+
+    // TODO: Make sound work
+    // delete instance_SoundsData;
+    // instance_SoundsData = nullptr;
+
+    delete base_Lib_Setup;
+    base_Lib_Setup = nullptr;
 }
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -234,7 +252,7 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     if (!initializeBase())
         return -1;
 
-    //showIntro();
+    // TODO: showIntro();
 
     MasterClass * mc;
     do {
@@ -246,15 +264,32 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
         do {
             if (PeekMessage(&message, nullptr, 0, 0, PM_NOREMOVE)) {
                 if (!GetMessage(&message, nullptr, 0, 0))
-                    break;
+                    return message.wParam;
 
                 TranslateMessage(&message);
                 DispatchMessage(&message);
             } else {
                 Settings::instance.update();
-                mc->update();
+                if (mc->update() == 0)
+                    break;
             }
         } while(true);
+
+        nShowCmd = mc->i891;
+        auto edi = mc->i892;
+
+        delete mc;
+        mc = nullptr;
+
+        if (nShowCmd == 3) {
+            cleanupBase();
+            return 0;
+        }
+
+        if (nShowCmd != 0) {
+            Settings::instance.fadeOutMusic();    
+        }
+
         break;
     } while (true);
 

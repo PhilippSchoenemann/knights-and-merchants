@@ -3,12 +3,17 @@
 
 namespace knights_and_merchants::engine
 {
-    class Palette;
     class Bitmap;
 }
 
-using knights_and_merchants::engine::Palette;
+namespace knights_and_merchants::graphics
+{
+    class Palette;
+}
+
+using knights_and_merchants::graphics::Palette;
 using knights_and_merchants::engine::Bitmap;
+
 using std::unique_ptr;
 
 struct InterchangeFileFormat {

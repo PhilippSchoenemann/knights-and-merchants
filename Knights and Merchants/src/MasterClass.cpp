@@ -8,7 +8,7 @@
 #include "io/FileIo.h"
 #include <cstdio>
 #include "graphics/RX.h"
-#include "engine/Palette.h"
+#include "graphics/Palette.h"
 #include "io/InputHandler.h"
 #include "ui/controls/ImageBox.h"
 #include "ui/controls/TextBox.h"
@@ -30,8 +30,8 @@ using knights_and_merchants::ui::controls::UIElement;
 using knights_and_merchants::Settings;
 using knights_and_merchants::engine::GraphicsHandler;
 using knights_and_merchants::engine::DrawableSurface;
-using knights_and_merchants::engine::Palette;
-using knights_and_merchants::engine::Color;
+//using knights_and_merchants::graphics::Palette;
+using knights_and_merchants::graphics::Color;
 using knights_and_merchants::engine::Bitmap;
 using knights_and_merchants::text::Lib;
 using knights_and_merchants::graphics::Font;
@@ -209,17 +209,10 @@ MasterClass::~MasterClass()
 
 	globals_gameState = 2;
 
-	if (i904 != nullptr)
-		delete i904;
-
-	if (i952 != nullptr)
-		delete i952;
-
-	if (i908 != nullptr)
-		delete i908;
-
-	if (i912 != nullptr)
-		delete i912;
+    delete i904;
+    delete i952;
+    delete i908;
+    delete i912;
 
 	if (i1382 != nullptr)
 		free(i1382);
@@ -227,25 +220,16 @@ MasterClass::~MasterClass()
 	if (i1390 != nullptr)
 		free(i1390);
 
-	if (i1386 != nullptr)
-		delete i1386;
+    delete i1386;
 
-	for (int i = 0; i < 5; ++i)
-		if (i928[i] != nullptr)
-			delete i928[i];
+	for (auto font : i928)
+        delete font;
 
-	if (i924 != nullptr)
-		delete i924;
-
-	if (i916 != nullptr)
-		delete i916;
-
-	if (i920 != nullptr)
-		delete i920;
-
-	//if (i961 != nullptr)
-	//	delete i961;
-
+    delete i924;
+    delete i916;
+    delete i920;
+	delete i961;
+ 
 	// TODO: reverse this later ...................
 	//if (i891 != 2)
 	//	sub_4015BE();
@@ -270,7 +254,7 @@ void MasterClass::reset() noexcept
 	i916 = nullptr;
 	i912 = nullptr;
 	i920 = nullptr;
-	i961 = 0;
+	i961 = nullptr;
 	i956 = 0;
 	i957 = 0;
 	i1089 = 0;
@@ -792,11 +776,6 @@ void MasterClass::unkWndProc(bool p0)
 
 
 
-
-
-
-
-
 void MasterClass::unk10()
 {
 	i848->destroyContainers();
@@ -827,19 +806,34 @@ void MasterClass::unk20()
 
 
 
-void sub_40261C(DrawableSurface & p0) {
+void MasterClass::drawFunction(DrawableSurface & p0) {
 
 	instance_MasterClass->draw(p0);
 
 	if (instance_MasterClass->i1266 != 0) {
-		// TODO: take screenshot code
+		int i = 0;
+
+        // TODO: Code screenshot
+        do {
+            char fileName[64];
+
+            wsprintfA(fileName, "shot%.3d.pcx", i);
+
+            FileIo fileIo { fileName };
+            
+
+            if (const auto fileSize = fileIo.getFileSize(); fileSize > 0)
+                i++;
+            else
+                break;
+        } while (true);
 	}
 }
 
 
 int MasterClass::update()
 {
-	GraphicsHandler::instance->draw(sub_40261C);
+	GraphicsHandler::instance->draw(MasterClass::drawFunction);
 
 	handleEvents(InputHandler::instance->getMouseHandler(), InputHandler::instance->getKeyboardHandler());
 	react();
@@ -855,38 +849,38 @@ int MasterClass::update()
 	return i896;
 }
 
-void MasterClass::draw(DrawableSurface & p0)
+void MasterClass::draw(DrawableSurface & surface)
 {
-	InputHandler::instance->getMouseHandler()->overdrawPreviousCursor(p0);
+	InputHandler::instance->getMouseHandler()->overdrawPreviousCursor(surface);
 
 	if (i900 != 0) {
 		switch (i883) {
 		case 9:
 		case 10:
-			i952->i0[6]->draw(p0, 0, 0);
+			i952->i0[6]->draw(surface, 0, 0);
 			break;
 		case 11:
 			if (i892 < 0x64) {
-				i952->i0[11]->draw(p0, 0, 0);
-				i952->i0[14]->draw(p0, i1274, i1278);
+				i952->i0[11]->draw(surface, 0, 0);
+				i952->i0[14]->draw(surface, i1274, i1278);
 			} else {
-				i952->i0[19]->draw(p0, 0, 0);
+				i952->i0[19]->draw(surface, 0, 0);
 			}
 			break;
 		case 13:
 		case 14:
 			break;
 		default:
-			i952->i0[1]->draw(p0, 0, 0);
+			i952->i0[1]->draw(surface, 0, 0);
 		}
 
 		i900 = 0;
 	}
 
-	vtable0(p0);
+	vtable0(surface);
 
-	InputHandler::instance->getMouseHandler()->unkCursor(p0);
-	InputHandler::instance->getMouseHandler()->drawCursor(p0);
+	InputHandler::instance->getMouseHandler()->unkCursor(surface);
+	InputHandler::instance->getMouseHandler()->drawCursor(surface);
 }
 
 void MasterClass::readRemap(const char * fileName)

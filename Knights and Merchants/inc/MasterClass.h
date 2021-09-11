@@ -6,10 +6,8 @@
 namespace knights_and_merchants::engine
 {
     class Bitmap;
-    class Palette;
 }
 
-using knights_and_merchants::engine::Palette;
 
 namespace knights_and_merchants::text
 {
@@ -23,9 +21,11 @@ namespace knights_and_merchants::graphics
 {
     class Font;
     class RX;
+    class Palette;
 }
 
 using knights_and_merchants::graphics::RX;
+using knights_and_merchants::graphics::Palette;
 
 namespace knights_and_merchants::ui::controls
 {
@@ -59,7 +59,7 @@ public:
 	void unk20();
 
 	int update();
-	void draw(knights_and_merchants::engine::DrawableSurface & p0);
+	void draw(knights_and_merchants::engine::DrawableSurface & surface);
 
 	void readRemap(const char * fileName);
 
@@ -72,6 +72,10 @@ public:
 
 	void unkWndProc(bool p0);
 
+private:
+    void static drawFunction(knights_and_merchants::engine::DrawableSurface & p0);
+
+public:
 	char i882;
 	int i883;
 	int i887;
@@ -90,7 +94,7 @@ public:
 	RX * i952;
 	char i956;
 	int i957;
-	int i961;
+	void * i961;
 	char i965[120];
 
 	int i1089;
@@ -136,6 +140,7 @@ public:
     knights_and_merchants::ui::controls::Button * i1432;
     knights_and_merchants::ui::controls::Button * i1436;
 	int i1440;
+
 
 };
 

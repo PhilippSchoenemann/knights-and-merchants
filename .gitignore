@@ -5,6 +5,7 @@
 
 # CMake
 out/
+cmake-build*
 
 # User-specific files
 *.rsuser

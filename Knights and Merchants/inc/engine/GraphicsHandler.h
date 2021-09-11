@@ -1,10 +1,10 @@
-#ifndef KNIGHTS_AND_MERCHANTS_ENGINE_GRAPHICSHANDLER_H
-#define KNIGHTS_AND_MERCHANTS_ENGINE_GRAPHICSHANDLER_H
+#ifndef KNIGHTS_AND_MERCHANTS_ENGINE_GRAPHICS_HANDLER_H
+#define KNIGHTS_AND_MERCHANTS_ENGINE_GRAPHICS_HANDLER_H
 
 #include <cstdint>
 #include <ddraw.h>
 
-#include "engine/Palette.h"
+#include "graphics/Palette.h"
 #include "engine/UnknownStruct.h"
 #include "utilities/Rect.h"
 
@@ -26,9 +26,11 @@ namespace knights_and_merchants::engine
         GraphicsHandler(const Rect & screenRect, HWND hWnd, uint16_t someInt);
 
         GraphicsHandler(const GraphicsHandler &) = delete;
+
         GraphicsHandler(GraphicsHandler &&) = delete;
 
         GraphicsHandler & operator=(const GraphicsHandler &) = delete;
+
         GraphicsHandler & operator=(GraphicsHandler &&) = delete;
 
         ~GraphicsHandler();
@@ -41,7 +43,7 @@ namespace knights_and_merchants::engine
 
         void setDisplayMode(int width, int height, int bitsPerPixel);
 
-        void setPalette(const Palette & p0);
+        void setPalette(const knights_and_merchants::graphics::Palette & p0);
 
         void showError(HRESULT result);
 

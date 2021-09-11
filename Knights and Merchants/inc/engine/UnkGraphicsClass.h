@@ -1,7 +1,7 @@
 #ifndef KNIGHTS_AND_MERCHANTS_ENGINE_UNK_GRAPHICS_CLASS_H
 #define KNIGHTS_AND_MERCHANTS_ENGINE_UNK_GRAPHICS_CLASS_H
 
-#include "Palette.h"
+#include "graphics/Palette.h"
 #include "utilities/Rect.h"
 
 using knights_and_merchants::utilities::Rect;
@@ -14,9 +14,11 @@ namespace knights_and_merchants::engine
         UnkGraphicsClass(HWND hWnd, const Rect & canvasRect) noexcept;
 
         UnkGraphicsClass(const UnkGraphicsClass &) = delete;
+
         UnkGraphicsClass(UnkGraphicsClass &&) = delete;
 
         UnkGraphicsClass & operator=(const UnkGraphicsClass &) = delete;
+
         UnkGraphicsClass & operator=(UnkGraphicsClass &&) = delete;
 
         ~UnkGraphicsClass() noexcept;
@@ -26,9 +28,13 @@ namespace knights_and_merchants::engine
         void unk() const noexcept;
 
         bool unk100() const noexcept;
+
         bool unk200() const noexcept;
-        bool setPalette(const Palette & p0) noexcept;
+
+        bool setPalette(const knights_and_merchants::graphics::Palette & p0) noexcept;
+
         bool draw() const noexcept;
+
         bool draw(int width, int height) const noexcept;
 
         void * i64;
