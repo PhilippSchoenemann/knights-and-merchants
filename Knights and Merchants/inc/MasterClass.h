@@ -2,13 +2,6 @@
 
 #include "ui/UnkClass200.h"
 
-
-namespace knights_and_merchants::engine
-{
-    class Bitmap;
-}
-
-
 namespace knights_and_merchants::text
 {
     class Lib;
@@ -19,9 +12,11 @@ using knights_and_merchants::text::Lib;
 
 namespace knights_and_merchants::graphics
 {
+    class Bitmap;
     class Font;
     class RX;
     class Palette;
+    class DrawableSurface;
 }
 
 using knights_and_merchants::graphics::RX;
@@ -44,7 +39,7 @@ public:
 	virtual ~MasterClass();
 
 	virtual bool vtable4(short p0, int p4, int p8) override;
-	virtual void vtable12(knights_and_merchants::engine::DrawableSurface & p0, Rect & p4) override;
+	virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, Rect & p4) override;
 
 	void reset() noexcept;
 	void someLoop(int p0);
@@ -59,7 +54,7 @@ public:
 	void unk20();
 
 	int update();
-	void draw(knights_and_merchants::engine::DrawableSurface & surface);
+	void draw(knights_and_merchants::graphics::DrawableSurface & surface);
 
 	void readRemap(const char * fileName);
 
@@ -73,7 +68,7 @@ public:
 	void unkWndProc(bool p0);
 
 private:
-    void static drawFunction(knights_and_merchants::engine::DrawableSurface & p0);
+    void static drawFunction(knights_and_merchants::graphics::DrawableSurface & p0);
 
 public:
 	char i882;

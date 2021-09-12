@@ -7,7 +7,7 @@
 class UnkClass201;
 class UnkClass203;
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     class DrawableSurface;
 }
@@ -17,7 +17,7 @@ namespace knights_and_merchants::ui::controls
     class UIElement
     {
     protected:
-        typedef engine::DrawableSurface DrawableSurface;
+        typedef graphics::DrawableSurface DrawableSurface;
         typedef utilities::Rect Rect;
 
     public:

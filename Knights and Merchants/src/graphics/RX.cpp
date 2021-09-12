@@ -1,7 +1,7 @@
 #include "graphics/RX.h"
 
 #include "io/FileIo.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 
 using std::string;
 

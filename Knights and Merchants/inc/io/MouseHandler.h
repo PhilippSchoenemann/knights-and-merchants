@@ -8,16 +8,16 @@ using knights_and_merchants::utilities::Rect;
 
 namespace knights_and_merchants
 {
-    namespace engine
+    namespace graphics
     {
-        class DrawableSurface;
         class Bitmap;
+        class DrawableSurface;
     }
 
     namespace io
     {
-        using engine::Bitmap;
-        using engine::DrawableSurface;
+        using graphics::Bitmap;
+        using graphics::DrawableSurface;
 
         class MouseHandler
         {

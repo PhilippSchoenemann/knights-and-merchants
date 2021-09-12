@@ -21,7 +21,7 @@ namespace knights_and_merchants {
 }
 
 namespace knights_and_merchants {
-    namespace engine {
+    namespace graphics {
         class DrawableSurface;
     }
 }
@@ -33,10 +33,10 @@ public:
 	explicit UnkClass200(const Rect rect);
 	virtual ~UnkClass200();
 
-	virtual void vtable0(knights_and_merchants::engine::DrawableSurface & surface);
+	virtual void vtable0(knights_and_merchants::graphics::DrawableSurface & surface);
 	virtual bool vtable4(short p0, int p4, int p8);
 	virtual void vtable8();
-	virtual void vtable12(knights_and_merchants::engine::DrawableSurface & surface, Rect & p4);
+	virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & surface, Rect & p4);
 
 	void reset();
 	void destroy();

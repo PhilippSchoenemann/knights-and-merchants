@@ -1,6 +1,6 @@
 #include "InterchangeFileFormat.h"
 #include "io/FileIo.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 #include "graphics/Palette.h"
 
 using std::make_unique;
@@ -50,7 +50,7 @@ void IFF_transferColorMapTo(const InterchangeFileFormat & p0, knights_and_mercha
 		unk->setColor(i, color->r, color->g, color->b);
 }
 
-void IFF_getBitmap(const InterchangeFileFormat & p0, Bitmap * p4) {
+void IFF_getBitmap(const InterchangeFileFormat & p0, knights_and_merchants::graphics::Bitmap * p4) {
 	if (p4 == nullptr || p4->i12_data == nullptr)
 		return;
 
@@ -128,7 +128,7 @@ unsigned char * IFF_searchChunk(const InterchangeFileFormat & p0, const char * p
 
 
 
-unique_ptr<Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted)
+unique_ptr<knights_and_merchants::graphics::Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted)
 {
 	InterchangeFileFormat ff{ };
 
@@ -136,11 +136,11 @@ unique_ptr<Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted)
 
 	ff.fileSize = fileIO.getFileSize();
 	if (ff.fileSize <= 0 || ff.fileSize == INVALID_FILE_SIZE)
-		return unique_ptr<Bitmap> { };
+		return unique_ptr<knights_and_merchants::graphics::Bitmap> { };
 
 	ff.fileData = (unsigned char *)malloc(ff.fileSize);
 	if (ff.fileData == nullptr)
-		return unique_ptr<Bitmap> { };
+		return unique_ptr<knights_and_merchants::graphics::Bitmap> { };
 
 
     fileIO.read(ff.fileData, ff.fileSize);
@@ -158,13 +158,13 @@ unique_ptr<Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted)
 		|| (ff.chunkCMAP = IFF_searchChunk(ff, "CMAP")) == nullptr)
 	{
 		free(ff.fileData);
-		return unique_ptr<Bitmap> { };
+		return unique_ptr<knights_and_merchants::graphics::Bitmap> { };
 	}
 
 	int width = (ff.chunkBMHD[8] << 8) | ff.chunkBMHD[9];
 	int height = (ff.chunkBMHD[10] << 8) | ff.chunkBMHD[11];
 
-	auto bitmap = make_unique<Bitmap>(width, height, nullptr);
+	auto bitmap = make_unique<knights_and_merchants::graphics::Bitmap>(width, height, nullptr);
 
 	IFF_getBitmap(ff, bitmap.get());
 

@@ -4,19 +4,23 @@
 #include <cstdint>
 #include <ddraw.h>
 
-#include "graphics/Palette.h"
 #include "engine/UnknownStruct.h"
 #include "utilities/Rect.h"
 
 using knights_and_merchants::utilities::Rect;
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     class DrawableSurface;
 
+    class Palette;
+}
+
+namespace knights_and_merchants::engine
+{
     class UnkGraphicsClass;
 
-    using DrawProcedure = void (*)(DrawableSurface &);
+    using DrawProcedure = void (*)(graphics::DrawableSurface &);
 
     class GraphicsHandler
     {
@@ -43,7 +47,7 @@ namespace knights_and_merchants::engine
 
         void setDisplayMode(int width, int height, int bitsPerPixel);
 
-        void setPalette(const knights_and_merchants::graphics::Palette & p0);
+        void setPalette(const graphics::Palette & p0);
 
         void showError(HRESULT result);
 

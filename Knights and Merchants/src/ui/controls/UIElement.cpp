@@ -1,8 +1,8 @@
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "ui/controls/UIElement.h"
 #include "ui/UnkClass203.h"
 
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {

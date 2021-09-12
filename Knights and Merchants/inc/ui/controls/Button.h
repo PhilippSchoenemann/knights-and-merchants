@@ -13,7 +13,7 @@ namespace knights_and_merchants::ui::controls
 
         virtual ~Button() override;
 
-        virtual void vtable4(engine::DrawableSurface & p0) override;
+        virtual void vtable4(graphics::DrawableSurface & p0) override;
 
         void setText(const char * p0);
 

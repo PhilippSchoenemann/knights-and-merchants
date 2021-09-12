@@ -6,7 +6,7 @@ namespace knights_and_merchants {
         class Lib;
     }
 
-    namespace engine
+    namespace graphics
     {
         class DrawableSurface;
     }
@@ -60,6 +60,6 @@ extern char globals_gameState;
 
 extern void showVideo(const char*);
 
-extern void clearScreen(knights_and_merchants::engine::DrawableSurface& str);
+extern void clearScreen(knights_and_merchants::graphics::DrawableSurface& str);
 
 extern  void sub_4015C8();

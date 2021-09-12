@@ -2,12 +2,12 @@
 #include "MasterClass.h"
 #include "text/Lib.h"
 #include "graphics/Font.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 #include "ui/UnkClass203.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 
 extern MasterClass * instance_MasterClass;
 

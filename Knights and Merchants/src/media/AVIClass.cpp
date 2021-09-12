@@ -7,10 +7,10 @@
 #include "media/AVIClass.h"
 #include "io/FileIo.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 
 using knights_and_merchants::io::FileIo;
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::media
 {

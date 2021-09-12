@@ -3,12 +3,6 @@
 
 namespace knights_and_merchants
 {
-    namespace engine
-    {
-        class Bitmap;
-        class DrawableSurface;
-    }
-
     namespace io
     {
         class FileIo;
@@ -16,9 +10,11 @@ namespace knights_and_merchants
 
     namespace graphics
     {
-        using knights_and_merchants::engine::Bitmap;
-        using knights_and_merchants::engine::DrawableSurface;
         using knights_and_merchants::io::FileIo;
+
+        class DrawableSurface;
+
+        class Bitmap;
 
         class Font
         {

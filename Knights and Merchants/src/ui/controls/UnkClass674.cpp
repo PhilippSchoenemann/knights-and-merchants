@@ -1,10 +1,10 @@
 #include "ui/controls/UnkClass674.h"
 #include "ui/UnkClass203.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 
 namespace knights_and_merchants::ui::controls
 {
-UnkClass674::UnkClass674(const Rect & p0, Bitmap * p4, unsigned char * p8, char p12)
+UnkClass674::UnkClass674(const Rect & p0, graphics::Bitmap * p4, unsigned char * p8, char p12)
 	: UIElement(p0, 0, 0, 0xffff)
 {
 	i21_flags |= 0x40;
@@ -17,7 +17,7 @@ UnkClass674::~UnkClass674()
 {
 }
 
-void UnkClass674::vtable4(engine::DrawableSurface & p0)
+void UnkClass674::vtable4(graphics::DrawableSurface & p0)
 {
 	Rect rect;
 	calculateAbsolutePosition(rect);

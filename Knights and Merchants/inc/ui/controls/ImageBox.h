@@ -3,12 +3,10 @@
 
 #include "UIElement.h"
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     class Bitmap;
 }
-
-using knights_and_merchants::engine::Bitmap;
 
 class UnkClass203;
 
@@ -17,13 +15,13 @@ namespace knights_and_merchants::ui::controls
     class ImageBox : public UIElement
     {
     public:
-        ImageBox(const utilities::Rect & rect, const Bitmap * p4);
+        ImageBox(const utilities::Rect & rect, const knights_and_merchants::graphics::Bitmap * p4);
         virtual ~ImageBox() override;
 
-        virtual void vtable4(engine::DrawableSurface & p0) override;
+        virtual void vtable4(graphics::DrawableSurface & p0) override;
 
-        void setImage(const Bitmap * image);
-        const Bitmap * i32;
+        void setImage(const knights_and_merchants::graphics::Bitmap * image);
+        const knights_and_merchants::graphics::Bitmap * i32;
     };
 }
 

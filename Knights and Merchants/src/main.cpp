@@ -9,7 +9,7 @@
 #include "utilities/Rect.h"
 #include "fmod.h"
 #include "graphics/Palette.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "media/AVIClass.h"
 
 #include <io.h>
@@ -28,7 +28,7 @@ using knights_and_merchants::media::AVIClass;
 char soundFileCounts[16][13];
 
 using knights_and_merchants::graphics::Palette;
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 
 
 

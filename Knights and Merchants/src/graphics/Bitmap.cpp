@@ -1,10 +1,10 @@
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 #include <cstdlib>
 #include <cstring>
 #include "io/FileIo.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     Bitmap::Bitmap(const short width, const short height, const unsigned char * data)
         : i0_width { width }, i2_height { height }, i4 { 0 }, i8 { 0 },

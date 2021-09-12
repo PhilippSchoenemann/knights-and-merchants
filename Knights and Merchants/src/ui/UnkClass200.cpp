@@ -98,7 +98,7 @@ void UnkClass200::handleEvents(MouseHandler * mouseHandler, KeyboardHandler * ke
 	
 }
 
-void UnkClass200::vtable0(knights_and_merchants::engine::DrawableSurface & surface)
+void UnkClass200::vtable0(knights_and_merchants::graphics::DrawableSurface & surface)
 {
 	i848->vtable4(surface);
 }
@@ -113,7 +113,7 @@ void UnkClass200::vtable8()
 	i848->enableDrawAllChilds();
 }
 
-void UnkClass200::vtable12(knights_and_merchants::engine::DrawableSurface & surface, Rect & p4)
+void UnkClass200::vtable12(knights_and_merchants::graphics::DrawableSurface & surface, Rect & p4)
 {
 
 }

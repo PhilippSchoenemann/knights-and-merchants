@@ -1,7 +1,7 @@
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "utilities/Rect.h"
 
-namespace knights_and_merchants::engine {
+namespace knights_and_merchants::graphics {
 
     void DrawableSurface::fillRectangle(Rect& rectangle, unsigned char p4)
     {

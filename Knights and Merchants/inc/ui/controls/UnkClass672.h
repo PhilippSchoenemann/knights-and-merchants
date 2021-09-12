@@ -10,7 +10,7 @@ namespace knights_and_merchants::ui::controls
         UnkClass672(const utilities::Rect & p0, int p4, char * p8);
         virtual ~UnkClass672();
 
-        virtual void vtable4(engine::DrawableSurface & p0) override;
+        virtual void vtable4(graphics::DrawableSurface & p0) override;
 
         void reset();
         bool updateScroll();

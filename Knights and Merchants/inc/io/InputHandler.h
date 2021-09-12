@@ -6,7 +6,7 @@
 
 namespace knights_and_merchants
 {
-    namespace engine
+    namespace graphics
     {
         class Bitmap;
     }
@@ -26,7 +26,7 @@ namespace knights_and_merchants
         public:
             static InputHandler * instance;
 
-            InputHandler(HWND hWnd, HINSTANCE hInstance, const utilities::Rect & screenRect, engine::Bitmap * unk);
+            InputHandler(HWND hWnd, HINSTANCE hInstance, const utilities::Rect & screenRect, graphics::Bitmap * unk);
             InputHandler(const InputHandler &) = delete;
             InputHandler(InputHandler &&) = delete;
 

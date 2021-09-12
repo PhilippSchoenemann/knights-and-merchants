@@ -6,9 +6,9 @@
 #include "ui/UnkClass200.h"
 #include "graphics/Font.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {

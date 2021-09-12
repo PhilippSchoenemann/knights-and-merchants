@@ -5,11 +5,6 @@
 
 namespace knights_and_merchants
 {
-    namespace engine
-    {
-        class Bitmap;
-    }
-
     namespace io
     {
         class FileIo;
@@ -17,8 +12,9 @@ namespace knights_and_merchants
 
     namespace graphics
     {
-        using knights_and_merchants::engine::Bitmap;
         using knights_and_merchants::io::FileIo;
+
+        class Bitmap;
 
         class RX
         {

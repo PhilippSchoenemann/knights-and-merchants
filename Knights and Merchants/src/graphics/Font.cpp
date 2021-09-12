@@ -1,6 +1,6 @@
 #include "graphics/Font.h"
 #include "io/FileIo.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 
 namespace knights_and_merchants::graphics
 {

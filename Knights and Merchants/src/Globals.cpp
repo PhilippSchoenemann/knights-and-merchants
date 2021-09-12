@@ -1,5 +1,5 @@
 #include "Globals.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "media/AVIClass.h"
 #include "Settings.h"
 #include "engine/GraphicsHandler.h"
@@ -68,7 +68,7 @@ int dword_53C57C;
 
  char globals_gameState;
 
- void clearScreen(knights_and_merchants::engine::DrawableSurface& surface) {
+ void clearScreen(knights_and_merchants::graphics::DrawableSurface& surface) {
      Rect rect{ 0, 0, surface.i0_width, surface.i2_height };
      surface.fillRectangle(rect, 0);
  }

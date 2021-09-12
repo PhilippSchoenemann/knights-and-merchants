@@ -2,9 +2,9 @@
 #include <Windows.h>
 #include "InterchangeFileFormat.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "graphics/Font.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 #include "io/FileIo.h"
 #include <cstdio>
 #include "graphics/RX.h"
@@ -29,10 +29,10 @@ using knights_and_merchants::ui::controls::UIElement;
 
 using knights_and_merchants::Settings;
 using knights_and_merchants::engine::GraphicsHandler;
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 //using knights_and_merchants::graphics::Palette;
 using knights_and_merchants::graphics::Color;
-using knights_and_merchants::engine::Bitmap;
+using knights_and_merchants::graphics::Bitmap;
 using knights_and_merchants::text::Lib;
 using knights_and_merchants::graphics::Font;
 using knights_and_merchants::graphics::RX;

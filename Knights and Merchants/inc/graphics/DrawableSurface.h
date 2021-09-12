@@ -6,7 +6,7 @@ namespace knights_and_merchants::utilities
     class Rect;
 }
 
-namespace knights_and_merchants::engine
+namespace knights_and_merchants::graphics
 {
     class DrawableSurface
     {

@@ -1,6 +1,6 @@
 #include "initguid.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "engine/UnkGraphicsClass.h"
 
 extern HINSTANCE base_hInstance;
@@ -223,7 +223,7 @@ namespace knights_and_merchants::engine
             while (result == DDERR_WASSTILLDRAWING);
 
             if (result == DD_OK) {
-                DrawableSurface param {
+                graphics::DrawableSurface param {
                     (short)desc.dwWidth,
                     (short)desc.dwHeight,
                     (short)desc.lPitch,
@@ -240,7 +240,7 @@ namespace knights_and_merchants::engine
 
         }
         else {
-            DrawableSurface var78 { i6, i8, i6, static_cast<unsigned char*>(i2->i64) };
+            graphics::DrawableSurface var78 { i6, i8, i6, static_cast<unsigned char*>(i2->i64) };
 
             drawProcedure(var78);
             i2->draw();

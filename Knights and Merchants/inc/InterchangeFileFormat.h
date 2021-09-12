@@ -1,18 +1,13 @@
 #pragma once
 #include <memory>
 
-namespace knights_and_merchants::engine
-{
-    class Bitmap;
-}
-
 namespace knights_and_merchants::graphics
 {
+    class Bitmap;
     class Palette;
 }
 
 using knights_and_merchants::graphics::Palette;
-using knights_and_merchants::engine::Bitmap;
 
 using std::unique_ptr;
 
@@ -28,10 +23,10 @@ bool readLBM(const char * const filePath, Palette * unk);
 
 void IFF_transferColorMapTo(const InterchangeFileFormat & p0, Palette * unk);
 
-void IFF_getBitmap(const InterchangeFileFormat & p0, Bitmap * p4);
+void IFF_getBitmap(const InterchangeFileFormat & p0, knights_and_merchants::graphics::Bitmap * p4);
 
 unsigned char * IFF_searchChunk(const InterchangeFileFormat & p0, const char * p4);
 
 
 
-unique_ptr<Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted);
+unique_ptr<knights_and_merchants::graphics::Bitmap> readTextDatBitmap(const char * filePath, bool isEncrypted);

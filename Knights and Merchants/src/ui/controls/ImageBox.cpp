@@ -1,7 +1,7 @@
 #include "ui/controls/ImageBox.h"
 #include "ui/UnkClass203.h"
 #include "ui/UnkClass200.h"
-#include "engine/Bitmap.h"
+#include "graphics/Bitmap.h"
 
 using knights_and_merchants::utilities::Rect;
 
@@ -19,7 +19,7 @@ ImageBox::~ImageBox()
 
 }
 
-void ImageBox::vtable4(engine::DrawableSurface & p0)
+void ImageBox::vtable4(graphics::DrawableSurface & p0)
 {
 	Rect rect;
 	calculateAbsolutePosition(rect);

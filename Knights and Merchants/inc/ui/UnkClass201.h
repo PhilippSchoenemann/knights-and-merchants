@@ -2,15 +2,13 @@
 
 namespace knights_and_merchants::graphics
 {
+    class Bitmap;
     class Font;
 }
 
-namespace knights_and_merchants::engine
-{
-    class Bitmap;
-}
 
-using knights_and_merchants::engine::Bitmap;
+
+using knights_and_merchants::graphics::Bitmap;
 using knights_and_merchants::graphics::Font;
 class UnkClass201
 {

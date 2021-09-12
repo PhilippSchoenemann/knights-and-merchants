@@ -1,12 +1,12 @@
 #include "io/MouseHandler.h"
 #include "Windows.h"
-#include "engine/Bitmap.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/Bitmap.h"
+#include "graphics/DrawableSurface.h"
 
 namespace knights_and_merchants::io
 {
-    using engine::Bitmap;
-    using engine::DrawableSurface;
+    using graphics::Bitmap;
+    using graphics::DrawableSurface;
 
     MouseHandler::MouseHandler(const Bitmap * cursor, const Rect & screenRect, HWND hWnd, LPDIRECTINPUT8 directInput)
         : i16 { }, i32 { }

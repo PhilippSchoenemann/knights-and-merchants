@@ -2,12 +2,12 @@
 #include "ui/UnkClass200.h"
 #include "ui/controls/UIElement.h"
 #include "engine/GraphicsHandler.h"
-#include "engine/DrawableSurface.h"
+#include "graphics/DrawableSurface.h"
 #include "io/MouseHandler.h"
 #include "io/KeyboardHandler.h"
 
 using knights_and_merchants::engine::GraphicsHandler;
-using knights_and_merchants::engine::DrawableSurface;
+using knights_and_merchants::graphics::DrawableSurface;
 using knights_and_merchants::ui::controls::UIElement;
 using knights_and_merchants::io::MouseHandler;
 using knights_and_merchants::io::KeyboardHandler;
