@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KNIGHTS_AND_MERCHANTS_UNK_CLASS_201_H
+#define KNIGHTS_AND_MERCHANTS_UNK_CLASS_201_H
 
 namespace knights_and_merchants::graphics
 {
@@ -29,3 +30,4 @@ public:
 	Bitmap * i24;
 };
 
+#endif

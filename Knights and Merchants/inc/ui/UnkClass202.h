@@ -1,6 +1,10 @@
-#pragma once
+#ifndef KNIGHTS_AND_MERCHANTS_UNK_CLASS_202_H
+#define KNIGHTS_AND_MERCHANTS_UNK_CLASS_202_H
 
-class Bitmap;
+namespace knights_and_merchants::graphics
+{
+    class Bitmap;
+}
 
 class UnkClass202
 {
@@ -11,6 +15,7 @@ public:
 	int i0;
 	int i4;
 	int i8;
-	Bitmap * i12[4];
+	knights_and_merchants::graphics::Bitmap * i12[4];
 };
 
+#endif

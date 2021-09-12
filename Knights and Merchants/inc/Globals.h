@@ -41,6 +41,7 @@ extern anoUnk word_4982C0[];
 
 
 
+extern int dword_53D584;
 extern int dword_53BC94;
 extern int dword_53BC98;
 extern int dword_53C57C;

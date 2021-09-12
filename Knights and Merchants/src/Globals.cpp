@@ -58,6 +58,7 @@ char actionNames[13][30] =
 };
 
 
+int dword_53D584;
 int dword_53C57C;
 
  HINSTANCE base_hInstance;

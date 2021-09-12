@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KNIGHTS_AND_MERCHANTS_UNK_CLASS_203_H
+#define KNIGHTS_AND_MERCHANTS_UNK_CLASS_203_H
 
 #include "utilities/DoublyLinkedList.h"
 #include "utilities/Rect.h"
@@ -80,3 +81,4 @@ public:
 	short i65;
 };
 
+#endif

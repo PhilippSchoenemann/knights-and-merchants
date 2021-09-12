@@ -11,10 +11,19 @@
 #include "graphics/Palette.h"
 #include "graphics/DrawableSurface.h"
 #include "media/AVIClass.h"
-
+#include "SoundManager.h"
 #include <io.h>
-
+#include "UnkClass900.h"
+#include "UnkClass1000.h"
+#include "UnkClass2000.h"
+#include "UnkClass3000.h"
+#include "UnkGame111.h"
 #include "MasterClass.h"
+#include "InGame.h"
+#include "Map.h"
+#include "MiniMapMaybe.h"
+#include "UnkGame5.h"
+#include "Globals.h"
 
 using knights_and_merchants::text::Lib;
 using knights_and_merchants::utilities::Rect;
@@ -73,7 +82,7 @@ bool initializeBase() {
     sub_401B7C();
     Settings::instance.readSettings();
 
-    GraphicsHandler::instance = new GraphicsHandler(screenBounds, base_hWnd, 1);
+    GraphicsHandler::instance = new GraphicsHandler(screenBounds, base_hWnd, 4);
 
     InputHandler::instance = new InputHandler(base_hWnd, base_hInstance, screenBounds, nullptr);
     InputHandler::instance->getMouseHandler()->setI104(static_cast<short>(Settings::instance.i258_mouseSpeed * 10 + 5));
@@ -84,9 +93,8 @@ bool initializeBase() {
     if (FSOUND_Init(21050, 13, FSOUND_INIT_USEDEFAULTMIDISYNTH) == TRUE) {
         FSOUND_SetOutput(FSOUND_OUTPUT_DSOUND);
 
-        //instance_SoundsData = new SoundManager("data/sfx/sounds.dat");
-        //instance_SoundsData->setDistance(10 * Settings::instance.i268_resolution + 35);
-        //instance_SoundsData->i158 = 10 * Settings::instance.i268_resolution + 35;
+        SoundManager::instance = new SoundManager("data/sfx/sounds.dat");
+        SoundManager::instance->setDistance(10 * Settings::instance.i268_resolution + 35);
 
         Settings::instance.startMusic();
         Settings::instance.i291_isTrackFinished = false;
@@ -240,6 +248,140 @@ void cleanupBase() {
     base_Lib_Setup = nullptr;
 }
 
+void sub_4028FB() {
+    knights_and_merchants::graphics::Palette palette { };
+
+    for (int i = 0; i < 256; ++i)
+        palette.setColor(i, 0, 0, 0);
+
+    Sleep(100);
+
+    GraphicsHandler::instance->setDisplayMode(screenConstants[Settings::instance.i268_resolution].width, screenConstants[Settings::instance.i268_resolution].height, 8);
+    GraphicsHandler::instance->setPalette(palette);
+    GraphicsHandler::instance->draw(clearScreen);
+
+    Sleep(100);
+}
+
+bool sub_401352(int p0, int p4) {
+    Rect rect { };
+    sub_4028FB();
+
+    if (!InGame::instance.initialize(p0, p4))
+        return false;
+
+    static POINT menuPositions[4] = {
+            { 0, 200 },
+            { 0, 368 },
+            { 0, 560 },
+            { 0, 624 }
+    };
+
+    short dword_53D4FC = 18;
+    short dword_53D568 = 18;
+
+    rect.setBounds(
+            menuPositions[Settings::instance.i268_resolution].x,
+            menuPositions[Settings::instance.i268_resolution].y,
+            screenConstants[Settings::instance.i268_resolution].i8,
+            448
+    );
+
+    InGame::unkClass900_instance = new UnkClass900(rect, 0);
+    InGame::unkGame111_instance->addContainer(InGame::unkClass900_instance);
+
+    InGame::unkClass1000_instance = new UnkClass1000(1);
+    InGame::unkGame111_instance->addControl(InGame::unkClass1000_instance);
+
+    InGame::unkClass2000_instance = new UnkClass2000(2);
+    InGame::unkGame111_instance->addControl(InGame::unkClass2000_instance);
+
+
+
+
+    rect.setBounds(0, 0, 0, 0);
+    InGame::unkGame111_instance->addControl(new UnkClass3000(rect, 6, 57));
+
+    Map::instance->unk18();
+    InGame::miniMapMaybe_instance->unk7();
+    InGame::unkGame5_instance->i104 = 1;
+
+    auto & x = screenConstants[Settings::instance.i268_resolution];
+
+    rect.setBounds(0, 1, 1, x.height - dword_53D568 - 1);
+    UnkClass3000 * esi = new UnkClass3000(rect, 19, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(x.width - dword_53D4FC, 1, dword_53D4FC - 1, x.height - dword_53D568 - 2);
+    esi = new UnkClass3000(rect, 20, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(1, 0, x.width - dword_53D4FC - 1, 1);
+    esi = new UnkClass3000(rect, 21, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(1, x.height - dword_53D568, x.width - dword_53D4FC - 1, dword_53D568 - 1);
+    esi = new UnkClass3000(rect, 22, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(0, 0, 1, 1);
+    esi = new UnkClass3000(rect, 23, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(x.width - dword_53D4FC, 0, dword_53D4FC, 1);
+    esi = new UnkClass3000(rect, 24, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(0, x.height - dword_53D568, 1, dword_53D568);
+    esi = new UnkClass3000(rect, 25, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(x.width - dword_53D4FC, x.height - dword_53D568, dword_53D4FC, dword_53D568);
+    esi = new UnkClass3000(rect, 26, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+
+    rect.setBounds(1, 1, x.width - dword_53D4FC - 1, x.height - dword_53D568 - 1);
+    esi = new UnkClass3000(rect, 18, 0);
+    InGame::unkGame111_instance->addControl(esi);
+    esi->i21_flags |= 0x200;
+    // TODO: reverse further
+
+    switch (p0) {
+
+    }
+
+
+    Settings::instance.fadeInMusic();
+    return true;
+}
+
+bool sub_4018E3()
+{
+    if (dword_53D584) {
+
+        throw 0; // Reverse here
+
+        InputHandler::instance->updateState();
+
+        if (InputHandler::instance->getKeyboardHandler()->unk2() == DIK_F12) {
+            dword_53D584 = false;
+            InGame::unkGame111_instance->vtable8();
+        }
+
+        return false;
+    } else {
+        return InGame::instance.unk14();
+    }
+}
+
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
     unsigned char var20 = 6;
@@ -290,7 +432,31 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
             Settings::instance.fadeOutMusic();    
         }
 
-        break;
+        globals_gameState = 1;
+
+        if (!sub_401352(nShowCmd, edi)) {
+            cleanupBase();
+            DestroyWindow(base_hWnd);
+            return 1;
+        }
+
+        do {
+            if (!PeekMessage(&message, nullptr, 0, 0, PM_NOREMOVE)) {
+                var20 = sub_4018E3();
+                if (var20 != 0)
+                    break;
+
+                Settings::instance.update();
+            } else {
+                if (GetMessage(&message, nullptr, 0, 0) == 0) {
+                    return message.wParam;
+                } else {
+                    TranslateMessage(&message);
+                    DispatchMessage(&message);
+                }
+            }
+        } while (true);
+
     } while (true);
 
     return 0;

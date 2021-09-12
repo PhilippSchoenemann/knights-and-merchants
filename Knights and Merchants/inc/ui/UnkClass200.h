@@ -1,4 +1,6 @@
-#pragma once
+#ifndef KNIGHTS_AND_MERCHANTS_UNK_CLASS_200_H
+#define KNIGHTS_AND_MERCHANTS_UNK_CLASS_200_H
+
 #include "UnkClass201.h"
 #include "UnkClass202.h"
 #include "utilities/Rect.h"
@@ -69,3 +71,4 @@ public:
 	
 };
 
+#endif
