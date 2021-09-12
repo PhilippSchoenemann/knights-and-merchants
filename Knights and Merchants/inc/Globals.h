@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <string>
 
 namespace knights_and_merchants {
     namespace text {
@@ -59,8 +60,12 @@ extern knights_and_merchants::text::Lib* base_Lib_Setup;
 
 extern char globals_gameState;
 
-extern void showVideo(const char*);
+extern void showVideo(const std::string & name);
 
-extern void clearScreen(knights_and_merchants::graphics::DrawableSurface& str);
+extern void clearScreen(knights_and_merchants::graphics::DrawableSurface & surface);
 
-extern  void sub_4015C8();
+extern void enterVideoMode();
+
+extern void showIntro();
+
+extern void enterGameMode();

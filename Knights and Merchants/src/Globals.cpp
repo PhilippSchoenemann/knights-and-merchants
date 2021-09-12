@@ -3,6 +3,7 @@
 #include "media/AVIClass.h"
 #include "Settings.h"
 #include "engine/GraphicsHandler.h"
+#include "SoundManager.h"
 
 unk screenConstants[4] { 
 	{ 800,  600, 200, 0, 15, 15, 20, 0 }, 
@@ -69,45 +70,78 @@ int dword_53C57C;
 
  char globals_gameState;
 
- void clearScreen(knights_and_merchants::graphics::DrawableSurface& surface) {
-     Rect rect{ 0, 0, surface.i0_width, surface.i2_height };
+void enterGameMode() {
+    knights_and_merchants::graphics::Palette palette { };
+
+    for (int i = 0; i < 256; ++i)
+        palette.setColor(i, 0, 0, 0);
+
+    Sleep(100);
+
+    knights_and_merchants::engine::GraphicsHandler::instance->setDisplayMode(800, 600, 8);
+    knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
+    knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+
+    SetCursor(nullptr);
+}
+
+void showVideo(const std::string & name) {
+    char filePath[256];
+    sprintf(filePath, "Data/Gfx/Video/%s.avi", name.c_str());
+
+    SoundManager::instance->freeSamples();
+    enterVideoMode();
+    Sleep(100);
+
+    {
+        knights_and_merchants::media::AVIClass aviFile { filePath, 0, 80, 1 };
+
+        if (aviFile.i1178 != 0)
+            aviFile.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
+    }
+
+    enterGameMode();
+    Sleep(100);
+}
+
+ void clearScreen(knights_and_merchants::graphics::DrawableSurface & surface) {
+     knights_and_merchants::utilities::Rect rect { 0, 0, surface.i0_width, surface.i2_height };
      surface.fillRectangle(rect, 0);
  }
 
- bool showIntro() {
-     sub_4015C8();
+void showIntro() {
+    enterVideoMode();
 
-     knights_and_merchants::graphics::Palette palette;
-     for (int i = 0; i < 256; ++i)
-         palette.setColor(i, 0, 0, 0);
+    knights_and_merchants::graphics::Palette palette { };
 
-     knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
-     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+    for (int i = 0; i < 256; ++i)
+        palette.setColor(i, 0, 0, 0);
 
-     {
-         knights_and_merchants::media::AVIClass avi("data/gfx/Video/publish.avi", knights_and_merchants::Settings::instance.i273_video1, knights_and_merchants::Settings::instance.i277_video2, knights_and_merchants::Settings::instance.i281_video3 != 0);
+    knights_and_merchants::engine::GraphicsHandler::instance->setPalette(palette);
+    knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
 
-         if (avi.i1178 != 0)
-             avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
-     }
+    {
+        knights_and_merchants::media::AVIClass avi("data/gfx/Video/publish.avi", knights_and_merchants::Settings::instance.i273_video1, knights_and_merchants::Settings::instance.i277_video2, knights_and_merchants::Settings::instance.i281_video3 != 0);
 
-     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+        if (avi.i1178 != 0)
+            avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
+    }
 
-     {
-         knights_and_merchants::media::AVIClass avi("data/gfx/Video/KAMLOGO.avi", 0, 160, 0);
+    knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
 
-         if (avi.i1178 != 0)
-             avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
-     }
+    {
+        knights_and_merchants::media::AVIClass avi("data/gfx/Video/KAMLOGO.avi", 0, 160, 0);
 
-     knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
-     return true;
- }
+        if (avi.i1178 != 0)
+            avi.unk2(*knights_and_merchants::engine::GraphicsHandler::instance);
+    }
 
- void sub_4015C8() {
-     const Rect rect{ 0, 0, 640, 480 };
+    knights_and_merchants::engine::GraphicsHandler::instance->draw(clearScreen);
+}
 
-     knights_and_merchants::graphics::Palette palette{ };
+ void enterVideoMode() {
+     knights_and_merchants::graphics::Palette palette { };
+
      for (int i = 0; i < 256; ++i)
          palette.setColor(i, 0, 0, 0);
 

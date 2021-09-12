@@ -214,21 +214,7 @@ bool createWindow(const HINSTANCE hInstance) {
 
 
 
-void sub_401064() {
-    Rect rect { 0, 0, 800, 600 };
 
-    knights_and_merchants::graphics::Palette palette { };
-    for (int i = 0; i < 256; ++i)
-        palette.setColor(i, 0, 0, 0);
-
-    Sleep(100);
-
-    GraphicsHandler::instance->setDisplayMode(800, 600, 8);
-    GraphicsHandler::instance->setPalette(palette);
-    GraphicsHandler::instance->draw(clearScreen);
-
-    SetCursor(nullptr);
-}
 
 void cleanupBase() {
     GraphicsHandler::instance->draw(clearScreen);
@@ -394,11 +380,11 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     if (!initializeBase())
         return -1;
 
-    // TODO: showIntro();
+    showIntro();
 
     MasterClass * mc;
     do {
-        sub_401064();
+        enterGameMode();
         mc = new MasterClass(var20);
         Settings::instance.fadeInMusic();
 
@@ -457,7 +443,18 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
             }
         } while (true);
 
-    } while (true);
+        if (knights_and_merchants::io::InputHandler::instance->getMouseHandler()->i84_isCursorFreezed)
+            knights_and_merchants::io::InputHandler::instance->getMouseHandler()->i84_isCursorFreezed = false;
 
-    return 0;
+        switch (var20) {
+            case 1:
+                showVideo("lost");
+                break;
+            default:
+                // TODO: show hard coded videos ...
+                break;
+        }
+
+        globals_gameState = 0;
+    } while (true);
 }
