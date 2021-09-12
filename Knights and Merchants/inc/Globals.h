@@ -1,9 +1,13 @@
-#pragma once
+#ifndef KNIGHTS_AND_MERCHANTS_GLOBALS
+#define KNIGHTS_AND_MERCHANTS_GLOBALS
+
 #include <Windows.h>
 #include <string>
 
-namespace knights_and_merchants {
-    namespace text {
+namespace knights_and_merchants
+{
+    namespace text
+    {
         class Lib;
     }
 
@@ -15,23 +19,25 @@ namespace knights_and_merchants {
 
 class UnkGame1;
 
-struct unk {
-	int width;
-	int height;
-	int i8;
-	int i12;
-	int i16;
-	int i20;
-	int i24;
-	int i28;
+struct unk
+{
+    int width;
+    int height;
+    int i8;
+    int i12;
+    int i16;
+    int i20;
+    int i24;
+    int i28;
 };
 
-struct anoUnk {
-	short i0;
-	short i2;
-	short i4;
-	short i6;
-	short i8;
+struct anoUnk
+{
+    short i0;
+    short i2;
+    short i4;
+    short i6;
+    short i8;
 };
 
 extern unk screenConstants[];
@@ -56,7 +62,7 @@ extern HINSTANCE base_hInstance;
 
 extern HWND base_hWnd;
 
-extern knights_and_merchants::text::Lib* base_Lib_Setup;
+extern knights_and_merchants::text::Lib * base_Lib_Setup;
 
 extern char globals_gameState;
 
@@ -69,3 +75,7 @@ extern void enterVideoMode();
 extern void showIntro();
 
 extern void enterGameMode();
+
+extern void enterInGameMode();
+
+#endif

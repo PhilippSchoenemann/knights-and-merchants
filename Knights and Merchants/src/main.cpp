@@ -234,24 +234,11 @@ void cleanupBase() {
     base_Lib_Setup = nullptr;
 }
 
-void sub_4028FB() {
-    knights_and_merchants::graphics::Palette palette { };
 
-    for (int i = 0; i < 256; ++i)
-        palette.setColor(i, 0, 0, 0);
-
-    Sleep(100);
-
-    GraphicsHandler::instance->setDisplayMode(screenConstants[Settings::instance.i268_resolution].width, screenConstants[Settings::instance.i268_resolution].height, 8);
-    GraphicsHandler::instance->setPalette(palette);
-    GraphicsHandler::instance->draw(clearScreen);
-
-    Sleep(100);
-}
 
 bool sub_401352(int p0, int p4) {
     Rect rect { };
-    sub_4028FB();
+    enterInGameMode();
 
     if (!InGame::instance.initialize(p0, p4))
         return false;
