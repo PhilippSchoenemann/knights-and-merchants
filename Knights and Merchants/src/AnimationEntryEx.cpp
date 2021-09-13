@@ -3,7 +3,7 @@
 
 void AnimationEntryEx::read(knights_and_merchants::io::FileIo & fileIo)
 {
-	AnimationEntry::read(fileIo);
+    AnimationEntry::read(fileIo);
 
     fileIo.read(&i70, 4);
     fileIo.read(&i74, 4);

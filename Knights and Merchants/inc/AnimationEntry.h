@@ -1,21 +1,26 @@
 #ifndef KNIGHTS_AND_MERCHANTS_ANIMATION_ENTRY_H
 #define KNIGHTS_AND_MERCHANTS_ANIMATION_ENTRY_H
 
+#include <array>
+
 namespace knights_and_merchants::io
 {
     class FileIo;
 }
 
-class AnimationEntry {
+class AnimationEntry
+{
 public:
-	AnimationEntry();
+    AnimationEntry();
 
-	void read(knights_and_merchants::io::FileIo & fileIo);
+    virtual ~AnimationEntry() = default;
 
-	short i0_frames[30];
-	short i60_frameCount;
-	int i62;
-	int i66;
+    void virtual read(knights_and_merchants::io::FileIo & fileIo);
+
+    std::array<short, 30> i0_frames;
+    short i60_frameCount;
+    int i62;
+    int i66;
 };
 
 #endif

@@ -3,18 +3,19 @@
 
 #include "AnimationEntry.h"
 
-class AnimationEntryEx : public AnimationEntry {
+class AnimationEntryEx : public AnimationEntry
+{
 public:
-	void read(knights_and_merchants::io::FileIo & fileIo);
+    void virtual read(knights_and_merchants::io::FileIo & fileIo) override;
 
-	int i70;
-	int i74;
-	int i78;
-	int i82;
-	int i86;
-	int i90;
-	char i94;
-	int i95;
+    int i70;
+    int i74;
+    int i78;
+    int i82;
+    int i86;
+    int i90;
+    char i94;
+    int i95;
 };
 
 #endif

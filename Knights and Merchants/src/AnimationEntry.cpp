@@ -1,20 +1,20 @@
-#include <algorithm>
-
 #include "AnimationEntry.h"
 #include "io/FileIo.h"
 
 using std::fill_n;
 
+constexpr short UNUSED_FRAME = -1;
+
 AnimationEntry::AnimationEntry()
-	: i60_frameCount { 0 }, i62 { 0 }, i66 { 0 }
+        : i60_frameCount { }, i62 { }, i66 { }
 {
-	fill_n(i0_frames, 30, -1);
+    i0_frames.fill(UNUSED_FRAME);
 }
 
 void AnimationEntry::read(knights_and_merchants::io::FileIo & fileIo)
 {
-	for (int i = 0; i < 30; ++i)
-        fileIo.read(&i0_frames[i], 2);
+    for (short & i0_frame: i0_frames)
+        fileIo.read(&i0_frame, 2);
 
     fileIo.read(&i60_frameCount, 2);
     fileIo.read(&i62, 4);
