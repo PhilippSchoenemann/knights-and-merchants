@@ -5,7 +5,7 @@
 
 namespace knights_and_merchants::utilities
 {
-    template <class T>
+    template<class T>
     struct Node
     {
         Node<T> * next;
@@ -14,11 +14,12 @@ namespace knights_and_merchants::utilities
         T * i12;
     };
 
-    template <class T>
+    template<class T>
     class DoublyLinkedList
     {
     public:
         DoublyLinkedList();
+
         ~DoublyLinkedList();
 
         bool add(int p0, T * p4);
@@ -33,11 +34,19 @@ namespace knights_and_merchants::utilities
 
         bool movePrevious();
 
+        bool unknown(int p0);
+
         [[nodiscard]]
         int unk001() const;
 
         [[nodiscard]]
         T * unk002() const;
+
+        [[nodiscard]]
+        Node<T> * getI0() { return i0; }
+
+        [[nodiscard]]
+        Node<T> * getI4() { return i4; }
 
     private:
         void reset();
@@ -46,34 +55,48 @@ namespace knights_and_merchants::utilities
         Node<T> * i4;
     };
 
-    template <class T>
+    template<class T>
+    bool DoublyLinkedList<T>::unknown(int p0)
+    {
+        if (!startIterateBegin())
+            return false;
+
+        do {
+            if (unk001() == p0)
+                return true;
+        } while (moveNext());
+
+        return false;
+    }
+
+    template<class T>
     DoublyLinkedList<T>::DoublyLinkedList()
     {
         reset();
     }
 
-    template <class T>
+    template<class T>
     DoublyLinkedList<T>::~DoublyLinkedList()
     {
         clear();
         reset();
     }
 
-    template <class T>
+    template<class T>
     void DoublyLinkedList<T>::reset()
     {
         i0 = nullptr;
         i4 = nullptr;
     }
 
-    template <class T>
+    template<class T>
     bool DoublyLinkedList<T>::startIterateBegin()
     {
         i4 = i0;
         return i4 != nullptr;
     }
 
-    template <class T>
+    template<class T>
     bool DoublyLinkedList<T>::startIterateEnd()
     {
         if (!startIterateBegin())
@@ -85,7 +108,7 @@ namespace knights_and_merchants::utilities
         return true;
     }
 
-    template <class T>
+    template<class T>
     bool DoublyLinkedList<T>::moveNext()
     {
         if (i4 == nullptr || i4->next == nullptr)
@@ -95,7 +118,7 @@ namespace knights_and_merchants::utilities
         return true;
     }
 
-    template <class T>
+    template<class T>
     bool DoublyLinkedList<T>::movePrevious()
     {
         if (i4 == nullptr || i4->previous == nullptr)
@@ -105,7 +128,7 @@ namespace knights_and_merchants::utilities
         return true;
     }
 
-    template <class T>
+    template<class T>
     void DoublyLinkedList<T>::clear()
     {
         startIterateBegin();
@@ -120,10 +143,10 @@ namespace knights_and_merchants::utilities
         i4 = nullptr;
     }
 
-    template <class T>
+    template<class T>
     bool DoublyLinkedList<T>::add(int p0, T * p4)
     {
-        Node<T> * var8 = static_cast<Node<T> *>(malloc(sizeof(Node<T>)));
+        auto * var8 = static_cast<Node<T> *>(malloc(sizeof(Node<T>)));
         if (var8 == nullptr)
             return false;
 
@@ -140,21 +163,20 @@ namespace knights_and_merchants::utilities
 
             var4->next = var8;
             var8->previous = var4;
-        }
-        else {
+        } else {
             i0 = var8;
         }
 
         return true;
     }
 
-    template <class T>
+    template<class T>
     int DoublyLinkedList<T>::unk001() const
     {
         return (i4 != nullptr) ? i4->i8 : 0;
     }
 
-    template <class T>
+    template<class T>
     T * DoublyLinkedList<T>::unk002() const
     {
         return (i4 != nullptr) ? i4->i12 : nullptr;
