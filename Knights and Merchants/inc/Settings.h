@@ -1,6 +1,7 @@
 #ifndef KNIGHTS_AND_MERCHANTS_SETTINGS_H
 #define KNIGHTS_AND_MERCHANTS_SETTINGS_H
 
+#include <Windows.h>
 #include "fmod.h"
 
 namespace knights_and_merchants
@@ -11,25 +12,33 @@ namespace knights_and_merchants
         static Settings instance;
 
         Settings(const Settings &) = delete;
+
         Settings(Settings &&) = delete;
 
         Settings & operator=(const Settings &) = delete;
+
         Settings & operator=(Settings &&) = delete;
 
         ~Settings() = default;
 
         void readSettings();
+
         void writeSettings();
 
         void startMusic();
+
         void stopMusic();
 
         void fadeInMusic() const;
+
         void fadeOutMusic() const;
+
         static void playTrack(short trackNumber);
+
         void playNextTrack();
 
         void updateVolumes() const;
+
         void update();
 
         void unk4();
@@ -52,6 +61,9 @@ namespace knights_and_merchants
         void * i285 = nullptr; // Most likely class pointer for MIDI stuff
         short i289_trackNumber = 0;
         bool i291_isTrackFinished = false;
+
+
+        static POINT menuPositions[4];
 
     private:
         Settings() = default;

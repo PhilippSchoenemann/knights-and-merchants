@@ -16,21 +16,28 @@ namespace knights_and_merchants
 
     bool Settings::isMusicStopped;
 
+    POINT Settings::menuPositions[4] = {
+            { 0, 200 },
+            { 0, 368 },
+            { 0, 560 },
+            { 0, 624 }
+    };
+
     char Settings::settingNames[14][200] = {
-         "SOUND_VOLUME",
-         "MIDI_VOLUME",
-         "CD_VOLUME",
-         "MUSIC_TYPE",
-         "SCREEN_MODE",
-         "PLAYER_NAME",
-         "NG_PLAYER_NAME",
-         "PALETTE",
-         "MOUSE_SPEED",
-         "AUTOSAVE",
-         "SCROLLING",
-         "RESOLUTION",
-         "LANGUAGE",
-         "VIDEO"
+            "SOUND_VOLUME",
+            "MIDI_VOLUME",
+            "CD_VOLUME",
+            "MUSIC_TYPE",
+            "SCREEN_MODE",
+            "PLAYER_NAME",
+            "NG_PLAYER_NAME",
+            "PALETTE",
+            "MOUSE_SPEED",
+            "AUTOSAVE",
+            "SCROLLING",
+            "RESOLUTION",
+            "LANGUAGE",
+            "VIDEO"
     };
 
     signed char F_CALLBACKAPI Settings::callback(FSOUND_STREAM * stream, void * buffer, int length, void * userData)
@@ -74,8 +81,7 @@ namespace knights_and_merchants
             FSOUND_SetVolumeAbsolute(12, volume);
             Sleep(3);
             ++volume;
-        }
-        while (volume <= static_cast<int>(i10_cd_volume / 256));
+        } while (volume <= static_cast<int>(i10_cd_volume / 256));
     }
 
     void Settings::playNextTrack()
@@ -121,7 +127,7 @@ namespace knights_and_merchants
     {
         const FileIo fileIo { "setup.cfg" };
 
-        const DWORD fileSize { (DWORD) fileIo.getFileSize()};
+        const DWORD fileSize { (DWORD) fileIo.getFileSize() };
         char * ebx;
 
         if (fileSize > 0 && (ebx = static_cast<char *>(malloc(fileSize))) != nullptr) {
@@ -135,16 +141,16 @@ namespace knights_and_merchants
 
                 int i;
                 for (i = 0; i < 14; ++i)
-                    if (strcmp(output, reinterpret_cast<const char*>(&settingNames[i])) == 0)
+                    if (strcmp(output, reinterpret_cast<const char *>(&settingNames[i])) == 0)
                         break;
 
                 int num;
                 switch (i) {
-                    case 11:
-                        parser.findNextNumber();
-                        parser.readNextNumber(&num);
-                        i268_resolution = num;
-                        break;
+                case 11:
+                    parser.findNextNumber();
+                    parser.readNextNumber(&num);
+                    i268_resolution = num;
+                    break;
                 }
             }
 
@@ -216,7 +222,7 @@ namespace knights_and_merchants
         for (int channel = 0; channel < 12; ++channel)
             FSOUND_SetVolumeAbsolute(channel, static_cast<int>(i2_soundVolume / 256));
     }
-    
+
     void Settings::playTrack(const short trackNumber)
     {
         char songFilePath[400];
