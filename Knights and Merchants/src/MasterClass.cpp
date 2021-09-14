@@ -7,6 +7,7 @@
 #include "graphics/Bitmap.h"
 #include "io/FileIo.h"
 #include <cstdio>
+#include <SoundManager.h>
 #include "graphics/RX.h"
 #include "graphics/Palette.h"
 #include "io/InputHandler.h"
@@ -22,6 +23,9 @@
 #include "ui/controls/UIElement.h"
 #include "io/MouseHandler.h"
 #include "io/KeyboardHandler.h"
+#include "NetworkClass.h"
+#include "InGame.h"
+#include "ui/UnknownUICon.h"
 
 using knights_and_merchants::io::MouseHandler;
 using knights_and_merchants::io::KeyboardHandler;
@@ -279,7 +283,7 @@ void MasterClass::someLoop(int p0)
 	Rect rectangle { };
 
 	int var4E0 = 0;
-	int var4E8 = 0;
+	bool var4E8 = false;
 
 	unk10();
 	unk20();
@@ -294,7 +298,7 @@ void MasterClass::someLoop(int p0)
 	const char * var4F8 = "data/gfx/setup.lbm";
 	const char * var4E4 = "data/gfx/remap.dat";
 	int var500 = 1;
-	int var4FC = 1;
+	bool showVersion = true;
 
 	Font * var4F4 = i908;
 	Bitmap * var4EC = i952->i0_bitmaps[2];
@@ -305,7 +309,21 @@ void MasterClass::someLoop(int p0)
 		createMainMenu();
 		var4DC = 0;
 		break;
-	case 1:
+	case 1: case 5: case 6: case 7: case 12: case 13: case 14:
+        break;
+	case 2:
+		rectangle.setBounds(280, 20, 240, 24);
+
+		for (int i = 0; i < 14; ++i) {
+			char name[500];
+			wsprintfA(name, "Add-on mission no.%d", i);
+
+			addControl(new Button(rectangle, i + 49, name, 0, 0));
+			rectangle.move(0, rectangle.getHeight());
+		}
+
+		rectangle.move(0, 10);
+		addControl(new Button(rectangle, 26, 75, 0, 1));
 		break;
 	case 3:
 		createPlaySingleMapMenu();
@@ -316,18 +334,19 @@ void MasterClass::someLoop(int p0)
 	case 8:
 		createCreditsMenu();
 		var4E0 = 100;
-		var4FC = 0;
+        showVersion = false;
 		break;
+		// TODO: 9 and 10
 	case 11:
 		Settings::instance.fadeOutMusic();
 
 		if (i892 == 1) {
-			// showVideo("Intro"); ---------------------------
+			showVideo("Intro");
 			Sleep(100);
 		}
 
 		var500 = 0;
-		var4FC = 0;
+        showVersion = false;
 
 		if (i892 < 100) {
 			var4F8 = "data/gfx/map.bbm";
@@ -343,7 +362,64 @@ void MasterClass::someLoop(int p0)
 		createTSKMenu();
 		break;
 	case 15:
+        sub_4015BE();
+
+        rectangle.setBounds(200, 200, 400, 30);
+        addControl(new TextBox(rectangle, i948->getStringByIndex(22).c_str(), 0, 0, 2));
+
+        rectangle.setBounds(280, 235, 240, 33);
+        addControl(new Button(rectangle, 69, 23, 0, 1));
+
+        rectangle.setBounds(336, rectangle.bottom + 10, 128, 50);
+        addControl(new ImageBox(rectangle, i952->i0_bitmaps[16]));
+
+        rectangle.setBounds(280, rectangle.bottom, 240, 33);
+        addControl(new Button(rectangle, 70, 24, 0, 0));
+
+        rectangle.move(0, rectangle.getHeight() + 60);
+        addControl(new Button(rectangle, 101, 75, 0, 0));
+
 		break;
+    case 16:
+        sub_4015BE();
+
+        rectangle.setBounds(336, 130, 128, 50);
+        addControl(new ImageBox(rectangle, i952->i0_bitmaps[16]));
+
+        rectangle.setBounds(150, 300, 500, 30);
+        i1182 = new TextBox(rectangle, i948->getStringByIndex(29).c_str(), 0, 0, 2);
+        addControl(i1182);
+
+        rectangle.setBounds(280, 340, 240, 33);
+        addControl(new Button(rectangle, 75, 75, 0, 1));
+
+        var500 = 0;
+        break;
+    case 17:
+        // TODO: reverse
+        break;
+    case 23:
+        sub_4015BE();
+
+        rectangle.setBounds(200, 160, 400, 30);
+        addControl(new TextBox(rectangle, i948->getStringByIndex(73).c_str(), 0, 0, 2));
+
+        rectangle.setBounds(250, 190, 300, 30);
+        i1174 = new UnknownUICon { rectangle, 0, 23, 98, i1186[0], i1186[4] };
+        addContainer(i1174);
+
+        i878 = i1174;
+        i1174->unk1(knights_and_merchants::Settings::instance.i14_playerName);
+        // TODO: reverse unknown UI container...
+
+
+        rectangle.setBounds(280, 360, 240, 33);
+        addControl(new Button(rectangle, 101, 75, 0, 1));
+
+        rectangle.move(0, -10 - rectangle.getHeight());
+        addControl(new Button(rectangle, 100, 74, 0, 0));
+
+        break;
 	}
 
 	getEntryI4(0)->i24 = var4EC;
@@ -354,7 +430,7 @@ void MasterClass::someLoop(int p0)
 	if (InputHandler::instance->getMouseHandler()->i56_cursor != var4F0) {
 		InputHandler::instance->getMouseHandler()->setCursor(var4F0);
 
-		if (var4E8 != 0) {
+		if (var4E8) {
 			rectangle.setBounds(0, 0, 800, 600);
 
 			InputHandler::instance->getMouseHandler()->setMouseArea(rectangle);
@@ -421,10 +497,12 @@ void MasterClass::someLoop(int p0)
 	}
 
 	if (i883 >= 23) {
-		// TODO: reverse
+        rectangle.setBounds(20, 580, 760, 15);
+        i1178 = new TextBox(rectangle, "0", 0, 0, 2); // TODO: Second parameter is a reference to unknown string!
+        addControl(i1178);
 	}
 
-	if (var4FC != 0) {
+	if (showVersion) {
 		rectangle.setBounds(705, 6, 140, 20);
 
 		char rel[500];
@@ -651,7 +729,8 @@ void MasterClass::vtable12(DrawableSurface & p0, Rect & p4)
 
 bool MasterClass::vtable4(short p0, int p4, int p8)
 {
-
+    if (p4 != 1 && p4 != 9)
+        return false;
 
 	switch(p0) {
 	case 0:
@@ -690,6 +769,11 @@ bool MasterClass::vtable4(short p0, int p4, int p8)
 		i892 = i1440 + 50;
 		i896 = 0;
 		return true;
+    case 7:
+        i891 = 0;
+        i892 = 99;
+        i896 = 0;
+        return true;
 	case 8:
 		i887 = 4;
 		return true;
@@ -700,45 +784,180 @@ bool MasterClass::vtable4(short p0, int p4, int p8)
 		i887 = 8;
 		return true;
 	case 12:
-		// TODO: Save settings
 		i891 = 3;
 		i896 = 0;
+        Settings::instance.writeSettings();
 		return true;
-	case 16:
-	case 17:
-	case 18:
-	case 19:
-	case 20:
-	case 21:
-	case 22:
-	case 23:
-	case 24:
-	case 25:
-		{
-			char fileName[2000];
-			sprintf(fileName, "data/save/game%3.3d.sav", p0 - 16);
+    case 13: case 89:
+        return true;
+    case 14:
+        i891 = 3;
+        i896 = 0;
+        return true;
+    case 15:
+        if (i883 != 13) {
+            i887 = 0;
+            knights_and_merchants::io::InputHandler::instance->getMouseHandler()->setCursorHidden(false);
+        } else {
+            i887 = 14;
+        }
+        return true;
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    {
+        char fileName[2000];
+        sprintf(fileName, "data/save/game%3.3d.sav", p0 - 16);
 
-			FileIo fileIO { fileName };
-			if (fileIO.getFileSize() > 0) {
-				i891 = 1;
-				i892 = p0 - 16;
-				i896 = 0;
-			}
+        FileIo fileIO { fileName };
+        if (fileIO.getFileSize() > 0) {
+            i891 = 1;
+            i892 = p0 - 16;
+            i896 = 0;
+        }
 
-			return true;
-		}
-	case 26:
-	case 67:
-		i887 = 0;
-		return 1;
-	case 68: // change resolution
-		if (Settings::instance.i268_resolution != 3)
-			Settings::instance.i268_resolution++;
-		else
-			Settings::instance.i268_resolution = 0;
+        return true;
+    }
+    case 26: case 67:
+        i887 = 0;
+        return true;
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+        i891 = 0;
+        i892 = p0 - 27;
 
-		updateResolutionButton(*i1134);
-		return true;
+        if (i892 <= 0) {
+            i896 = 0;
+        } else {
+            i887 = 11;
+        }
+
+        return true;
+
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
+    case 60:
+    case 61:
+    case 62:
+        i891 = 0;
+        i887 = 11;
+        i892 = p0 + 52;
+        return true;
+    case 64:
+        if (InGame::instance.i142 != 20) {
+            i891 = 0;
+            i887 = 11;
+            i892 = InGame::instance.i142 + 1;
+        } else {
+            i887 = 8;
+        }
+        return true;
+    case 65:
+        SoundManager::instance->freeSamples();
+        i896 = 0;
+        i891 = 0;
+        return true;
+    case 66:
+        i891 = 0;
+        i892 = InGame::instance.i142;
+
+        if (InGame::instance.i142 <= 0) {
+            i891 = 0;
+            i896 = 0;
+        } else {
+            if (InGame::instance.i142 == 99) {
+                i891 = 0;
+                i896 = 0;
+            } else {
+                i887 = 11;
+            }
+        }
+
+        return true;
+    case 68: // change resolution
+        if (Settings::instance.i268_resolution != 3)
+            Settings::instance.i268_resolution++;
+        else
+            Settings::instance.i268_resolution = 0;
+
+        updateResolutionButton(*i1134);
+        return true;
+    case 69: case 103:
+        i887 = 23;
+        return true;
+    case 70:
+        i887 = 16;
+        return true;
+    case 71: case 93:
+        i887 = 20;
+        return true;
+    case 72:
+        // TODO: reverse
+        return true;
+    case 73:
+        i887 = 17;
+        return true;
+    case 74:
+        // TODO: reverse
+        return true;
+    case 75:
+        // TODO: reverse
+        i887 = 0;
+        return true;
+    case 76:
+        i887 = 0;
+        // TODO: reverse
+        return true;
+    case 101:
+        i887 = 0;
+        // TODO: reverse
+        return true;
+
+    case 110:
+    case 111:
+    case 112:
+    case 113:
+    case 114:
+    case 115:
+        // TODO: reverse
+        return true;
+    default:
+        return false;
 	}
 
 	return true;
@@ -761,7 +980,10 @@ void MasterClass::react()
 			i887 = 0;
 	}
 
-	// TODO: reverse this part later, because it seems related to multiplayer.
+    if (i883 >= 23 && i1089 != nullptr) {
+
+        // TODO: reverse this part later, because it seems related to multiplayer.
+    }
 }
 
 void MasterClass::unkWndProc(bool p0)
@@ -791,8 +1013,8 @@ void MasterClass::unk10()
 	i1142 = 0;
 	i1174 = 0;
 
-	for (int i = 0; i < 6; ++i)
-		i1150[i] = 0;
+	for (int & i : i1150)
+		i = 0;
 
 	i900 = 1;
 }
@@ -890,6 +1112,19 @@ void MasterClass::readRemap(const char * fileName)
 	for (int i = 0; i < 5; ++i) {
 		fileIO.read(i1186[i], 0x100);
 	}
+}
+
+void MasterClass::sub_4015BE()
+{
+	if (i1089 != nullptr) {
+        if (i1089->i44 != 0) {
+            // TODO
+        }
+
+        delete i1089;
+	}
+
+	i1089 = nullptr;
 }
 
 
