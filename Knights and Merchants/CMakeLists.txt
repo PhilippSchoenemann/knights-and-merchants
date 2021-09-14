@@ -27,6 +27,7 @@ file(GLOB_RECURSE headers LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/inc
 file(GLOB_RECURSE tests LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp)
 
 file(GLOB_RECURSE fheaders LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/api/inc/*.h)
+file(GLOB_RECURSE dheaders LIST_DIRECTORIES false ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/inc/*.h)
 
 #######################################################################################
 # Target KaM-Win-x86
@@ -36,18 +37,21 @@ add_executable(KaM-Win-x86 WIN32
         ${sources}
         ${headers}
         ${fheaders}
+        ${dheaders}
 )
 
 target_include_directories(
         KaM-Win-x86
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/inc
 )
 
 target_link_libraries(
         KaM-Win-x86
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dplayx.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
         "Vfw32.lib"
 )
@@ -70,18 +74,22 @@ add_executable(KaM-Win-x64 WIN32
         ${sources}
         ${headers}
         ${fheaders}
+        ${dheaders}
 )
 
 target_include_directories(
         KaM-Win-x64
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/inc
 )
 
 target_link_libraries(
         KaM-Win-x64
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x64/ddraw.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x64/dinput8.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dplayx.lib
+
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x64/fmod.lib
         "Vfw32.lib"
 )
@@ -105,6 +113,7 @@ add_executable(
         ${sources}
         ${headers}
         ${fheaders}
+        ${dheaders}
         ${tests}
 )
 
@@ -114,6 +123,7 @@ target_link_libraries(
         gmock_main
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/ddraw.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dinput8.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/lib/x86/dplayx.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/lib/x86/fmod.lib
         "Vfw32.lib"
 )
@@ -122,4 +132,5 @@ target_include_directories(
         KaM-Tests
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/fmod/inc
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/directx/inc
 )
