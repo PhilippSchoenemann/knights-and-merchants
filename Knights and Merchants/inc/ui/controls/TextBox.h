@@ -9,12 +9,14 @@ namespace knights_and_merchants::ui::controls
     {
     public:
         TextBox(const utilities::Rect & rect, const char * p4, int p8, int p12, int p16);
+
         virtual ~TextBox() override;
 
         virtual void vtable4(graphics::DrawableSurface & p0) override;
 
         void setText(const char * p0);
 
+        void unknew(short p0);
 
         char * i32;
         char i36;
