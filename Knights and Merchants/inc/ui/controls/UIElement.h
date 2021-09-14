@@ -21,7 +21,7 @@ namespace knights_and_merchants::ui::controls
         typedef utilities::Rect Rect;
 
     public:
-        UIElement(const Rect & position, short p4, char p8, short p12);
+        UIElement(const Rect & position, unsigned short p4, char p8, short p12);
 
         UIElement(const UIElement & other) = default;
         UIElement(UIElement && other) = default;
@@ -48,9 +48,9 @@ namespace knights_and_merchants::ui::controls
 
         char i4;
         Rect i5_position;
-        short i21_flags;
-        short i23;
-        char i25;
+        unsigned short i21_flags;
+        unsigned short i23;
+        unsigned char i25;
         short i26;
         UnkClass203 * i28;
     };

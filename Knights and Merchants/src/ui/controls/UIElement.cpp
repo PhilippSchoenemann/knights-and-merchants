@@ -6,7 +6,7 @@ using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {
-    UIElement::UIElement(const Rect & position, const short p4, const char p8, const short p12)
+    UIElement::UIElement(const Rect & position, const unsigned short p4, const char p8, const short p12)
         : i4 { p8 }, i5_position { position }, i21_flags { 0x20 }, i23 { p4 }, i25 { 0 }, i26 { p12 }, i28 { nullptr } { }
 
     void UIElement::registerForDraw()

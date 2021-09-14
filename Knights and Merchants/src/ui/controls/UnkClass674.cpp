@@ -5,7 +5,7 @@
 namespace knights_and_merchants::ui::controls
 {
 UnkClass674::UnkClass674(const Rect & p0, graphics::Bitmap * p4, unsigned char * p8, char p12)
-	: UIElement(p0, 0, 0, 0xffff)
+	: UIElement { p0, 0, 0, -1 }
 {
 	i21_flags |= 0x40;
 	i40 = p12;

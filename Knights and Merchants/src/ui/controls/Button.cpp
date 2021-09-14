@@ -13,7 +13,7 @@ extern MasterClass * instance_MasterClass;
 
 namespace knights_and_merchants::ui::controls
 {
-Button::Button(const Rect & p0, short p4, const char * p8, char p12, int p16)
+Button::Button(const Rect & p0, unsigned short p4, const char * p8, char p12, unsigned char p16)
 	: UIElement { p0, p4, p12, 0 }
 {
 	reset();
@@ -22,7 +22,7 @@ Button::Button(const Rect & p0, short p4, const char * p8, char p12, int p16)
 	setText(p8);
 }
 
-Button::Button(const Rect & p0, short p4, int p8, char p12, int p16)
+Button::Button(const Rect & p0, unsigned short p4, int p8, char p12, unsigned char p16)
 	: Button { p0, p4, instance_MasterClass->i948->getStringByIndex(p8).c_str(), p12, p16 }
 {
 

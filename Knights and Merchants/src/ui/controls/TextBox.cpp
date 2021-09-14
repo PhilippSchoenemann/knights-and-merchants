@@ -12,7 +12,7 @@ using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {
-    TextBox::TextBox(const Rect & rect, const char * p4, int p8, int p12, int p16)
+    TextBox::TextBox(const Rect & rect, const char * p4, char p8, int p12, int p16)
             : UIElement { rect, 0, p8, -1 }
     {
         reset();

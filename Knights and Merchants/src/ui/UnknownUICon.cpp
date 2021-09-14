@@ -12,8 +12,8 @@
         0x26, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x27, 0x28, 0x1A, 0x1B, 0x29, 0x39
 };
 
-UnknownUICon::UnknownUICon(knights_and_merchants::utilities::Rect & p0, int p16, int p20, int p24, unsigned char * p28, unsigned char * p32)
-    : UnkClass203 { p0, static_cast<char>(p16) }
+UnknownUICon::UnknownUICon(knights_and_merchants::utilities::Rect & p0, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32)
+    : UnkClass203 { p0, p16 }
 {
     Rect rect { };
     reset();

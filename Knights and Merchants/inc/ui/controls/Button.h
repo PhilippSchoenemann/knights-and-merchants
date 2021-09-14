@@ -8,8 +8,8 @@ namespace knights_and_merchants::ui::controls
     class Button : public UIElement
     {
     public:
-        Button(const utilities::Rect & p0, short p4, const char * p8, char p12, int p16);
-        Button(const utilities::Rect & p0, short p4, int p8, char p12, int p16);
+        Button(const utilities::Rect & p0, unsigned short p4, const char * p8, char p12, unsigned char p16);
+        Button(const utilities::Rect & p0, unsigned short p4, int p8, char p12, unsigned char p16);
 
         virtual ~Button() override;
 

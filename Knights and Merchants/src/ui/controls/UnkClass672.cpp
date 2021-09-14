@@ -11,7 +11,7 @@ using knights_and_merchants::graphics::DrawableSurface;
 namespace knights_and_merchants::ui::controls
 {
 UnkClass672::UnkClass672(const Rect & p0, int p4,  char * p8)
-	: UIElement(p0, 0, 0, 0xffff)
+	: UIElement { p0, 0, 0, -1 }
 {
 	reset();
 
