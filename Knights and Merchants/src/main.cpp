@@ -243,19 +243,12 @@ bool sub_401352(int p0, int p4) {
     if (!InGame::instance.initialize(p0, p4))
         return false;
 
-    static POINT menuPositions[4] = {
-            { 0, 200 },
-            { 0, 368 },
-            { 0, 560 },
-            { 0, 624 }
-    };
-
     short dword_53D4FC = 18;
     short dword_53D568 = 18;
 
     rect.setBounds(
-            menuPositions[Settings::instance.i268_resolution].x,
-            menuPositions[Settings::instance.i268_resolution].y,
+            Settings::menuPositions[Settings::instance.i268_resolution].x,
+            Settings::menuPositions[Settings::instance.i268_resolution].y,
             screenConstants[Settings::instance.i268_resolution].i8,
             448
     );
