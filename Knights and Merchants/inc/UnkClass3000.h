@@ -6,7 +6,7 @@
 class UnkClass3000 : public knights_and_merchants::ui::controls::UIElement
 {
 public:
-    UnkClass3000(const knights_and_merchants::utilities::Rect & position, unsigned short p4, unsigned char p8);
+    UnkClass3000(const knights_and_merchants::utilities::Rect & position, unsigned short eventID, unsigned char keyboardKey);
 
 };
 

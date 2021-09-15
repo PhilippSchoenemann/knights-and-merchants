@@ -12,8 +12,8 @@
         0x26, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x27, 0x28, 0x1A, 0x1B, 0x29, 0x39
 };
 
-UnknownUICon::UnknownUICon(knights_and_merchants::utilities::Rect & p0, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32)
-    : UnkClass203 { p0, p16 }
+UnknownUICon::UnknownUICon(knights_and_merchants::utilities::Rect & position, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32)
+    : UnkClass203 { position, p16 }
 {
     Rect rect { };
     reset();
@@ -80,9 +80,16 @@ UnknownUICon::UnknownUICon(knights_and_merchants::utilities::Rect & p0, char p16
     i67[0] = '\0';
 }
 
+UnknownUICon::~UnknownUICon()
+{
+    if (i67 != nullptr)
+        free(i67);
+
+    reset();
+}
 
 void UnknownUICon::reset() {
-    i67 = 0;
+    i67 = nullptr;
     i73 = 0;
     i71 = 0;
     i81 = 0;
@@ -109,7 +116,7 @@ bool UnknownUICon::vtable20(unsigned short p0, int p4, int p8) {
     case 50107:
     case 50108:
     case 50109:
-        // TODO: reverse
+        unk7(p0);
         return true;
     case 50100:
     case 50102:
@@ -164,3 +171,9 @@ void UnknownUICon::unk3()
 
     i75->unknew(i73);
 }
+
+void UnknownUICon::unk7(unsigned short p0)
+{
+    // TODO: revere
+}
+

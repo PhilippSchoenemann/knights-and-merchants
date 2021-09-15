@@ -12,39 +12,39 @@ using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {
-    TextBox::TextBox(const Rect & rect, const char * p4, char p8, int p12, int p16)
-            : UIElement { rect, 0, p8, -1 }
+    TextBox::TextBox(const Rect & position, const char * text, char p8, int p12, int p16)
+            : UIElement { position, 0, p8, -1 }
     {
         reset();
 
         i21_flags |= 0x40;
         i36 = p16;
 
-        setText(p4);
+        setText(text);
 
         i37 = p12;
     }
 
     TextBox::~TextBox()
     {
-        if (i32 != nullptr)
-            free(i32);
+        if (i32_text != nullptr)
+            free(i32_text);
 
         reset();
     }
 
     void TextBox::setText(const char * p0)
     {
-        if (i32 != nullptr) {
-            free(i32);
-            i32 = nullptr;
+        if (i32_text != nullptr) {
+            free(i32_text);
+            i32_text = nullptr;
         }
 
         if (p0 != nullptr) {
-            i32 = (char *) malloc(strlen(p0) + 1);
+            i32_text = (char *) malloc(strlen(p0) + 1);
 
-            if (i32 != nullptr)
-                strcpy(i32, p0);
+            if (i32_text != nullptr)
+                strcpy(i32_text, p0);
         }
 
         registerForDraw();
@@ -61,14 +61,14 @@ namespace knights_and_merchants::ui::controls
             p0.remapRectangle(rect1, i47);
 
         auto var34 = UIElement::unk1();
-        if (var34 != nullptr && i32 != nullptr) {
+        if (var34 != nullptr && i32_text != nullptr) {
 
             DrawableSurface var2C;
             calculateSurface(var2C, p0);
 
             auto var30 = var34->i16;
 
-            auto textWidth = var34->i0->calculateTextWidth(i32, 0, 0);
+            auto textWidth = var34->i0->calculateTextWidth(i32_text, 0, 0);
             int ebp = 0;
             int eax = 0;
 
@@ -107,17 +107,17 @@ namespace knights_and_merchants::ui::controls
             }
 
             if (var34->i4 == 0) {
-                var34->i0->drawStringEx(var2C, ebp, eax, i32, var30, var34->i18, 0);
+                var34->i0->drawStringEx(var2C, ebp, eax, i32_text, var30, var34->i18, 0);
             } else {
-                var34->i0->drawString(var2C, ebp, eax, i32);
+                var34->i0->drawString(var2C, ebp, eax, i32_text);
             }
 
             if (i41 != 0) {
-                if (i45 > 0 && i45 <= strlen(i32)) {
+                if (i45 > 0 && i45 <= strlen(i32_text)) {
                     auto var30 = (char *) malloc(i45 + 1);
 
                     if (var30 != nullptr) {
-                        strncpy(var30, i32, i45);
+                        strncpy(var30, i32_text, i45);
                         var30[i45] = '\0';
 
                         ebp += var34->i0->calculateTextWidth(var30, 0, 0);
@@ -125,7 +125,7 @@ namespace knights_and_merchants::ui::controls
                     }
                 }
 
-                auto esi = var34->i0->someUnk(i45 >= strlen(i32) ? ' ' : i32[i45]);
+                auto esi = var34->i0->someUnk(i45 >= strlen(i32_text) ? ' ' : i32_text[i45]);
                 if (esi > 0) {
                     rect1.move(ebp, 0);
                     rect1.setSize(esi, abs(rect1.bottom - rect1.top));
@@ -141,7 +141,7 @@ namespace knights_and_merchants::ui::controls
 
     void TextBox::reset()
     {
-        i32 = nullptr;
+        i32_text = nullptr;
         i41 = 0;
         i45 = 0;
         i47 = nullptr;

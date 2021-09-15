@@ -19,7 +19,7 @@ namespace knights_and_merchants::ui::controls
     class UnkClass674 : public UIElement
     {
     public:
-        UnkClass674(const Rect & p0, knights_and_merchants::graphics::Bitmap * p4, unsigned char * p8, char p12);
+        UnkClass674(const Rect & position, knights_and_merchants::graphics::Bitmap * p4, unsigned char * p8, char p12);
         virtual ~UnkClass674();
 
         virtual void vtable4(graphics::DrawableSurface & p0) override;

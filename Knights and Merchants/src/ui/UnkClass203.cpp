@@ -210,7 +210,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
 
                     if (p4 != nullptr) {
                         if ((var4->i21_flags & 0x100) == 0x100) {
-                            if (p4->isKeyDown(var4->i25))
+                            if (p4->isKeyDown(var4->i25_keyboardKey))
                                 continue;
 
                             if ((var4->i21_flags & 0x4000) == 0x4000) {
@@ -232,17 +232,17 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                             if (p4->unkHaha444())
                                 var8 |= 0x80000000;
 
-                            if (vtable20(var4->i23, 9, var8))
+                            if (vtable20(var4->i23_eventID, 9, var8))
                                 return true;
 
                             continue;
                         } else {
-                            if (var4->i25 != 0 && p4->isKeyDown(var4->i25)) {
+                            if (var4->i25_keyboardKey != 0 && p4->isKeyDown(var4->i25_keyboardKey)) {
                                 var4->i21_flags |= 0x118;
                                 enableDraw(var4);
 
                                 if ((var4->i21_flags & 0x4000) == 0x4000) {
-                                    vtable20(var4->i23, 9, var8);
+                                    vtable20(var4->i23_eventID, 9, var8);
                                 }
 
                                 return true;
@@ -267,7 +267,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                                 var4->i21_flags &= ~8;
                                 enableDraw(var4);
 
-                                if (vtable20(var4->i23, 1, var8))
+                                if (vtable20(var4->i23_eventID, 1, var8))
                                     return true;
                             }
                         } else {
@@ -292,7 +292,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                                     return true;
                                 }
 
-                                if (vtable20(var4->i23, 1, var8)) {
+                                if (vtable20(var4->i23_eventID, 1, var8)) {
                                     p0->i64_isLeftButtonDown = 0;
                                     p0->i76 = 1;
                                     isLeftButtonDown = 0;
@@ -306,7 +306,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                                 var4->i21_flags &= ~0x10;
                                 enableDraw(var4);
 
-                                if (vtable20(var4->i23, 3, var8))
+                                if (vtable20(var4->i23_eventID, 3, var8))
                                     return true;
                             }
                         } else {
@@ -318,7 +318,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                             } else {
                                 enableDraw(var4);
 
-                                if (vtable20(var4->i23, 3, var8))
+                                if (vtable20(var4->i23_eventID, 3, var8))
                                     return true;
                             }
                         }
@@ -326,7 +326,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                         if ((var4->i21_flags & 0x200) == 0x200) {
                             var4->i21_flags |= 0x400;
 
-                            if (vtable20(var4->i23, 7, var8))
+                            if (vtable20(var4->i23_eventID, 7, var8))
                                 return true;
                         }
 
@@ -335,7 +335,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                                 var4->i21_flags &= ~0x8000;
                                 enableDraw(var4);
 
-                                if (vtable20(var4->i23, 5, var8))
+                                if (vtable20(var4->i23_eventID, 5, var8))
                                     return true;
                             }
                         } else {
@@ -347,7 +347,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                             } else {
                                 enableDraw(var4);
 
-                                if (vtable20(var4->i23, 5, var8))
+                                if (vtable20(var4->i23_eventID, 5, var8))
                                     return true;
                             }
                         }
@@ -355,7 +355,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                         if ((var4->i21_flags & 0x200) == 0x200) {
                             var4->i21_flags |= 0x400;
 
-                            if (vtable20(var4->i23, 7, var8))
+                            if (vtable20(var4->i23_eventID, 7, var8))
                                 return true;
                         }
 
@@ -368,7 +368,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                         if ((var4->i21_flags & 0x400) == 0x400) {
                             var4->i21_flags &= ~0x400;
 
-                            if (vtable20(var4->i23, 8, var8))
+                            if (vtable20(var4->i23_eventID, 8, var8))
                                 return true;
                         }
                     }
@@ -386,7 +386,7 @@ bool UnkClass203::handleEvents(MouseHandler * p0, KeyboardHandler * p4)
                         var4->i21_flags &= ~0x18;
                         base->i874 = nullptr;
 
-                        vtable20(var4->i23, 1, var8);
+                        vtable20(var4->i23_eventID, 1, var8);
                     }
 
                     return true;

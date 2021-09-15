@@ -8,7 +8,7 @@ namespace knights_and_merchants::ui::controls
     class TextBox : public UIElement
     {
     public:
-        TextBox(const utilities::Rect & rect, const char * p4, char p8, int p12, int p16);
+        TextBox(const utilities::Rect & position, const char * text, char p8, int p12, int p16);
 
         virtual ~TextBox() override;
 
@@ -18,7 +18,7 @@ namespace knights_and_merchants::ui::controls
 
         void unknew(short p0);
 
-        char * i32;
+        char * i32_text;
         char i36;
         int i37;
         int i41;

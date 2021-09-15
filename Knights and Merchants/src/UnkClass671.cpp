@@ -5,7 +5,7 @@ UnkClass671::UnkClass671(const Rect & rect, int p4, int p8)
 	: UIElement { rect, p4, p8, -1 }
 {
 	reset();
-	i25 = 0;
+    i25_keyboardKey = 0;
 	setEnabled(false);
 }
 

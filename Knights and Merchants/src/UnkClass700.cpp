@@ -13,7 +13,7 @@ UnkClass700::UnkClass700(const Rect & p0, int p4, const Bitmap * p8, int p12, in
 {
 	reset();
 
-	i25 = p20;
+    i25_keyboardKey = p20;
 	i32 = p8;
 }
 

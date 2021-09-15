@@ -15,13 +15,15 @@ namespace knights_and_merchants::ui::controls
     class ImageBox : public UIElement
     {
     public:
-        ImageBox(const utilities::Rect & rect, const knights_and_merchants::graphics::Bitmap * p4);
+        ImageBox(const utilities::Rect & position, const knights_and_merchants::graphics::Bitmap * image);
+
         virtual ~ImageBox() override;
 
-        virtual void vtable4(graphics::DrawableSurface & p0) override;
+        virtual void vtable4(graphics::DrawableSurface & surface) override;
 
         void setImage(const knights_and_merchants::graphics::Bitmap * image);
-        const knights_and_merchants::graphics::Bitmap * i32;
+
+        const knights_and_merchants::graphics::Bitmap * i32_image;
     };
 }
 

@@ -7,7 +7,7 @@ namespace knights_and_merchants::ui::controls
     class UnkClass672 : public UIElement
     {
     public:
-        UnkClass672(const utilities::Rect & p0, int p4, char * p8);
+        UnkClass672(const utilities::Rect & position, int p4, char * p8);
         virtual ~UnkClass672();
 
         virtual void vtable4(graphics::DrawableSurface & p0) override;

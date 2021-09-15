@@ -18,7 +18,9 @@ class UnknownUICon : public UnkClass203
 
 public:
 
-    UnknownUICon(knights_and_merchants::utilities::Rect & p0, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32);
+    UnknownUICon(knights_and_merchants::utilities::Rect & position, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32);
+
+    ~UnknownUICon();
 
     virtual bool vtable20(unsigned short p0, int p4, int p8) override;
 
@@ -38,6 +40,8 @@ private:
     char i82[2000];
 
     void unk3();
+
+    void unk7(unsigned short p0);
 };
 
 #endif

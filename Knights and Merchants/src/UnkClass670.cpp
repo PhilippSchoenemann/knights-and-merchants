@@ -11,7 +11,7 @@ UnkClass670::UnkClass670(const Rect & rect, const int p4)
 	reset();
 
 	i21_flags |= 0x40;
-	i25 = 0;
+    i25_keyboardKey = 0;
 }
 
 UnkClass670::~UnkClass670()
