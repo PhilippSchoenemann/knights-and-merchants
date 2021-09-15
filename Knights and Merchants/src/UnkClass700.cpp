@@ -21,7 +21,7 @@ UnkClass700::~UnkClass700()
 {
 }
 
-void UnkClass700::vtable4(DrawableSurface & p0)
+void UnkClass700::vtable4_draw(DrawableSurface & p0)
 {
 	Rect rect1 { };
 	Rect rect2 { };

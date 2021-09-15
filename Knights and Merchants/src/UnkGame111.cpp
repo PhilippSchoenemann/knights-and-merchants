@@ -131,7 +131,7 @@ UnkGame111::~UnkGame111()
 	reset();
 }
 
-void UnkGame111::vtable0(knights_and_merchants::graphics::DrawableSurface & surface)
+void UnkGame111::vtable0_draw(knights_and_merchants::graphics::DrawableSurface & surface)
 {
 	if (i886 != 0) {
 		Rect var10 { 0, 0, screenConstants[Settings::instance.i268_resolution].width, screenConstants[Settings::instance.i268_resolution].height };
@@ -144,10 +144,10 @@ void UnkGame111::vtable0(knights_and_merchants::graphics::DrawableSurface & surf
 		i890 = 0;
 	}
 
-	UnkClass200::vtable0(surface);
+    UnkClass200::vtable0_draw(surface);
 }
 
-bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
+bool UnkGame111::vtable4_handleEvent(unsigned short eventID, int p4, int p8)
 {
 	knights_and_merchants::io::MouseHandler & mouse = *knights_and_merchants::io::InputHandler::instance->getMouseHandler();
 	UnkGame20 & unkGame20 = *UnkGame20::instance;
@@ -158,8 +158,8 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 	switch (p4) {
 	case 1:
 	case 9:
-		if (p0 < 47 || p0 >= 59) {
-			switch (p0) {
+		if (eventID < 47 || eventID >= 59) {
+			switch (eventID) {
 			case 1:
 				InGame::miniMapMaybe_instance->moveToMouseCoordinates(mouse.i0_position.x, mouse.i0_position.y);
 				return true;
@@ -186,7 +186,7 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 	case 3:
 		break;
 	case 5:
-		if (p0 != 2)
+		if (eventID != 2)
 			return true;
 
 		if (UnkGame20::instance->i14 == 0)
@@ -194,9 +194,9 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 
 		return true;
 	case 7:
-		if (p0 < 18 || p0 > 26) {
+		if (eventID < 18 || eventID > 26) {
 			if (UnkGame20::instance->i14 == 0) {
-				if (UnkGame20::instance->i18 == 0 && p0 == 2) {
+				if (UnkGame20::instance->i18 == 0 && eventID == 2) {
 					// TODO: unk111 must be reversed
 					InGame::unkClass2000_instance->unk111(knights_and_merchants::io::InputHandler::instance->getMouseHandler());
 
@@ -212,7 +212,7 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 			
 			}
 		} else {
-			if (p0 == 18) {
+			if (eventID == 18) {
 				if (mouse.i56_cursor != unkGame20.i22_currentCursor) {
 					if (unkGame20.i22_currentCursor == nullptr) {
 						mouse.setCursor(InGame::someBitmaps[0]);
@@ -224,8 +224,8 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 
 				return false;
 			} else { // 19 - 26
-				if (mouse.i56_cursor != InGame::someBitmaps[p0 - 18])
-					mouse.setCursor(InGame::someBitmaps[p0 - 18]);
+				if (mouse.i56_cursor != InGame::someBitmaps[eventID - 18])
+					mouse.setCursor(InGame::someBitmaps[eventID - 18]);
 				
 				auto tickCount = GetTickCount();
 				if (i960 + 50 < tickCount) {
@@ -243,10 +243,10 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 						{  1,  1 }
 					};
 
-					InGame::miniMapMaybe_instance->moveCamera(dword_498278[p0 - 18].x, dword_498278[p0 - 18].y);
+					InGame::miniMapMaybe_instance->moveCamera(dword_498278[eventID - 18].x, dword_498278[eventID - 18].y);
 
 					if (Settings::instance.i264_scrolling != 0)
-						InGame::miniMapMaybe_instance->moveCamera(dword_498278[p0 - 18].x, dword_498278[p0 - 18].y);
+						InGame::miniMapMaybe_instance->moveCamera(dword_498278[eventID - 18].x, dword_498278[eventID - 18].y);
 				}
 
 				return false;
@@ -260,10 +260,10 @@ bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 	return false;
 }
 
-void UnkGame111::vtable8()
+void UnkGame111::vtable8_registerForRedraw()
 {
 	i886 = 1;
-	UnkClass200::vtable8();
+    UnkClass200::vtable8_registerForRedraw();
 }
 
 void UnkGame111::vtable12(knights_and_merchants::graphics::DrawableSurface & p0, Rect & p4)
@@ -433,7 +433,7 @@ void UnkGame111::drawWhat(knights_and_merchants::graphics::DrawableSurface & p0)
 {
 	for (int i = 0; i < 12; ++i)
 		if (i912[i]->i32 != -1)
-			i912[i]->vtable4(p0);
-	
-	i898->vtable4(p0);
+            i912[i]->vtable4_draw(p0);
+
+    i898->vtable4_draw(p0);
 }

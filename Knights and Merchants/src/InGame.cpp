@@ -152,7 +152,7 @@ knights_and_merchants::graphics::Font * InGame::fontMetal;
 	}
 
 	if (InGame::instance.i32 != 0) {
-		InGame::unkGame111_instance->vtable0(surface);
+        InGame::unkGame111_instance->vtable0_draw(surface);
 	}
 
 

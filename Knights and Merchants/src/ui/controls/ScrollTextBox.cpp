@@ -1,4 +1,4 @@
-#include "ui/controls/UnkClass672.h"
+#include "ui/controls/ScrollTextBox.h"
 #include "ui/UnkClass203.h"
 #include "ui/UnkClass201.h"
 #include "graphics/Font.h"
@@ -10,7 +10,7 @@ using knights_and_merchants::graphics::DrawableSurface;
 
 namespace knights_and_merchants::ui::controls
 {
-UnkClass672::UnkClass672(const Rect & position, int p4, char * p8)
+ScrollTextBox::ScrollTextBox(const Rect & position, int p4, char * p8)
 	: UIElement { position, 0, 0, -1 }
 {
 	reset();
@@ -22,11 +22,12 @@ UnkClass672::UnkClass672(const Rect & position, int p4, char * p8)
 	i44 = 1;
 }
 
-UnkClass672::~UnkClass672()
+ScrollTextBox::~ScrollTextBox()
 {
+    reset();
 }
 
-void UnkClass672::vtable4(DrawableSurface & p0)
+void ScrollTextBox::vtable4_draw(DrawableSurface & p0)
 {
 	Rect rect { };
 
@@ -70,7 +71,7 @@ void UnkClass672::vtable4(DrawableSurface & p0)
 	i44++;
 }
 
-void UnkClass672::reset()
+void ScrollTextBox::reset()
 {
 	i32 = nullptr;
 	i36 = nullptr;
@@ -78,7 +79,7 @@ void UnkClass672::reset()
 	i44 = 0;
 }
 
-bool UnkClass672::updateScroll()
+bool ScrollTextBox::updateScroll()
 {
 	if (i40 == -1)
 		return false;

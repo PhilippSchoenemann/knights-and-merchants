@@ -50,7 +50,7 @@ namespace knights_and_merchants::ui::controls
         registerForDraw();
     }
 
-    void TextBox::vtable4(DrawableSurface & p0)
+    void TextBox::vtable4_draw(DrawableSurface & p0)
     {
         Rect rect1;
         calculateAbsolutePosition(rect1);

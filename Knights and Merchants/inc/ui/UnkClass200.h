@@ -31,11 +31,11 @@ public:
 
     virtual ~UnkClass200();
 
-    virtual void vtable0(knights_and_merchants::graphics::DrawableSurface & surface);
+    virtual void vtable0_draw(knights_and_merchants::graphics::DrawableSurface & surface);
 
-    virtual bool vtable4(unsigned short p0, int p4, int p8);
+    virtual bool vtable4_handleEvent(unsigned short eventID, int p4, int p8);
 
-    virtual void vtable8();
+    virtual void vtable8_registerForRedraw();
 
     virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & surface, knights_and_merchants::utilities::Rect & p4);
 

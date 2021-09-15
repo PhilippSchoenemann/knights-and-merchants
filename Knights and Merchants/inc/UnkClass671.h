@@ -9,7 +9,7 @@ public:
 	UnkClass671(const Rect & rect, int p4, int p8);
 	virtual ~UnkClass671();
 
-	virtual void vtable4(DrawableSurface & p0) override;
+	virtual void vtable4_draw(DrawableSurface & p0) override;
 
 	void reset();
 	void setBriefingID(short id);

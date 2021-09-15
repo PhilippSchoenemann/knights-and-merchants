@@ -35,7 +35,7 @@ void UnkClass900::vtable8(knights_and_merchants::graphics::DrawableSurface & p0,
 	getEntryI564(i64)->i12[3]->draw(var1C, -p4.left, -p4.top);
 }
 
-void UnkClass900::vtable12(knights_and_merchants::graphics::DrawableSurface & p0)
+void UnkClass900::vtable12_initDraw(knights_and_merchants::graphics::DrawableSurface & p0)
 {
 	getEntryI564(i64)->i12[3]->draw(p0, i44.left, i44.top);
 }
@@ -48,7 +48,7 @@ void UnkClass900::vtable16()
 	}
 }
 
-bool UnkClass900::vtable20(unsigned short p0, int p4, int p8)
+bool UnkClass900::vtable20_handleEvent(unsigned short p0, int p4, int p8)
 {
 	switch (p4) {
 	case 1:
@@ -87,7 +87,7 @@ void UnkClass900::unk1(int p0, int p4)
 		break;
 	}
 
-	enableDrawAllChilds();
+    enableDrawAllChildren();
 }
 
 void UnkClass900::unk2()

@@ -11,9 +11,9 @@ public:
 	UnkGame111(const knights_and_merchants::utilities::Rect & rect);
 	virtual ~UnkGame111();
 
-	virtual void vtable0(knights_and_merchants::graphics::DrawableSurface & surface) override;
-	virtual bool vtable4(unsigned short p0, int p4, int p8) override;
-	virtual void vtable8() override;
+	virtual void vtable0_draw(knights_and_merchants::graphics::DrawableSurface & surface) override;
+	virtual bool vtable4_handleEvent(unsigned short eventID, int p4, int p8) override;
+	virtual void vtable8_registerForRedraw() override;
 	virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, knights_and_merchants::utilities::Rect & p4) override;
 
 	bool handleInput();

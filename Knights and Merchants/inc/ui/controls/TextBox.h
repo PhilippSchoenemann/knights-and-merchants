@@ -12,7 +12,7 @@ namespace knights_and_merchants::ui::controls
 
         virtual ~TextBox() override;
 
-        virtual void vtable4(graphics::DrawableSurface & p0) override;
+        virtual void vtable4_draw(graphics::DrawableSurface & p0) override;
 
         void setText(const char * p0);
 

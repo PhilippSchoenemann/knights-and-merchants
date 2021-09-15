@@ -1,5 +1,5 @@
-#ifndef KNIGHTS_AND_MERCHANTS_UI_ELEMENT_H
-#define KNIGHTS_AND_MERCHANTS_UI_ELEMENT_H
+#ifndef KNIGHTS_AND_MERCHANTS_UI_CONTROLS_UI_ELEMENT_H
+#define KNIGHTS_AND_MERCHANTS_UI_CONTROLS_UI_ELEMENT_H
 
 #include <Windows.h>
 #include "utilities/Rect.h"
@@ -31,8 +31,8 @@ namespace knights_and_merchants::ui::controls
 
         virtual ~UIElement() = default;
 
-        virtual UIElement & vtable0(bool free);
-        virtual void vtable4(DrawableSurface & surface);
+        virtual UIElement & vtable0_destroy(bool free);
+        virtual void vtable4_draw(DrawableSurface & surface);
         virtual bool vtable8(POINT point) const;
         virtual bool vtable12(int x, int y);
 

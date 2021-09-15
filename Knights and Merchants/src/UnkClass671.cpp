@@ -14,7 +14,7 @@ UnkClass671::~UnkClass671()
 	reset();
 }
 
-void UnkClass671::vtable4(DrawableSurface & p0)
+void UnkClass671::vtable4_draw(DrawableSurface & p0)
 {
 	Rect rect { };
 

@@ -14,7 +14,7 @@ public:
 	UnkClass700(const Rect & p0, int p4, const knights_and_merchants::graphics::Bitmap * p8, int p12, int p16, char p20);
 	virtual ~UnkClass700();
 
-	virtual void vtable4(DrawableSurface & p0) override;
+	virtual void vtable4_draw(DrawableSurface & p0) override;
 
 
 	void reset();

@@ -47,7 +47,7 @@ void UnkClass200::destroy()
 {
     if (i848 != nullptr) {
         i848->destroyContainers();
-        i848->vtable0(true);
+        i848->vtable0_destroy(true);
     }
 
     i848 = nullptr;
@@ -98,19 +98,19 @@ void UnkClass200::handleEvents(MouseHandler * mouseHandler, KeyboardHandler * ke
     i848->handleEvents(mouseHandler, keyboardHandler);
 }
 
-void UnkClass200::vtable0(DrawableSurface & surface)
+void UnkClass200::vtable0_draw(DrawableSurface & surface)
 {
-    i848->vtable4(surface);
+    i848->vtable4_draw(surface);
 }
 
-bool UnkClass200::vtable4(unsigned short p0, int p4, int p8)
+bool UnkClass200::vtable4_handleEvent(unsigned short eventID, int p4, int p8)
 {
     return true;
 }
 
-void UnkClass200::vtable8()
+void UnkClass200::vtable8_registerForRedraw()
 {
-    i848->enableDrawAllChilds();
+    i848->enableDrawAllChildren();
 }
 
 void UnkClass200::vtable12(DrawableSurface & surface, Rect & p4)

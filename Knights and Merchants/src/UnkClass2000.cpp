@@ -21,7 +21,7 @@ UnkClass2000::~UnkClass2000()
 {
 }
 
-void UnkClass2000::vtable4(DrawableSurface & surface) { }
+void UnkClass2000::vtable4_draw(DrawableSurface & surface) { }
 
 void UnkClass2000::unk111(knights_and_merchants::io::MouseHandler * p0)
 {

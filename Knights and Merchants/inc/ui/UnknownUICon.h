@@ -22,7 +22,7 @@ public:
 
     ~UnknownUICon();
 
-    virtual bool vtable20(unsigned short p0, int p4, int p8) override;
+    virtual bool vtable20_handleEvent(unsigned short p0, int p4, int p8) override;
 
     void reset();
 

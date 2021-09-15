@@ -97,9 +97,9 @@ void UnknownUICon::reset() {
 }
 
 
-bool UnknownUICon::vtable20(unsigned short p0, int p4, int p8) {
+bool UnknownUICon::vtable20_handleEvent(unsigned short p0, int p4, int p8) {
     if (p4 != 9)
-        return UnkClass203::vtable20(p0, p4, p8);
+        return UnkClass203::vtable20_handleEvent(p0, p4, p8);
 
     if (p0 >= 50000 && p0 < 50048) {
         // TODO: reverse me
@@ -120,9 +120,9 @@ bool UnknownUICon::vtable20(unsigned short p0, int p4, int p8) {
         return true;
     case 50100:
     case 50102:
-        return UnkClass203::vtable20(i79, p4, p8);
+        return UnkClass203::vtable20_handleEvent(i79, p4, p8);
     default:
-        return UnkClass203::vtable20(p0, p4, p8);
+        return UnkClass203::vtable20_handleEvent(p0, p4, p8);
 
 }
 

@@ -10,7 +10,7 @@ public:
 
     virtual ~UnkClass670();
 
-    virtual void vtable4(DrawableSurface & p0) override;
+    virtual void vtable4_draw(DrawableSurface & p0) override;
 
     void reset();
 

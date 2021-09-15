@@ -8,8 +8,6 @@ namespace knights_and_merchants::graphics
     class Bitmap;
 }
 
-class UnkClass203;
-
 namespace knights_and_merchants::ui::controls
 {
     class ImageBox : public UIElement
@@ -17,9 +15,7 @@ namespace knights_and_merchants::ui::controls
     public:
         ImageBox(const utilities::Rect & position, const knights_and_merchants::graphics::Bitmap * image);
 
-        virtual ~ImageBox() override;
-
-        virtual void vtable4(graphics::DrawableSurface & surface) override;
+        virtual void vtable4_draw(graphics::DrawableSurface & surface) override;
 
         void setImage(const knights_and_merchants::graphics::Bitmap * image);
 

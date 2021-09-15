@@ -9,8 +9,6 @@
 
 using knights_and_merchants::graphics::DrawableSurface;
 
-extern MasterClass * instance_MasterClass;
-
 namespace knights_and_merchants::ui::controls
 {
 Button::Button(const Rect & position, unsigned short eventID, const char * text, char p12, unsigned char keyboardKey)
@@ -23,7 +21,7 @@ Button::Button(const Rect & position, unsigned short eventID, const char * text,
 }
 
 Button::Button(const Rect & position, unsigned short eventID, int textID, char p12, unsigned char keyboardKey)
-	: Button { position, eventID, instance_MasterClass->i948->getStringByIndex(textID).c_str(), p12, keyboardKey }
+	: Button { position, eventID, MasterClass::instance->i948->getStringByIndex(textID).c_str(), p12, keyboardKey }
 {
 
 }
@@ -56,7 +54,7 @@ void Button::setText(const char * text)
 }
 
 
-void Button::vtable4(DrawableSurface & surface)
+void Button::vtable4_draw(DrawableSurface & surface)
 {
 	Rect rectangle1 { };
 	Rect rectangle2 { };
@@ -107,32 +105,32 @@ void Button::vtable4(DrawableSurface & surface)
 
 		rectangle2.setSize(rectangle2.getWidth(), edi);
 
-		surface.remapRectangle(rectangle2, instance_MasterClass->i1186[1]);
+		surface.remapRectangle(rectangle2, MasterClass::instance->i1186[1]);
 
 		rectangle2.setBounds(rectangle2.left, rectangle2.top + edi, esi, rectangle1.getHeight() - edi);
 
-		surface.remapRectangle(rectangle2, instance_MasterClass->i1186[1]);
+		surface.remapRectangle(rectangle2, MasterClass::instance->i1186[1]);
 	} else {
 		var40->i24->draw(var3C, -i36, -i38);
 	}
 
 	for (int i = 0; i < 3; ++i)
-		surface.remapRow(i + rectangle1.left + esi, rectangle1.right - i, i + rectangle1.top + edi, instance_MasterClass->i1186[2]);
+		surface.remapRow(i + rectangle1.left + esi, rectangle1.right - i, i + rectangle1.top + edi, MasterClass::instance->i1186[2]);
 	
 	for (int i = 0; i < 3; ++i)
-		surface.remapColumn(i + rectangle1.top + edi, rectangle1.bottom, i + rectangle1.left + esi, instance_MasterClass->i1186[2]);
+		surface.remapColumn(i + rectangle1.top + edi, rectangle1.bottom, i + rectangle1.left + esi, MasterClass::instance->i1186[2]);
 
 	if (!var44) {
 		for (int i = 0; i < 3; ++i)
-			surface.remapRow(i + rectangle1.left + esi, rectangle1.right - i, rectangle1.bottom - i - 1, instance_MasterClass->i1186[1]);
+			surface.remapRow(i + rectangle1.left + esi, rectangle1.right - i, rectangle1.bottom - i - 1, MasterClass::instance->i1186[1]);
 
 		for (int i = 0; i < 3; ++i)
-			surface.remapColumn(i + rectangle1.top + edi, rectangle1.bottom, rectangle1.right - i - 1, instance_MasterClass->i1186[1]);
+			surface.remapColumn(i + rectangle1.top + edi, rectangle1.bottom, rectangle1.right - i - 1, MasterClass::instance->i1186[1]);
 	}
 
 	if ((~i21_flags & 4) == 4 && (i21_flags & 0x1A) != 0) {
 		rectangle2.setBounds(esi + rectangle1.left + 3 , rectangle1.top + edi + 3, rectangle1.getWidth() - 6, rectangle1.getHeight() - 6);
-		surface.remapRectangle(rectangle2, instance_MasterClass->i1186[3]);
+		surface.remapRectangle(rectangle2, MasterClass::instance->i1186[3]);
 	}
 
 	if (var40->i4 == 0) {
@@ -143,6 +141,6 @@ void Button::vtable4(DrawableSurface & surface)
 	}
 
 	if ((~i21_flags & 4) == 0)
-		surface.remapRectangle(rectangle1, instance_MasterClass->i1186[1]);
+		surface.remapRectangle(rectangle1, MasterClass::instance->i1186[1]);
 }
 }

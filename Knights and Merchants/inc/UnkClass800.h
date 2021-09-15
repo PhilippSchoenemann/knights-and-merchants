@@ -9,7 +9,7 @@ public:
 	UnkClass800(const knights_and_merchants::utilities::Rect & p0, const char * p4, const char p8, const char p12);
 	virtual ~UnkClass800();
 
-	virtual void vtable4(DrawableSurface & p0) override;
+	virtual void vtable4_draw(DrawableSurface & p0) override;
 
 	void reset();
 	void setText(const char * p0);

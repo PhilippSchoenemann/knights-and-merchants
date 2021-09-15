@@ -22,7 +22,7 @@ UnkClass800::~UnkClass800()
 	reset();
 }
 
-void UnkClass800::vtable4(DrawableSurface & p0)
+void UnkClass800::vtable4_draw(DrawableSurface & p0)
 {
 	Rect rect { };
 

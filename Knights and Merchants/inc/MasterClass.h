@@ -34,7 +34,7 @@ namespace knights_and_merchants::ui::controls
 
     class Button;
 
-    class UnkClass672;
+    class ScrollTextBox;
 
 }
 
@@ -50,11 +50,14 @@ class NetworkClass;
 class MasterClass : public UnkClass200
 {
 public:
+
+    static MasterClass * instance;
+
     MasterClass(int p0);
 
     virtual ~MasterClass();
 
-    virtual bool vtable4(unsigned short p0, int p4, int p8) override;
+    virtual bool vtable4_handleEvent(unsigned short eventID, int p4, int p8) override;
 
     virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, knights_and_merchants::utilities::Rect & p4) override;
 
@@ -147,7 +150,7 @@ public:
     int i1218;
 
     int i1266;
-    knights_and_merchants::ui::controls::UnkClass672 * i1270;
+    knights_and_merchants::ui::controls::ScrollTextBox * i1270;
     int i1274;
     int i1278;
     char i1282;

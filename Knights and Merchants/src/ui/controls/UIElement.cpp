@@ -29,7 +29,7 @@ namespace knights_and_merchants::ui::controls
         return i28_container != nullptr ? i28_container->getEntryI4(i4) : nullptr;
     }
 
-    UIElement & UIElement::vtable0(const bool free)
+    UIElement & UIElement::vtable0_destroy(const bool free)
     {
         this->~UIElement();
 
@@ -39,7 +39,7 @@ namespace knights_and_merchants::ui::controls
         return *this;
     }
 
-    void UIElement::vtable4(DrawableSurface & surface) { }
+    void UIElement::vtable4_draw(DrawableSurface & surface) { }
 
     bool UIElement::vtable8(const POINT point) const
     {

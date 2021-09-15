@@ -19,7 +19,7 @@ UnkClass670::~UnkClass670()
 	reset();
 }
 
-void UnkClass670::vtable4(DrawableSurface & p0)
+void UnkClass670::vtable4_draw(DrawableSurface & p0)
 {
 	Rect rect { };
 	calculateAbsolutePosition(rect);

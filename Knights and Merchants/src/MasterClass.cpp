@@ -17,7 +17,7 @@
 #include "text/Lib.h"
 #include "Settings.h"
 #include "Globals.h"
-#include "ui/controls/UnkClass672.h"
+#include "ui/controls/ScrollTextBox.h"
 #include "ui/controls/UnkClass674.h"
 #include "ui/UnkClass203.h"
 #include "ui/controls/UIElement.h"
@@ -45,17 +45,14 @@ using knights_and_merchants::io::InputHandler;
 
 using namespace knights_and_merchants::ui::controls;
 
-
 LRESULT windowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-MasterClass * instance_MasterClass;
-
-MasterClass * instance_MasterClass2;
+MasterClass * MasterClass::instance;
 
 MasterClass::MasterClass(int p0) 
 	: UnkClass200 { { 0, 0, 800, 600 } }
 {
-	instance_MasterClass = this;
+	MasterClass::instance = this;
 
 	reset();
 
@@ -119,7 +116,7 @@ MasterClass::MasterClass(int p0)
 		i1186[i] = static_cast<unsigned char*>(malloc(256));
 	}
 
-	instance_MasterClass2 = this;
+	MasterClass::instance = this;
 
 	globals_gameState = 0;
 	i882 = 0;
@@ -589,7 +586,7 @@ void MasterClass::createCreditsMenu()
 {
 	Rect rect { 250, 20, 300, 565 };
 
-	i1270 = new UnkClass672(rect, 0, (char *) i948->getStringByIndex(300).c_str());
+	i1270 = new ScrollTextBox(rect, 0, (char *) i948->getStringByIndex(300).c_str());
 	addControl(i1270);
 
 	rect.setBounds(15, 546, 180, 34);
@@ -704,7 +701,7 @@ void MasterClass::updateResolutionButton(Button & p0)
 
 void MasterClass::vtable12(DrawableSurface & p0, Rect & p4)
 {
-	DrawableSurface ds { abs(p4.right - p4.left), abs(p4.bottom - p4.top), p0.i4_pitch, p0.i6_surface + p0.i4_pitch * p4.top + p4.left };
+	DrawableSurface ds { static_cast<short>(p4.getWidth()), static_cast<short>(p4.getHeight()), p0.i4_pitch, p0.i6_surface + p0.i4_pitch * p4.top + p4.left };
 
 	switch (i883) {
 	case 9:
@@ -727,12 +724,12 @@ void MasterClass::vtable12(DrawableSurface & p0, Rect & p4)
 	}
 }
 
-bool MasterClass::vtable4(unsigned short p0, int p4, int p8)
+bool MasterClass::vtable4_handleEvent(unsigned short eventID, int p4, int p8)
 {
     if (p4 != 1 && p4 != 9)
         return false;
 
-	switch(p0) {
+	switch(eventID) {
 	case 0:
 		i891 = 0;
 		i887 = 11;
@@ -814,12 +811,12 @@ bool MasterClass::vtable4(unsigned short p0, int p4, int p8)
     case 25:
     {
         char fileName[2000];
-        sprintf(fileName, "data/save/game%3.3d.sav", p0 - 16);
+        sprintf(fileName, "data/save/game%3.3d.sav", eventID - 16);
 
         FileIo fileIO { fileName };
         if (fileIO.getFileSize() > 0) {
             i891 = 1;
-            i892 = p0 - 16;
+            i892 = eventID - 16;
             i896 = 0;
         }
 
@@ -850,7 +847,7 @@ bool MasterClass::vtable4(unsigned short p0, int p4, int p8)
     case 46:
     case 47:
         i891 = 0;
-        i892 = p0 - 27;
+        i892 = eventID - 27;
 
         if (i892 <= 0) {
             i896 = 0;
@@ -876,7 +873,7 @@ bool MasterClass::vtable4(unsigned short p0, int p4, int p8)
     case 62:
         i891 = 0;
         i887 = 11;
-        i892 = p0 + 52;
+        i892 = eventID + 52;
         return true;
     case 64:
         if (InGame::instance.i142 != 20) {
@@ -990,7 +987,7 @@ void MasterClass::unkWndProc(bool p0)
 {
 	if (p0) {
 		i900 = 1;
-		vtable8();
+        vtable8_registerForRedraw();
 	}
 
 }
@@ -1030,9 +1027,9 @@ void MasterClass::unk20()
 
 void MasterClass::drawFunction(DrawableSurface & p0) {
 
-	instance_MasterClass->draw(p0);
+	MasterClass::instance->draw(p0);
 
-	if (instance_MasterClass->i1266 != 0) {
+	if (MasterClass::instance->i1266 != 0) {
 		int i = 0;
 
         // TODO: Code screenshot
@@ -1099,7 +1096,7 @@ void MasterClass::draw(DrawableSurface & surface)
 		i900 = 0;
 	}
 
-	vtable0(surface);
+    vtable0_draw(surface);
 
 	InputHandler::instance->getMouseHandler()->unkCursor(surface);
 	InputHandler::instance->getMouseHandler()->drawCursor(surface);

@@ -34,17 +34,17 @@ public:
 
     virtual ~UnkClass203();
 
-    virtual void vtable0(bool free);
+    virtual void vtable0_destroy(bool free);
 
-    virtual void vtable4(knights_and_merchants::graphics::DrawableSurface & surface);
+    virtual void vtable4_draw(knights_and_merchants::graphics::DrawableSurface & surface);
 
     virtual void vtable8(knights_and_merchants::graphics::DrawableSurface & surface, const knights_and_merchants::utilities::Rect & relativePosition);
 
-    virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & surface);
+    virtual void vtable12_initDraw(knights_and_merchants::graphics::DrawableSurface & surface);
 
     virtual void vtable16();
 
-    virtual bool vtable20(unsigned short p0, int p4, int p8);
+    virtual bool vtable20_handleEvent(unsigned short eventID, int p4, int p8);
 
     void reset();
 
@@ -62,7 +62,7 @@ public:
 
     void enableDraw(knights_and_merchants::ui::controls::UIElement * control);
 
-    void enableDrawAllChilds();
+    void enableDrawAllChildren();
 
     UnkClass200 * getBase() const;
 

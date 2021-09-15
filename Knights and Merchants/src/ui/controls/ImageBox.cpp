@@ -15,12 +15,7 @@ namespace knights_and_merchants::ui::controls
         i32_image = image;
     }
 
-    ImageBox::~ImageBox()
-    {
-
-    }
-
-    void ImageBox::vtable4(graphics::DrawableSurface & surface)
+    void ImageBox::vtable4_draw(graphics::DrawableSurface & surface)
     {
         Rect absolutePosition;
         calculateAbsolutePosition(absolutePosition);

@@ -15,7 +15,7 @@ public:
 	UnkClass2000(int p0);
 	~UnkClass2000();
 
-	virtual void vtable4(DrawableSurface & surface) override;
+	virtual void vtable4_draw(DrawableSurface & surface) override;
 
 	void unk111(knights_and_merchants::io::MouseHandler * p0);
 
