@@ -48,7 +48,7 @@ void UnkClass900::vtable16()
 	}
 }
 
-bool UnkClass900::vtable20(short p0, int p4, int p8)
+bool UnkClass900::vtable20(unsigned short p0, int p4, int p8)
 {
 	switch (p4) {
 	case 1:

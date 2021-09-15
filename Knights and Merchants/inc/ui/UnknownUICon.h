@@ -20,7 +20,7 @@ public:
 
     UnknownUICon(knights_and_merchants::utilities::Rect & p0, char p16, int p20, int p24, unsigned char * p28, unsigned char * p32);
 
-    virtual bool vtable20(short p0, int p4, int p8) override;
+    virtual bool vtable20(unsigned short p0, int p4, int p8) override;
 
     void reset();
 

@@ -727,7 +727,7 @@ void MasterClass::vtable12(DrawableSurface & p0, Rect & p4)
 	}
 }
 
-bool MasterClass::vtable4(short p0, int p4, int p8)
+bool MasterClass::vtable4(unsigned short p0, int p4, int p8)
 {
     if (p4 != 1 && p4 != 9)
         return false;

@@ -90,7 +90,7 @@ void Button::vtable4(DrawableSurface & p0)
 		var44 = true;
 	}
 
-	i28->vtable8(p0, i5_position);
+	i28_container->vtable8(p0, i5_position);
 
 	if (var44) {
 		var3C.i0_width -= esi;

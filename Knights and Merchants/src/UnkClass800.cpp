@@ -27,7 +27,7 @@ void UnkClass800::vtable4(DrawableSurface & p0)
 	Rect rect { };
 
 	auto var50 = i4;
-	auto var70 = i28;
+	auto var70 = i28_container;
 
 	var70->vtable8(p0, i5_position);
 

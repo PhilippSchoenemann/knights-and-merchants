@@ -52,7 +52,7 @@ namespace knights_and_merchants::ui::controls
         unsigned short i23;
         unsigned char i25;
         short i26;
-        UnkClass203 * i28;
+        UnkClass203 * i28_container;
     };
 }
 

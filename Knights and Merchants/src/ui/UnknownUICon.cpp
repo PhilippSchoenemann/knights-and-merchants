@@ -1,9 +1,9 @@
 #include "ui/UnknownUICon.h"
 #include "ui/controls/TextBox.h"
-#include "utilities/Rect.h"
 #include "UnkClass3000.h"
 #include <cstdlib>
 
+ using knights_and_merchants::utilities::Rect;
  using knights_and_merchants::ui::controls::TextBox;
 
  unsigned char UnknownUICon::unk_49ADB8[48] = {
@@ -90,7 +90,7 @@ void UnknownUICon::reset() {
 }
 
 
-bool UnknownUICon::vtable20(short p0, int p4, int p8) {
+bool UnknownUICon::vtable20(unsigned short p0, int p4, int p8) {
     if (p4 != 9)
         return UnkClass203::vtable20(p0, p4, p8);
 

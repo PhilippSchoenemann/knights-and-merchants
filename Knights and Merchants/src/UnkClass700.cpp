@@ -6,6 +6,8 @@
 #include "engine/GraphicsHandler.h"
 #include "graphics/DrawableSurface.h"
 
+using knights_and_merchants::graphics::Bitmap;
+
 UnkClass700::UnkClass700(const Rect & p0, int p4, const Bitmap * p8, int p12, int p16, char p20)
 	: UIElement { p0, p4, p12, p16 }
 {
@@ -51,7 +53,7 @@ void UnkClass700::vtable4(DrawableSurface & p0)
 		var99 = 3;
 	}
 
-	i28->vtable8(p0, i5_position);
+	i28_container->vtable8(p0, i5_position);
 
 	if (var48 == 0) {
 		var4C->i24->drawRemapped(var3C, -i36, -i38, i40);

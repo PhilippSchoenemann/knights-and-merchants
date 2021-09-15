@@ -38,6 +38,11 @@ namespace knights_and_merchants::ui::controls
 
 }
 
+namespace knights_and_merchants::utilities
+{
+    class Rect;
+}
+
 class UnknownUICon;
 
 class NetworkClass;
@@ -49,9 +54,9 @@ public:
 
     virtual ~MasterClass();
 
-    virtual bool vtable4(short p0, int p4, int p8) override;
+    virtual bool vtable4(unsigned short p0, int p4, int p8) override;
 
-    virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, Rect & p4) override;
+    virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, knights_and_merchants::utilities::Rect & p4) override;
 
     void reset() noexcept;
 
@@ -102,12 +107,12 @@ public:
     int i896;
     int i900;
     Palette * i904;
-    Font * i908;
-    Font * i912;
-    Font * i916;
-    Font * i920;
-    Font * i924;
-    Font * i928[5];
+    knights_and_merchants::graphics::Font * i908;
+    knights_and_merchants::graphics::Font * i912;
+    knights_and_merchants::graphics::Font * i916;
+    knights_and_merchants::graphics::Font * i920;
+    knights_and_merchants::graphics::Font * i924;
+    knights_and_merchants::graphics::Font * i928[5];
     Lib * i948;
     RX * i952;
     char i956;
@@ -149,7 +154,7 @@ public:
 
 
     void * i1382;
-    Bitmap * i1386;
+    knights_and_merchants::graphics::Bitmap * i1386;
     void * i1390;
     int i1394;
     int i1398;

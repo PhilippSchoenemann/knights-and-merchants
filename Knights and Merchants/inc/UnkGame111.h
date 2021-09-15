@@ -12,7 +12,7 @@ public:
 	virtual ~UnkGame111();
 
 	virtual void vtable0(knights_and_merchants::graphics::DrawableSurface & surface) override;
-	virtual bool vtable4(short p0, int p4, int p8) override;
+	virtual bool vtable4(unsigned short p0, int p4, int p8) override;
 	virtual void vtable8() override;
 	virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0, knights_and_merchants::utilities::Rect & p4) override;
 

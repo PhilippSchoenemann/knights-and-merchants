@@ -5,13 +5,13 @@
 
 class UnkClass900 : public UnkClass203 {
 public:
-	UnkClass900(const Rect & p0, char p4);
+	UnkClass900(const knights_and_merchants::utilities::Rect & p0, char p4);
 	virtual ~UnkClass900();
 
-	virtual void vtable8(knights_and_merchants::graphics::DrawableSurface & p0, const Rect & p4) override;
+	virtual void vtable8(knights_and_merchants::graphics::DrawableSurface & p0, const knights_and_merchants::utilities::Rect & p4) override;
 	virtual void vtable12(knights_and_merchants::graphics::DrawableSurface & p0) override;
 	virtual void vtable16() override;
-	virtual bool vtable20(short p0, int p4, int p8) override;
+	virtual bool vtable20(unsigned short p0, int p4, int p8) override;
 
 	void unk1(int p0, int p4);
 	void unk2();

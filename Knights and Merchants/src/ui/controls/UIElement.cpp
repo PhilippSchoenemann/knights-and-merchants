@@ -7,18 +7,18 @@ using knights_and_merchants::graphics::DrawableSurface;
 namespace knights_and_merchants::ui::controls
 {
     UIElement::UIElement(const Rect & position, const unsigned short p4, const char p8, const short p12)
-        : i4 { p8 }, i5_position { position }, i21_flags { 0x20 }, i23 { p4 }, i25 { 0 }, i26 { p12 }, i28 { nullptr } { }
+        : i4 { p8 }, i5_position { position }, i21_flags { 0x20 }, i23 { p4 }, i25 { 0 }, i26 { p12 }, i28_container { nullptr } { }
 
     void UIElement::registerForDraw()
     {
-        if (i28 != nullptr)
-            i28->enableDraw(this);
+        if (i28_container != nullptr)
+            i28_container->enableDraw(this);
     }
 
-    Rect & UIElement::calculateAbsolutePosition(Rect & absolutePosition) const
+    knights_and_merchants::utilities::Rect & UIElement::calculateAbsolutePosition(Rect & absolutePosition) const
     {
         Rect result { i5_position.left, i5_position.top, i5_position.getWidth(), i5_position.getHeight() };
-        result.move(i28->i44.left, i28->i44.top);
+        result.move(i28_container->i44.left, i28_container->i44.top);
 
         absolutePosition = result;
         return absolutePosition;
@@ -26,7 +26,7 @@ namespace knights_and_merchants::ui::controls
 
     UnkClass201 * UIElement::unk1() const
     {
-        return (i28 != nullptr) ? i28->getEntryI4(i4) : nullptr;
+        return i28_container != nullptr ? i28_container->getEntryI4(i4) : nullptr;
     }
 
     UIElement & UIElement::vtable0(const bool free)

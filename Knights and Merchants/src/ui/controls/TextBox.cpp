@@ -55,7 +55,7 @@ namespace knights_and_merchants::ui::controls
         Rect rect1;
         calculateAbsolutePosition(rect1);
 
-        i28->getBase()->vtable12(p0, rect1);
+        i28_container->getBase()->vtable12(p0, rect1);
 
         if (i37 != 0)
             p0.remapRectangle(rect1, i47);

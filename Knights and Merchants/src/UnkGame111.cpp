@@ -147,7 +147,7 @@ void UnkGame111::vtable0(knights_and_merchants::graphics::DrawableSurface & surf
 	UnkClass200::vtable0(surface);
 }
 
-bool UnkGame111::vtable4(short p0, int p4, int p8)
+bool UnkGame111::vtable4(unsigned short p0, int p4, int p8)
 {
 	knights_and_merchants::io::MouseHandler & mouse = *knights_and_merchants::io::InputHandler::instance->getMouseHandler();
 	UnkGame20 & unkGame20 = *UnkGame20::instance;

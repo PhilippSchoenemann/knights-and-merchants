@@ -23,7 +23,7 @@ void UnkClass674::vtable4(graphics::DrawableSurface & p0)
 	calculateAbsolutePosition(rect);
 
 	if ((i40 & 0x80) == 0)
-		i28->vtable8(p0, i5_position);
+		i28_container->vtable8(p0, i5_position);
 	
 	if ((i21_flags & 4) == 0 && i32 != nullptr) {
 	

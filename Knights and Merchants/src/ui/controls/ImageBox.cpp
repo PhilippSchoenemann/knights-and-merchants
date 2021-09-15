@@ -4,6 +4,7 @@
 #include "graphics/Bitmap.h"
 
 using knights_and_merchants::utilities::Rect;
+using knights_and_merchants::graphics::Bitmap;
 
 namespace knights_and_merchants::ui::controls
 {
@@ -24,7 +25,7 @@ void ImageBox::vtable4(graphics::DrawableSurface & p0)
 	Rect rect;
 	calculateAbsolutePosition(rect);
 
-	i28->getBase()->vtable12(p0, i5_position);
+	i28_container->getBase()->vtable12(p0, i5_position);
 
 	if ((i21_flags & 0x4) == 0 && i32 != nullptr)
 		i32->draw(p0, rect.left, rect.top);

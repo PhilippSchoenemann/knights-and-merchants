@@ -34,7 +34,7 @@ void UnkClass672::vtable4(DrawableSurface & p0)
 	auto var34 = UIElement::unk1();
 	calculateAbsolutePosition(rect);
 
-	i28->getBase()->vtable12(p0, rect);
+	i28_container->getBase()->vtable12(p0, rect);
 
 	DrawableSurface var2C;
 	calculateSurface(var2C, p0);
